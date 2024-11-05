@@ -1,1 +1,1 @@
-Hola holita vecinitos
+NAME = minishell
