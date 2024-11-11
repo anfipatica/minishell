@@ -3,6 +3,9 @@
 
 
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
 # include "../libft/libft.h"
 
 typedef enum	s_token_value
@@ -24,5 +27,7 @@ typedef struct s_token
 // Tokenizer.c
 
 t_token	tokenizer(char **argv);
+int		promptereitor(void);
+
 
 #endif
