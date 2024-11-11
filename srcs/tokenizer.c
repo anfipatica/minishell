@@ -1,22 +1,38 @@
 #include "../inc/minishell.h"
 
+// TOKEN: | < << > >> $ WORD ' '
 
-int	is_not_symbol(char c)
+
+t_token	*tokenizer(char *line)
 {
-
-}
-
-t_token	tokenizer(char **argv)
-{
-	int	i;
-	int	j;
+	t_token	*token;
+	int		i;
+	int		word_len;
 
 	i = -1;
-	while (argv[++i])
+	word_len = 0;
+
+	while (line[++i])
 	{
-		j = 0;
-		while (argv[i][j] && is_not_symbol(argv[i][j]))
-			j++;
-		create_token(ft_substr(argv[i], argv[i], j)); /////////////////////////////////
+		if (ft_strnstr(line + i, "<>|$", 1) != NULL)
+		{
+			//Ha encontrado un símbolo.
+
+		}
+		else if (ft_strnstr(line + i, "\"\'", 1) != NULL)
+		{
+			//Ha encontrado comillas.
+
+		}
+		else
+		{
+			//Es parte de un token word.
+			word_len++;
+			if (line[i + 1] == '\0')
+			{
+				token = new_token(T_WORD, &line[i - (word_len - 1)], word_len);
+			}
+		}
 	}
+	return (token);
 }

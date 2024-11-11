@@ -4,15 +4,23 @@
 int	promptereitor(void)
 {
 	char	*line;
-	line = readline("Prompt > ");
-	while (ft_strncmp(line, "q", 2) != 0)
+	t_token	*token;
+	t_token	*first_token;
+
+	first_token = NULL;
+	while (1)
 	{
+		line = readline("Prompt > ");
+		if (ft_strncmp(line, "exit", 5) == 0)
+			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		rl_on_new_line();
+		token = tokenizer(line);
+		add_token_back(&first_token, token);
 		free(line);
-		line = readline("Prompt > ");
 	}
+	go_over_list(first_token);
+	ft_free_list(first_token);
 	free(line);
 	rl_clear_history();
 	return (0);
