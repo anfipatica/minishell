@@ -3,6 +3,18 @@
 // TOKEN: | < << > >> $ WORD ' '
 
 
+// crear la funcion IS_CLOSED_QUOTEITOR(puntero a la primera comilla)
+	//if (line[i] == '\"')
+	//	tenemos que encotrar la otra que cierra
+	//if (line[i] == '\'')
+	//	tenemos que encotrar la otra que cierra
+
+// crear la funcion TOKEN_SIMBOLIZER que vaya trabajando sobre estos casos:
+			//una funcion si el caracter se '<'
+			//una funcion si el caracter se '>'
+			//una funcion si el caracter se '|'
+			//una funcion si el caracter se '$'
+
 t_token	*tokenizer(char *line)
 {
 	t_token	*token;
@@ -14,15 +26,13 @@ t_token	*tokenizer(char *line)
 	token = NULL;
 	while (line[++i])
 	{
-		if (ft_strnstr(line + i, "<>|$", 1) != NULL)
+		if (ft_strchr( "<>|$ ", line[i]) != NULL) //plantear el tema de espacio como token
 		{
-			//Ha encontrado un símbolo.
-
+			//llamamos la funcion TOKEN_SIMBOLIZER(line[i]);
 		}
-		else if (ft_strnstr(line + i, "\"\'", 1) != NULL)
+		else if (ft_strchr( "\"\'", line[i]) != NULL) //Ha encontrado una de las comillas " o '
 		{
-			//Ha encontrado comillas.
-
+			//llamamos la funcion IS_CLOSED_QUOTEITOR que averigua si las commillas se cierran
 		}
 		else
 		{
