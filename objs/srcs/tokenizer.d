@@ -1,2 +1,2 @@
 objs/srcs/tokenizer.o: srcs/tokenizer.c srcs/../inc/minishell.h \
-  inc/../libft/libft.h
+ srcs/../inc/../libft/libft.h

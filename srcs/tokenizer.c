@@ -11,7 +11,7 @@ t_token	*tokenizer(char *line)
 
 	i = -1;
 	word_len = 0;
-
+	token = NULL;
 	while (line[++i])
 	{
 		if (ft_strnstr(line + i, "<>|$", 1) != NULL)
