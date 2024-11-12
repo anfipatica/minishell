@@ -14,10 +14,11 @@ int	promptereitor(void)
 		if (ft_strncmp(line, "exit", 5) == 0)
 			break ;
 		if (line[0] != '\0')
+		{
 			add_history(line);
-		token = tokenizer(line);
-		add_token_back(&first_token, token);
-		free(line);
+			token = tokenizer(line);
+			add_token_back(&first_token, token);
+		}
 	}
 	go_over_list(first_token);
 	ft_free_list(first_token);
