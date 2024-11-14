@@ -1,15 +1,17 @@
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 void	go_over_list(t_token *token)
 {
 	t_token	*temp;
-
+	char *liberador;
 	temp = token;
 	printf("-------------------------------\n");
 	while (temp)
 	{
-		printf("type = %d, str = %s\n", temp->type, temp->str);
+		liberador = ft_substr(temp->str, 0, temp->length);
+		printf("type = %u, str = %s\n", temp->type, liberador);
 		temp = temp->next;
+		free(liberador);
 	}
 	printf("-------------------------------\n");
 }
@@ -44,7 +46,6 @@ void	add_token_back(t_token **lst, t_token *new)
 			temp = temp->next;
 		temp->next = new;
 	}
-	go_over_list(*lst);
 }
 
 void	ft_free_list(t_token *token)
@@ -53,12 +54,10 @@ void	ft_free_list(t_token *token)
 
 	if (!token)
 		return ;
-
+	free(token->str);
 	while (token != NULL)
 	{
-		
 		temp = token->next;
-		free(token->str);
 		free(token);
 		token = temp;
 	}

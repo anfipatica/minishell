@@ -1,12 +1,11 @@
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
-int	promptereitor(void)
+int	promptereitor(char **env)
 {
 	char	*line;
-	t_token	*token;
 	t_token	*first_token;
-
+	env = NULL;
 	first_token = NULL;
 	while (1)
 	{
@@ -15,13 +14,14 @@ int	promptereitor(void)
 			break ;
 		if (line[0] != '\0')
 		{
+			//PRIMERO EXPANDIR!!!!!!!! Y LIMPIAR ESPACIOS!!!!!
 			add_history(line);
-			token = tokenizer(line);
-			add_token_back(&first_token, token);
+			first_token = tokenizer(line);
+			go_over_list(first_token);
+			ft_free_list(first_token);
 		}
 	}
-	go_over_list(first_token);
-	ft_free_list(first_token);
+//	ft_free_list(first_token);
 	free(line);
 	rl_clear_history();
 	return (0);

@@ -1,7 +1,10 @@
-#include "../inc/minishell.h"
+#include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **env)
 {
-	promptereitor();
+	env = NULL;
+	if (argc != 1)
+		return (1);
+	promptereitor(env);
 	return (0);
 }

@@ -6,20 +6,23 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
-# include "../libft/libft.h"
+# include "libft.h"
+
+# define SYMBOLS "<>|$ "
 
 typedef enum	s_token_value
 {
 	T_WORD,				// str
-	T_REDIRECT_LEFT,	// <
 	T_HERE_DOC,			// <<
-	T_REDIRECT_RIGHT,	// >
+	T_REDIRECT_LEFT,	// <
 	T_APPEND,			// >>
+	T_REDIRECT_RIGHT,	// >
 	T_PIPE,				// |
-	// T_DOUBLE_QUOTE_STR,	//
-	// T_SINGLE_QUOTE_STR,	//
 	T_ENV,				// $
-	T_SPACE				// ' '
+	T_SPACE,			// ' '
+	T_FLAG,				// - O --
+	T_DOUBLE_QUOTE_STR,	// ""
+	T_SINGLE_QUOTE_STR	// ''
 }				t_token_value;
 
 typedef struct s_token
@@ -27,9 +30,15 @@ typedef struct s_token
 //	int				index; //The index inside the list.
 	t_token_value	type; //The token value.
 	char			*str; //The actual text value -> La posicion en readline. Así no hay que hacer malloc
+	char			*expanded;
 	int				length; // La longitud de str.
 	struct s_token	*next; //A pointer to the next token.
 }				t_token;
+
+typedef struct s_command
+{
+
+}				t_command;
 
 // Tokenizer.c
 
@@ -37,7 +46,7 @@ t_token	*tokenizer(char *line);
 
 //history.c CAMBIAR NOMBRE
 
-int		promptereitor(void);
+int		promptereitor(char **env);
 
 //list.c
 
