@@ -7,7 +7,7 @@ void	go_over_list(t_token *token)
 	temp = token;
 	int i;
 	i = 0;
-	printf("\n************START************\n\n");
+	printf("\n>>>>>>>>>>>>>START<<<<<<<<<<<<<<<<<\n\n");
 	while (temp)
 	{
 		printf("\n╔═════════════════════════════╗\n");
@@ -16,13 +16,15 @@ void	go_over_list(t_token *token)
 
 		
 		liberador = ft_substr(temp->str, 0, temp->length);
-		printf("       type = %s\n", get_token_name(temp->type));
-		printf("        str = %s\n", liberador);
-		printf(" expand var = %s\n\n", temp->expanded);
+printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+printf("💡  Type       : %s\n", get_token_name(temp->type));
+printf("📜  String     : \"%s\"\n", liberador);
+printf("✨  Expand Var : \"%s\"\n", temp->expanded);
+printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
 		temp = temp->next;
 		free(liberador);
 	}
-	printf("***********FIN************\n");
+	printf(">>>>>>>>>>>>>>FIN<<<<<<<<<<<<<<<<<\n\n");
 }
 
 t_token	*new_token(t_token_value type, char *str, int length)
