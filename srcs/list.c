@@ -10,15 +10,15 @@ void	go_over_list(t_token *token)
 	printf("\n************START************\n\n");
 	while (temp)
 	{
-		printf("__________________________\n");
-		printf(">>>     TOKEN nº %d    <<<\n", i++);
-		printf("￣￣￣￣￣￣￣￣￣￣￣￣￣\n");
+		printf("\n╔═════════════════════════════╗\n");
+		printf("║       🚀 TOKEN Nº %-4d      ║\n", i++);
+		printf("╚═════════════════════════════╝\n");
 
 		
 		liberador = ft_substr(temp->str, 0, temp->length);
-		printf("      type = %s\n", get_token_name(temp->type));
-		printf("       str = %s\n", liberador);
-		printf("expand var = %s\n\n", temp->expanded);
+		printf("       type = %s\n", get_token_name(temp->type));
+		printf("        str = %s\n", liberador);
+		printf(" expand var = %s\n\n", temp->expanded);
 		temp = temp->next;
 		free(liberador);
 	}
