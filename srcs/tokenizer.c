@@ -32,13 +32,14 @@ t_token	*symbol_tokenizer(t_token_value type, char *line, int n_symbol)
 	return (new_token(type, line, i + n_symbol));
 }
 
-t_token	env_expander(char **env)
-{
-
-}
+//t_token	env_expander(char **env)
+//{
+//
+//}
 
 t_token	*token_chooser(char *line, char **env)
 {
+	(void) env;
 	if (line[0] == '<')
 	{
 		if (line[1] && line[1] == '<')
@@ -57,13 +58,20 @@ t_token	*token_chooser(char *line, char **env)
 		return (new_token(T_PIPE, line, 1));
 	if (line[0] == '$')
 		return (new_token(T_ENV, line, 1));
+	if (line[0] == '-')
+	{
+		if (line[1] && line[1] == '-')
+			return (new_token(T_FLAG, line, 2));
+		else
+			return (new_token(T_FLAG, line, 1));
+	}
 	//el resto de condiciones
 
 	return (NULL);
 }
 
 
-t_token	*tokenizer(char *line)
+t_token	*tokenizer(char *line, char **env)
 {
 	t_token	*fresh_token;
 	t_token	*first_token;
@@ -74,11 +82,10 @@ t_token	*tokenizer(char *line)
 	first_token = NULL;
 	while (line[i])
 	{
-		if (ft_strchr("<>|$", line[i]) != NULL) //plantear el tema de espacio como token
+		if (ft_strchr("<>|$-", line[i]) != NULL) //plantear el tema de espacio como token
 		{	
-			//seguro tenemos toke de simbolo:
-			//llamamos la funcion TOKEN_SIMBOLIZER(line[i]);
-			fresh_token = token_chooser(&line[i]);
+			//seguro tenemos token de simbolo:
+			fresh_token = token_chooser(&line[i], env);
 			add_token_back(&first_token, fresh_token);
 			i += fresh_token->length;
 		}
@@ -94,7 +101,7 @@ t_token	*tokenizer(char *line)
 			//Es parte de un token word.
 			// while(ft_strchr( " \t", line[i]) != NULL)
 			// 	i++;
-			while (line[i + word_len] && ft_strchr("\"\'<>|$ \0", line[i + word_len]) == NULL)
+			while (line[i + word_len] && ft_strchr("\"\'<>|$- \0", line[i + word_len]) == NULL)
 				word_len++;
 			fresh_token = new_token(T_WORD, &line[i], word_len);
 			add_token_back(&first_token, fresh_token);

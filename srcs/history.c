@@ -3,9 +3,10 @@
 
 int	promptereitor(char **env)
 {
+	//(void)	env;
 	char	*line;
 	t_token	*first_token;
-	env = NULL;
+	//env = NULL;
 	first_token = NULL;
 	while (1)
 	{
@@ -16,7 +17,7 @@ int	promptereitor(char **env)
 		{
 			//PRIMERO EXPANDIR!!!!!!!! Y LIMPIAR ESPACIOS!!!!!
 			add_history(line);
-			first_token = tokenizer(line);
+			first_token = tokenizer(line, env);
 			go_over_list(first_token);
 			ft_free_list(first_token);
 		}
