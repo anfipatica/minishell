@@ -13,13 +13,13 @@ void	go_over_list(t_token *token)
 	while (temp)
 	{
 		liberador = ft_substr(temp->str, 0, temp->length);
-		printf("\n╔═════════════════════════════╗\n");
-		printf("║       🚀 TOKEN Nº %-4d      ║\n", i++);
-		printf("╠═════════════════════════════╣\n");
-		printf("║💡  Type       : %s\n", get_token_name(temp->type));
-		printf("║📜  String     : \"%s\"\n", liberador);
-		printf("║✨  Expand Var : \"%s\"\n", temp->expanded);
-		printf("╚═════════════════════════════╝\n");
+		printf("\n\033[41;44m╔═════════════════════════════╗\033[0m\n");
+		printf("\033[41;44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
+		printf("\033[41;44m╠═════════════════════════════╣\033[0m\n");
+		printf("\033[41;44m║💡  Type       : %s\033[0m\n", get_token_name(temp->type));
+		printf("\033[41;44m║📜  String     : \"%s\"\033[0m\n", liberador);
+		printf("\033[41;44m║✨  Expand Var : \"%s\"\033[0m\n", temp->expanded);
+		printf("\033[41;44m╚═════════════════════════════╝\033[0m\n");
 		temp = temp->next;
 		free(liberador);
 	}
