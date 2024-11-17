@@ -7,8 +7,9 @@ void	go_over_list(t_token *token)
 	char *liberador;
 	temp = token;
 	int i;
+
 	i = 1;
-	printf("\n╭━━━┈┈┈<✨🚀 𝕊𝕋𝔸ℝ𝕋 🚀✨>┈┈┈━━━╮");
+	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮");
 	while (temp)
 	{
 		liberador = ft_substr(temp->str, 0, temp->length);
@@ -22,7 +23,7 @@ void	go_over_list(t_token *token)
 		temp = temp->next;
 		free(liberador);
 	}
-	printf("╰☆ ☆ ☆ ☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆ ☆ ☆ ☆╯\n\n");
+	printf("╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 }
 
 t_token	*new_token(t_token_value type, char *str, int length)
