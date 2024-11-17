@@ -105,7 +105,7 @@ t_token	*tokenizer(char *line, char **env)
 				word_len++;
 			fresh_token = new_token(T_WORD, &line[i], word_len);
 			add_token_back(&first_token, fresh_token);
-			printf("longitud palabras:%d\n", word_len);
+//			printf("longitud palabras:%d\n", word_len);
 			i += word_len;
 		}
 	}

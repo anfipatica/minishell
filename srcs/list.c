@@ -1,30 +1,28 @@
 #include "minishell.h"
 
+
 void	go_over_list(t_token *token)
 {
 	t_token	*temp;
 	char *liberador;
 	temp = token;
 	int i;
-	i = 0;
-	printf("\n>>>>>>>>>>>>>START<<<<<<<<<<<<<<<<<\n\n");
+	i = 1;
+	printf("\n╭━━━┈┈┈<✨🚀 𝕊𝕋𝔸ℝ𝕋 🚀✨>┈┈┈━━━╮");
 	while (temp)
 	{
+		liberador = ft_substr(temp->str, 0, temp->length);
 		printf("\n╔═════════════════════════════╗\n");
 		printf("║       🚀 TOKEN Nº %-4d      ║\n", i++);
+		printf("╠═════════════════════════════╣\n");
+		printf("║💡  Type       : %s\n", get_token_name(temp->type));
+		printf("║📜  String     : \"%s\"\n", liberador);
+		printf("║✨  Expand Var : \"%s\"\n", temp->expanded);
 		printf("╚═════════════════════════════╝\n");
-
-		
-		liberador = ft_substr(temp->str, 0, temp->length);
-printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
-printf("💡  Type       : %s\n", get_token_name(temp->type));
-printf("📜  String     : \"%s\"\n", liberador);
-printf("✨  Expand Var : \"%s\"\n", temp->expanded);
-printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
 		temp = temp->next;
 		free(liberador);
 	}
-	printf(">>>>>>>>>>>>>>FIN<<<<<<<<<<<<<<<<<\n\n");
+	printf("╰☆ ☆ ☆ ☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆ ☆ ☆ ☆╯\n\n");
 }
 
 t_token	*new_token(t_token_value type, char *str, int length)
