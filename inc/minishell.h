@@ -6,6 +6,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <stdbool.h>
 # include "libft.h"
 
 # define SYMBOLS "<>|$- "
@@ -30,7 +32,8 @@ typedef struct s_token
 //	int				index;		// The index inside the list.
 	t_token_value	type;		// The token value.
 	char			*str;		// The actual text value -> La posicion en readline. Así no hay que hacer malloc
-	char			*expanded;	// string valor de la variable $ expandida
+	char			*expanded;	 // string valor de la variable $ expandida
+	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
 	int				flags[2];	// flag para ver si tiene que expandir	
 	int				length;		// La longitud de str.
 	struct s_token	*next;		// A pointer to the next token.
@@ -56,7 +59,10 @@ void		add_token_back(t_token **lst, t_token *new);
 void		go_over_list(t_token *token);
 void		ft_free_list(t_token *token);
 const char	*get_token_name(t_token_value token);
-t_token		*expandetor(char *line);
 
+//expandetor.c
+
+t_token		*expandetor(char *line);
+t_token	*get_pid_expandetor(void);
 
 #endif

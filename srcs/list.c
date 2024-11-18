@@ -33,6 +33,7 @@ t_token	*new_token(t_token_value type, char *str, int length)
 	new_token->str = ft_substr(str, 0 , length); // aqui habia fallo... teneiamos que crear un substring ya que vamo a liberar esta variabble!!
 	new_token->length = length;
 	new_token->next = NULL;
+	new_token->free_expanded = false;
 	return (new_token);
 }
 
@@ -63,7 +64,8 @@ void	ft_free_list(t_token *token)
 	while (token != NULL)
 	{
 		free(token->str);
-		// free(token->expanded);
+		if (token->free_expanded == true)
+			free(token->expanded);
 		temp = token->next;
 		free(token);
 		token = temp;

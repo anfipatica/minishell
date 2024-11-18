@@ -32,11 +32,6 @@ t_token	*symbol_tokenizer(t_token_value type, char *line, int n_symbol)
 	return (new_token(type, line, i + n_symbol));
 }
 
-//t_token	env_expander(char **env)
-//{
-//
-//}
-
 t_token	*token_chooser(char *line, char **env)
 {
 	(void) env;
@@ -58,10 +53,10 @@ t_token	*token_chooser(char *line, char **env)
 		return (new_token(T_PIPE, line, 1));
 	if (line[0] == '$')
 	{
-		// if (line[1] && line[1] == '$')
-		// 	GETPID. MIRAR MAIN
-		// else
-		return(expandetor(line));
+		if (line[1] && line[1] == '$')
+			return (get_pid_expandetor());
+		else
+			return (expandetor(line));
 	}
 	if (line[0] == '-')
 	{

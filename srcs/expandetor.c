@@ -21,3 +21,24 @@ t_token	*expandetor(char *line)
 	printf("token->str + 1 = %s\n", (token->str) + 1);
 	return (token);
 }
+
+t_token	*get_pid_expandetor(void)
+{
+	int		fd;
+	char	*temp;
+	t_token	*token;
+
+	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
+	temp = ft_calloc(50, sizeof(char));
+	if (!temp)
+		return (NULL);
+	read(fd, temp, 49);
+	printf("temp = %s\n", temp);
+	token = new_token(T_ENV, "$$", 2);
+	token->expanded = ft_substr(ft_strchr(temp, 'R'), 2, 6);
+	token->free_expanded = true;
+	free(temp);
+	return (token);
+}
+
+
