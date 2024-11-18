@@ -50,8 +50,6 @@ void	add_token_back(t_token **lst, t_token *new)
 		temp = *lst;
 		while (temp->next)
 			temp = temp->next;
-		if (temp->type == T_ENV)
-			new->expanded = expandetor(new->str);
 		temp->next = new;
 	}
 }

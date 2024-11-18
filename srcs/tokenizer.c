@@ -61,8 +61,7 @@ t_token	*token_chooser(char *line, char **env)
 		// if (line[1] && line[1] == '$')
 		// 	GETPID. MIRAR MAIN
 		// else
-		
-		return (new_token(T_ENV, line, 1));
+		return(expandetor(line));
 	}
 	if (line[0] == '-')
 	{

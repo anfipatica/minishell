@@ -25,7 +25,7 @@ typedef enum	s_token_value
 	T_SINGLE_QUOTE_STR	// ''
 }				t_token_value;
 
-typedef struct s_token
+typedef struct s_token  
 {
 //	int				index;		// The index inside the list.
 	t_token_value	type;		// The token value.
@@ -56,7 +56,7 @@ void		add_token_back(t_token **lst, t_token *new);
 void		go_over_list(t_token *token);
 void		ft_free_list(t_token *token);
 const char	*get_token_name(t_token_value token);
-char		*expandetor(char *str);
+t_token		*expandetor(char *line);
 
 
 #endif
