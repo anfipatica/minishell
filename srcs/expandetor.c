@@ -2,7 +2,7 @@
 
 t_token	*expandetor(char *line)
 {
-//	printf("string orniginal llegado = %s\n", str);
+//	printf("string original llegado = %s\n", str);
 	int		i;
 	t_token	*token;
 
@@ -33,7 +33,6 @@ t_token	*get_pid_expandetor(void)
 	if (!temp)
 		return (NULL);
 	read(fd, temp, 49);
-	printf("temp = %s\n", temp);
 	token = new_token(T_ENV, "$$", 2);
 	token->expanded = ft_substr(ft_strchr(temp, 'R'), 2, 6);
 	token->free_expanded = true;

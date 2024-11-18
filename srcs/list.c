@@ -1,6 +1,8 @@
 #include "minishell.h"
 
-
+/**
+ * This function only prints the context of the list, useful for debugging
+ */
 void	go_over_list(t_token *token)
 {
 	int i;
@@ -21,6 +23,9 @@ void	go_over_list(t_token *token)
 	printf("╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 }
 
+/**
+ * new_token creates a new token and allocates memory for it.
+ */
 t_token	*new_token(t_token_value type, char *str, int length)
 {
 	t_token	*new_token;
@@ -37,6 +42,10 @@ t_token	*new_token(t_token_value type, char *str, int length)
 	return (new_token);
 }
 
+/**
+ * add_token_back receives the head of the list and the new token
+ * to add at the end of said list. If there is no head, new becomes it.
+ */
 void	add_token_back(t_token **lst, t_token *new)
 {
 	t_token	*temp;
@@ -55,6 +64,10 @@ void	add_token_back(t_token **lst, t_token *new)
 	}
 }
 
+/**
+ * ft_free_list frees the nodes of a list and the neccesary content
+ * inside each of them.
+ */
 void	ft_free_list(t_token *token)
 {
 	t_token	*temp;

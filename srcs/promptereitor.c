@@ -15,7 +15,6 @@ int	promptereitor(char **env)
 			break ;
 		if (line[0] != '\0')
 		{
-			//PRIMERO EXPANDIR!!!!!!!! Y LIMPIAR ESPACIOS!!!!!
 			add_history(line);
 			first_token = tokenizer(line, env);
 			go_over_list(first_token);
@@ -23,7 +22,6 @@ int	promptereitor(char **env)
 			free(line);
 		}
 	}
-//	ft_free_list(first_token);
 	free(line);
 	rl_clear_history();
 	return (0);
