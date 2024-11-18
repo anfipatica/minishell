@@ -8,3 +8,6 @@ int	main(int argc, char **env)
 	promptereitor(env);
 	return (0);
 }
+
+// 
+// SOLUCIONAR $$ !!!!!!! -> ps | grep "bash" | awk {print'$1'}

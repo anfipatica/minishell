@@ -7,19 +7,16 @@ char	*expandetor(char *str)
 	char	*temp_word;
 	char	*env_exp;
 
-	i = 0;
-	if (str[i - 1] != '$')
+	if (ft_isdigit(str[0]) == 1)
 		return (NULL);
-//	printf("ES UN $?: %c\n", str[i - 1]);
-	if (ft_isalpha(str[i]) == 0 && str[i] != '_')
-		return (NULL);		
-//	printf("ES UN H?: %c\n", str[i]);
-	while (ft_strchr("\0<>|$-", str[i]) == NULL && str[i] != ' ')
-			i++;
-	temp_word = (ft_substr(str, 0, i));
-	env_exp = getenv(temp_word);
-//	printf("Plabra da expandir = %s\n", temp_word);
+	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
+		return (NULL);
+	i = 0;
+	while (str[i] && ft_isalnum(str[i]) == 1)
+		i++;
+	temp_word = ft_substr(str, 0, i);
+	printf("temp_wold: %s\n", temp_word);
+	env_exp = getenv(temp_word); //getenv no hace malloc, no hay que liberar!!!!
 	free(temp_word);
-//	printf("env_exp = %s\n", env_exp);	
 	return (env_exp);
 }

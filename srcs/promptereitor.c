@@ -20,6 +20,7 @@ int	promptereitor(char **env)
 			first_token = tokenizer(line, env);
 			go_over_list(first_token);
 			ft_free_list(first_token);
+			free(line);
 		}
 	}
 //	ft_free_list(first_token);

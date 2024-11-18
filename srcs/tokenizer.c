@@ -57,7 +57,13 @@ t_token	*token_chooser(char *line, char **env)
 	if (line[0] == '|')
 		return (new_token(T_PIPE, line, 1));
 	if (line[0] == '$')
+	{
+		// if (line[1] && line[1] == '$')
+		// 	GETPID. MIRAR MAIN
+		// else
+		
 		return (new_token(T_ENV, line, 1));
+	}
 	if (line[0] == '-')
 	{
 		if (line[1] && line[1] == '-')
@@ -93,19 +99,20 @@ t_token	*tokenizer(char *line, char **env)
 		{
 			//llamamos la funcion IS_CLOSED_QUOTEITOR que averigua si las commillas se cierran
 		}
-		else if (ft_strchr(" ", line[i]) != NULL)
+		else if (' ' == line[i])
 			i++;
 		else
 		{
+			printf("line es: '%s'\n", &line[i]);
 			word_len = 0;
 			//Es parte de un token word.
 			// while(ft_strchr( " \t", line[i]) != NULL)
 			// 	i++;
-			while (line[i + word_len] && ft_strchr("\"\'<>|$- \0", line[i + word_len]) == NULL)
+			while (line[i + word_len] && ft_strchr("\"\'<>|$- ", line[i + word_len]) == NULL)
 				word_len++;
+			printf("longitud palabras:%d\n", word_len);
 			fresh_token = new_token(T_WORD, &line[i], word_len);
 			add_token_back(&first_token, fresh_token);
-//			printf("longitud palabras:%d\n", word_len);
 			i += word_len;
 		}
 	}

@@ -9,7 +9,7 @@ CFLAGS	+= -O3
 
 READLINE	= -lreadline
 
-DEBUG	 =	-g3 -fsanitize=address
+#DEBUG	 =	-g3 -fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -21,7 +21,7 @@ LIBS	+=	$(LIBFT)/libft.a
 
 SRCS =							\
 		srcs/main.c				\
-		srcs/history.c			\
+		srcs/promptereitor.c	\
 		srcs/tokenizer.c		\
 		srcs/list.c				\
 		srcs/get_token_name.c	\
