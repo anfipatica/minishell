@@ -23,8 +23,8 @@ typedef enum	s_token_value
 	T_ENV,				// $
 	T_SPACE,			// ' '
 	T_FLAG,				// - O --
-	T_DOUBLE_QUOTE_STR,	// ""
-	T_SINGLE_QUOTE_STR	// ''
+	T_D_QUOTE,	// ""
+	T_S_QUOTE	// ''
 }				t_token_value;
 
 typedef struct s_token  
@@ -63,5 +63,10 @@ const char	*get_token_name(t_token_value token);
 
 t_token		*expandetor(char *line);
 t_token	*get_pid_expandetor(void);
+
+// quoteitor.c
+
+void	is_closed_quote(char *line);
+void	is_even_quote(char *line);
 
 #endif

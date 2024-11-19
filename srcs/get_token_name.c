@@ -20,9 +20,9 @@ const char	*get_token_name(t_token_value token)
 		return ("T_SPACE");
 	else if (token == T_FLAG)
 		return ("T_FLAG");
-	else if (token == T_DOUBLE_QUOTE_STR)
-		return ("T_DOUBLE_QUOTE_STR");
-	else if (token == T_SINGLE_QUOTE_STR)
-		return ("T_SINGLE_QUOTE_STR");
+	else if (token == T_D_QUOTE)
+		return ("T_D_QUOTE");
+	else if (token == T_S_QUOTE)
+		return ("T__QUOTE");
 	return ("UNKNOWN_TOKEN");
 }

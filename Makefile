@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
+#CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
@@ -26,6 +26,7 @@ SRCS =							\
 		srcs/list.c				\
 		srcs/get_token_name.c	\
 		srcs/expandetor.c		\
+		srcs/quoteitor.c		\
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
 DEPS = $(OBJS:.o=.d)

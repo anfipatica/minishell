@@ -54,10 +54,7 @@ t_token	*token_chooser(char *line, char **env)
 	if (line[0] == '$')
 	{
 		if (line[1] && line[1] == '$')
-		{
-			printf("ENTRAMOS ACÁAAA\n");
 			return (get_pid_expandetor());
-		}
 		else
 			return (expandetor(line));
 	}
@@ -68,11 +65,12 @@ t_token	*token_chooser(char *line, char **env)
 		else
 			return (new_token(T_FLAG, line, 1));
 	}
-	//el resto de condiciones
-
+		if (line[0] == '\'')
+			return (new_token(T_S_QUOTE, line, 1));
+		if (line[0] == '\"')
+			return (new_token(T_D_QUOTE, line, 1));
 	return (NULL);
-}
-
+}	
 
 t_token	*tokenizer(char *line, char **env)
 {
@@ -85,29 +83,24 @@ t_token	*tokenizer(char *line, char **env)
 	first_token = NULL;
 	while (line[i])
 	{
-		if (ft_strchr("<>|$-", line[i]) != NULL) //plantear el tema de espacio como token
+		if (ft_strchr("<>|$-\"\'", line[i]) != NULL) //plantear el tema de espacio como token
 		{	
 			//seguro tenemos token de simbolo:
 			fresh_token = token_chooser(&line[i], env);
 			add_token_back(&first_token, fresh_token);
 			i += fresh_token->length;
 		}
-		else if (ft_strchr("\"\'", line[i]) != NULL) //Ha encontrado una de las comillas " o '
+/*		else if (ft_strchr("\"\'", line[i]) != NULL) //Ha encontrado una de las comillas " o '
 		{
 			//llamamos la funcion IS_CLOSED_QUOTEITOR que averigua si las commillas se cierran
-		}
+		}*/
 		else if (' ' == line[i])
 			i++;
 		else
 		{
-			printf("line es: '%s'\n", &line[i]);
 			word_len = 0;
-			//Es parte de un token word.
-			// while(ft_strchr( " \t", line[i]) != NULL)
-			// 	i++;
 			while (line[i + word_len] && ft_strchr("\"\'<>|$- ", line[i + word_len]) == NULL)
 				word_len++;
-			printf("longitud palabras:%d\n", word_len);
 			fresh_token = new_token(T_WORD, &line[i], word_len);
 			add_token_back(&first_token, fresh_token);
 			i += word_len;

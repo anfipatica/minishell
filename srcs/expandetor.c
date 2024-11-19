@@ -12,13 +12,9 @@ t_token	*expandetor(char *line)
 		return (new_token(T_ENV, line, 1));
 	i = 1;
 	while (line[i] && ft_isalnum(line[i]) == 1)
-	{
 		i++;
-		printf("%d\n", i);
-	}
 	token = new_token(T_ENV, line, i);
 	token->expanded = getenv((token->str) + 1); //getenv no hace malloc, no hay que liberar!!!!
-	printf("token->str + 1 = %s\n", (token->str) + 1);
 	return (token);
 }
 
@@ -30,11 +26,9 @@ t_token	*get_pid_expandetor(void)
 
 	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
 	read(fd, temp, 6);
-	printf("TEMP = %s\n", temp);
 	token = new_token(T_ENV, "$$", 2);
 	token->expanded = ft_strdup(temp);
 	token->free_expanded = true;
-	printf("EXPANDED = %s\n", token->expanded);
 	return (token);
 }
 
