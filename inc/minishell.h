@@ -33,9 +33,8 @@ typedef struct s_token
 	t_token_value	type;		// The token value.
 	char			*str;		// The actual text value -> La posicion en readline. Así no hay que hacer malloc
 	char			*expanded;	 // string valor de la variable $ expandida
-	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
-	int				flags[2];	// flag para ver si tiene que expandir	
 	int				length;		// La longitud de str.
+	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
 	struct s_token	*next;		// A pointer to the next token.
 }				t_token;
 

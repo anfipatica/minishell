@@ -54,7 +54,10 @@ t_token	*token_chooser(char *line, char **env)
 	if (line[0] == '$')
 	{
 		if (line[1] && line[1] == '$')
+		{
+			printf("ENTRAMOS ACÁAAA\n");
 			return (get_pid_expandetor());
+		}
 		else
 			return (expandetor(line));
 	}
