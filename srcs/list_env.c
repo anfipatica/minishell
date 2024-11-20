@@ -20,9 +20,8 @@ void	print_env(t_env *env)
 t_env	*new_env(char *name, char *value)
 {
 	t_env	*new_env;
-
-	new_env = (t_env *) malloc(sizeof(t_env));
-	if (new_env)
+	new_env = malloc(sizeof(t_env));
+	if (!new_env)
 		return (NULL);
 	new_env->name = name;
 	new_env->value = value;
@@ -34,23 +33,22 @@ t_env	*new_env(char *name, char *value)
  * add_env_back receives the head of the list and the new token
  * to add at the end of said list. If there is no head, new becomes it.
  */
-void	add_env_back(t_env **lst, t_env *new)
+void	add_env_back(t_env **head_list, t_env *new_node)
 {
 	t_env	*temp;
 
-	if (*lst == NULL)
+	if (*head_list == NULL)
 	{
-		*lst = new;
-		new->next = NULL;
+		*head_list = new_node;
 	}
 	else
 	{
-		temp = *lst;
+		temp = *head_list;
 		while (temp->next != NULL)
 		{
 			temp = temp->next;
 		}
-		temp->next = new;
+		temp->next = new_node;
 	}
 }
 
