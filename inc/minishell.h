@@ -38,6 +38,13 @@ typedef struct s_token
 	struct s_token	*next;		// A pointer to the next token.
 }				t_token;
 
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_command
 {
 
@@ -66,7 +73,12 @@ t_token	*get_pid_expandetor(void);
 
 // quoteitor.c
 
-void	is_closed_quote(char *line);
+//void	is_closed_quote(char *line);
 void	is_even_quote(char *line);
+int		len_expanded(char *var);
+
+
+t_env *copy_env(char **env);
+
 
 #endif

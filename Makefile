@@ -27,6 +27,8 @@ SRCS =							\
 		srcs/get_token_name.c	\
 		srcs/expandetor.c		\
 		srcs/quoteitor.c		\
+		srcs/copy_env.c			\
+
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
 DEPS = $(OBJS:.o=.d)
