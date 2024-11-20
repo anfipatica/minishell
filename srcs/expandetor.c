@@ -2,7 +2,6 @@
 
 t_token	*expandetor(char *line)
 {
-//	printf("string original llegado = %s\n", str);
 	int		i;
 	t_token	*token;
 
@@ -21,13 +20,14 @@ t_token	*expandetor(char *line)
 t_token	*get_pid_expandetor(void)
 {
 	int		fd;
-	char	temp[7];
+	char	temp[15];
 	t_token	*token;
 
+	ft_memset(&temp, 0, 15);
 	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
-	read(fd, temp, 6);
+	read(fd, temp, 14);
 	token = new_token(T_ENV, "$$", 2);
-	token->expanded = ft_strdup(temp);
+	token->expanded = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
 	token->free_expanded = true;
 	return (token);
 }

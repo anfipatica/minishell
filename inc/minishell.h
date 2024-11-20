@@ -23,7 +23,7 @@ typedef enum	s_token_value
 	T_PIPE,				// |
 	T_ENV,				// $
 	T_SPACE,			// ' '
-	T_FLAG,				// - O --
+	T_FLAG,				// - O -- EN PRINCIPO ES PARTE DE T_WORD
 	T_D_QUOTE,	// ""
 	T_S_QUOTE	// ''
 }				t_token_value;

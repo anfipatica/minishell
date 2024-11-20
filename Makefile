@@ -9,7 +9,7 @@ CFLAGS	+= -O3
 
 READLINE	= -lreadline
 
-DEBUG	 =	-g3 -fsanitize=address
+#DEBUG	 =	-g3 -fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
