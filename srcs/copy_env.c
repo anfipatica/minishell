@@ -1,26 +1,25 @@
 #include "minishell.h"
 
-t_env *copy_env(char **env)
+
+t_env *create_node_env(void)
 {
-	int		i;
-	int		k;
+	char *line_env = "HOME=/home/ymunoz-m";
 	t_env	*env_node;
-	char	**temp_split;
+	char *name;
+	char *value;
+	char *igual_position;
 
-	env_node = malloc(sizeof(t_env));
-	if (!env_node)
-		return (NULL);
+	igual_position = ft_strchr(line_env, '=');
+	name = ft_substr(line_env, 0, igual_position - line_env);
+	value = ft_substr(line_env, igual_position - line_env + 1, ft_strlen(igual_position));
 
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		temp_split = ft_split(env[i], '=');
-		k = 0;
-		env_node->name = temp_split[0];
-		env_node->value =  temp_split[1];
-		i++;
-	}
-	printf("env_node->name: %s\n", env_node->name);
-	printf("env_node->value: %s\n", env_node->value);
+	printf("name: %s\n", name);
+	printf("value: %s\n", value);
+	//env_node = new_env()
 }
+
+// t_env *copy_env(char **env)
+// {
+// 	int i
+// 	create_node_env(env[i]);
+// }

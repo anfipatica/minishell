@@ -3,7 +3,7 @@
 /**
  * This function only prints the context of the list, useful for debugging
  */
-void	go_over_list(t_token *token)
+void	print_tokens(t_token *token)
 {
 	int i;
 

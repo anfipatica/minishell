@@ -17,7 +17,7 @@ int	promptereitor(char **env)
 		{
 			add_history(line);
 			first_token = tokenizer(line, env);
-			go_over_list(first_token);
+			print_tokens(first_token);
 			ft_free_list(first_token);
 			free(line);
 		}

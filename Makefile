@@ -23,11 +23,13 @@ SRCS =							\
 		srcs/main.c				\
 		srcs/promptereitor.c	\
 		srcs/tokenizer.c		\
-		srcs/list.c				\
+		srcs/list_token.c		\
 		srcs/get_token_name.c	\
 		srcs/expandetor.c		\
 		srcs/quoteitor.c		\
 		srcs/copy_env.c			\
+		srcs/list_env.c			\
+
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))

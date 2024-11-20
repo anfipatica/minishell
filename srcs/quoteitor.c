@@ -22,28 +22,28 @@ void is_even_quote(char *line)
 
 	if (doble_quote_n % 2 != 0 || single_quote_n % 2 != 0)
 		exit(77);
-}
-bool is_closed_quote(char *line)
-{
-	int	i;
-
-	i = 1;
-	while (line[i] != '\0' && line[i] != line[0])
-		i++;
-/*
-	if (line[i] == '\"')
-	{
-
-	}
-	else
-		exit(88);
-	*/
-}
-// void twin_quote(char *line)
+ }
+// bool is_closed_quote(char *line)
 // {
+// 	int	i;
+
+// 	i = 1;
+// 	while (line[i] != '\0' && line[i] != line[0])
+// 		i++;
+// /*
+// 	if (line[i] == '\"')
+// 	{
+
+// 	}
+// 	else
+// 		exit(88);
+// 	*/
+// }
+// // void twin_quote(char *line)
+// // {
 	
 	
-int len_expanded(char *var)
-{
-	return (ft_strlen(getenv(var)));
-}
+// int len_expanded(char *var)
+// {
+// 	return (ft_strlen(getenv(var)));
+// }

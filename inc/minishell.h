@@ -62,9 +62,17 @@ int		promptereitor(char **env);
 
 t_token		*new_token(t_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
-void		go_over_list(t_token *token);
+void		print_tokens(t_token *token);
 void		ft_free_list(t_token *token);
 const char	*get_token_name(t_token_value token);
+
+
+//list_env.c
+
+void	print_env(t_env *env);
+t_env	*new_env(char *name, char *value);
+void	add_env_back(t_env **lst, t_env *new);
+void	ft_free_env(t_env *env);
 
 //expandetor.c
 
@@ -78,7 +86,6 @@ void	is_even_quote(char *line);
 int		len_expanded(char *var);
 
 
-t_env *copy_env(char **env);
-
+t_env	*copy_env(char **env);
 
 #endif

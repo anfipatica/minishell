@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:06:27 by psapio            #+#    #+#             */
-/*   Updated: 2023/11/15 10:48:48 by psapio           ###   ########.fr       */
+/*   Updated: 2024/11/20 17:41:27 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 size_t	counter_word(char const	*s, char c)
