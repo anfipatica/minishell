@@ -9,7 +9,7 @@ CFLAGS	+= -O3
 
 READLINE	= -lreadline
 
-#DEBUG	 =	-g3 -fsanitize=address
+DEBUG	 =	-g3 -fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -29,6 +29,8 @@ SRCS =							\
 		srcs/quoteitor.c		\
 		srcs/copy_env.c			\
 		srcs/list_env.c			\
+		srcs/env.c				\
+
 
 
 

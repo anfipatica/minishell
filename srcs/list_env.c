@@ -53,7 +53,7 @@ void	add_env_back(t_env **head_list, t_env *new_node)
 }
 
 /**
- * ft_free_list frees the nodes of a list and the neccesary content
+ * ft_free_env frees the nodes of a list and the neccesary content
  * inside each of them.
  */
 void	ft_free_env(t_env *env)

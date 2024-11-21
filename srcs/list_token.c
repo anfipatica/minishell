@@ -33,12 +33,20 @@ t_token	*new_token(t_token_value type, char *str, int length)
 	new_token = (t_token *) malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
-	new_token->expanded = NULL;
 	new_token->type = type;
 	new_token->str = ft_substr(str, 0 , length); // aqui habia fallo... teneiamos que crear un substring ya que vamo a liberar esta variabble!!
 	new_token->length = length;
+	if (type == T_S_QUOTE)
+	{
+		new_token->expanded = ft_substr(str, 1, length - 2);
+		new_token->free_expanded = true;
+	}
+	else
+	{
+		new_token->expanded = NULL;
+		new_token->free_expanded = false;
+	}
 	new_token->next = NULL;
-	new_token->free_expanded = false;
 	return (new_token);
 }
 
@@ -65,10 +73,10 @@ void	add_token_back(t_token **lst, t_token *new)
 }
 
 /**
- * ft_free_list frees the nodes of a list and the neccesary content
+ * ft_free_tokens frees the nodes of a list and the neccesary content
  * inside each of them.
  */
-void	ft_free_list(t_token *token)
+void	ft_free_tokens(t_token *token)
 {
 	t_token	*temp;
 
