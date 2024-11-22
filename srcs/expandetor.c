@@ -37,18 +37,27 @@ t_token	*expandetor(char *line, t_env *env)
  * This function emulates getpid(), returning a token with the
  * pid in case the prompt finds "$$"
  */
-t_token	*get_pid_expandetor(void)
+t_token	*get_pid_expandetor(char **doble_dollar)
 {
 	int		fd;
 	char	temp[15];
 	t_token	*token;
 
+	if (doble_dollar != NULL)
+	{
+		fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
+		read(fd, temp, 14);
+		*doble_dollar = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
+		close(fd);
+		return (NULL);
+	}
 	ft_memset(&temp, 0, 15);
 	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
 	read(fd, temp, 14);
 	token = new_token(T_ENV, "$$", 2);
 	token->expanded = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
 	token->free_expanded = true;
+	close(fd);
 	return (token);
 }
 

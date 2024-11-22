@@ -7,72 +7,69 @@ char *maybe_expanded(int *n, char *str, t_env *env)
 	i = 1;
 	if (ft_isdigit(str[1]) == 1)
 		return (NULL);
-	if (ft_isalpha(str[1]) == 0 && str[i] != '_')
+	if (!ft_isalpha(str[1]) && str[i] != '_')
 		return (NULL);
 	while (str[i] && (ft_isalnum(str[i]) == 1 || str[i] == '_'))
 	{
 		i++;
 	}
 	*n += i;
-	if (str)
-		printf("str = %s, i = %d\n", str, i);
+	printf("in maybe_expanded: str = %s, len str = %d\n", str, i);
 	return (ft_getenv(str + 1, env, i - 1));
 }
 
-t_token *expand_d_quote(char *start_quote, int length, t_env *env)
+t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 {
-	t_token	*token;
-	char	*substr;
+	t_token	*token_d_quote;
+	char	*str_before_dollar;
 	char	*new_str;
 	char	*expanded;
 	char	*temp;
-	int		i;
-	int		j;
+	char	*temp2;
+	int		i; //contador de longitud del str literal
+	int		n; //marca la posicion
 
 	i = 0;
-	j = 1;
-	substr = NULL;
+	n = 1;
 	new_str = NULL;
-	while (start_quote[i])
+	while (i < length_dq)
 	{
-		if (start_quote[i] == '$')
+		if (start_quote[i] != '$')
+			i++;
+		else if (start_quote[i + 1] == '$')
 		{
-			printf("j = %d, i = %d\n", j, i);
-			printf("%c - %c\n", start_quote[j], start_quote[i]);
-			substr = ft_substr(start_quote, j, i - j);
-			printf("substr = %s\n", substr);
-			expanded = maybe_expanded(&i, &start_quote[i], env);
-			printf("expanded = %s\n", expanded);
-			j = i;
-			temp = ft_strjoin(substr, expanded);
-			printf("temp = %s\n", temp);
-			new_str = ft_strjoin(new_str, temp);
-			printf("new_str = %s\n", new_str);
-			free(substr);
-			substr = NULL;
-			printf("--------------------\n");
-	
+			str_before_dollar = ft_substr(start_quote, n, i - n);
+			get_pid_expandetor(&expanded);
+			n = (i+=2);
+			temp = ft_strjoin(str_before_dollar, expanded);
+			free(str_before_dollar);
+			free(expanded);
+			temp2 = ft_strjoin(new_str, temp);
+			free(new_str);
+			free(temp);
+			new_str = temp2;
 		}
 		else
-			i++;
+		{
+			str_before_dollar = ft_substr(start_quote, n, i - n);
+			expanded = maybe_expanded(&i, &start_quote[i], env);
+			n = i;
+			temp = ft_strjoin(str_before_dollar, expanded);
+			free(str_before_dollar);
+			temp2 = ft_strjoin(new_str, temp);
+			free(new_str);
+			free(temp);
+			new_str = temp2;
+		}
 	}
-	// if (!substr)
-	// {
-	// 	printf("ENTRO AQUÍ POR QUÉ ENTRO AQUÍ\n");
-	substr = ft_substr(start_quote, j, i - j - 1);
-	//}
-	printf("FUERA DEL BUCLE OLÉ\n");
-	token = new_token(T_D_QUOTE, start_quote, length);
-	printf("new_str = %s, substr = %s\n", new_str, substr);
-	token->expanded = ft_strjoin(new_str, substr);
-	printf("token_expanded = %s\n", token->expanded);
-	token->free_expanded = true;
+	str_before_dollar = ft_substr(start_quote, n, i - n - 1);
+	token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
+	token_d_quote->expanded = ft_strjoin(new_str, str_before_dollar);
+	token_d_quote->free_expanded = true;
 	free(new_str);
-	free(substr);
-	return (token);
+	free(str_before_dollar);
+	return (token_d_quote);
 }
-
-
 
 t_token *create_str_quote(char *start_quote, t_env *env)
 {
@@ -82,14 +79,82 @@ t_token *create_str_quote(char *start_quote, t_env *env)
 	if (!finish_quote)
 		return (NULL);
 	length = ((finish_quote + 1) - start_quote);
-		printf("length: %d\n", length);
-
-
-
 	if (start_quote[0] == '\"')
 		return (expand_d_quote(start_quote, length, env));
 	return (new_token(T_S_QUOTE, start_quote, length));
 }
+
+void twin_quote(char *line)
+{
+
+	int i = 0;
+	char quote_type;
+
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			quote_type = line[i];
+			i++;
+			while (line[i] != '\0' && line[i] != quote_type)
+			{
+				i++;
+				printf("HOLA YOLANDAA!\n");
+			}	
+		}
+		if (line[i] == '\0')
+			exit(22);
+		i++;
+	}
+}
+
+//" hola ' caca" 'hola "caca2'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // void is_even_quote(char *line)

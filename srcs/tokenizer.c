@@ -55,17 +55,20 @@ t_token	*token_chooser(char *line, t_env *env)
 	if (line[0] == '$')
 	{
 		if (line[1] && line[1] == '$')
-			return (get_pid_expandetor());
+			return (get_pid_expandetor(NULL));
 		else
 			return (expandetor(line, env));
 	}
-	if (line[0] == '-')
+
+/*	if (line[0] == '-')
 	{
 		if (line[1] && line[1] == '-')
 			return (new_token(T_FLAG, line, 2));
 		else
 			return (new_token(T_FLAG, line, 1));
 	}
+*/
+
 	if (line[0] == '\'' || line[0] == '\"')
 		return (create_str_quote(line, env));
 	return (NULL);
@@ -82,7 +85,7 @@ t_token	*tokenizer(char *line, t_env *env)
 	first_token = NULL;
 	while (line[i])
 	{
-		if (ft_strchr("<>|$-\"\'", line[i]) != NULL)
+		if (ft_strchr("<>|$\"\'", line[i]) != NULL)
 		{	
 			fresh_token = token_chooser(&line[i], env);
 //			SI FERSH_TOKEN ES NULL free(TODO);
@@ -94,7 +97,7 @@ t_token	*tokenizer(char *line, t_env *env)
 		else
 		{
 			word_len = 0;
-			while (line[i + word_len] && ft_strchr("\"\'<>|$- ", line[i + word_len]) == NULL)
+			while (line[i + word_len] && ft_strchr("\"\'<>|$ ", line[i + word_len]) == NULL)
 				word_len++;
 			fresh_token = new_token(T_WORD, &line[i], word_len);
 			add_token_back(&first_token, fresh_token);

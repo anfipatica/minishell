@@ -80,13 +80,14 @@ void	ft_free_env(t_env *env);
 //expandetor.c
 
 t_token		*expandetor(char *line, t_env *env);
-t_token	*get_pid_expandetor(void);
+t_token	*get_pid_expandetor(char **doble_dollar);
 
 // quoteitor.c
 
 //void	is_closed_quote(char *line);
 void	is_even_quote(char *line);
 int		len_expanded(char *var);
+void	twin_quote(char *line);
 
 
 //copy_env.c

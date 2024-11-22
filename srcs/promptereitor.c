@@ -10,6 +10,7 @@ int	promptereitor(t_env *env)
 	while (1)
 	{
 		line = readline("Prompt > ");
+		twin_quote(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
 			break ;
 		if (line[0] != '\0')
