@@ -7,6 +7,7 @@
 char	*ft_getenv(char *name, t_env *env, int length)
 {
 	int	str_len;
+	
 	if (length != 0)
 		str_len = length;
 	else
