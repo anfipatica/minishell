@@ -1,6 +1,26 @@
 
 #include "minishell.h"
 
+void next_to_dollar(char *expanded, char *line_after_dollar, int *i, t_env *env)
+{
+	char	*aux;
+	int n;
+	
+	n = 0;
+	printf("&line_after_dollar[n]%s\n", &line_after_dollar[n]);
+	if (line_after_dollar[n] == ' ' || line_after_dollar[n] == '\"')
+		expanded = ft_strjoin(expanded, "$");
+	else if ((ft_isalpha(line_after_dollar[n]) == 1 || line_after_dollar[n] == '_'))
+		expanded = ft_strjoin(expanded, maybe_expanded(i, &line_after_dollar[n], env));
+	else if (line_after_dollar[n] == '$')
+	{
+		aux = get_pid_quote();
+		expanded = ft_strjoin(expanded, aux);
+		free(aux);
+		*i++;
+	}
+}
+
 t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 {
 	char	*expanded;
@@ -16,25 +36,12 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 		token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
 		return (token_d_quote);
 	}
-
 	while (start_quote[i] != '\"')
 	{
 		aux = expanded;
 		if (start_quote[i] == '$')
 		{
-			if (start_quote[i + 1] == ' ')
-				expanded = ft_strjoin(expanded, "$");
-			else if (start_quote[i + 1] == '\"')
-				expanded = ft_strjoin(expanded, "$");
-			else if ((ft_isalpha(start_quote[i + 1]) == 1 || start_quote[i + 1] == '_'))
-				expanded = ft_strjoin(expanded, maybe_expanded(&i, &start_quote[i + 1], env));
-			else if (start_quote[i + 1] == '$') // ok
-			{
-				aux2 = get_pid_quote();
-				expanded = ft_strjoin(expanded, aux2);
-				free(aux2);
-				i++;
-			}
+			next_to_dollar(expanded, &start_quote[i], &i, env);
 		}
 		else
 		{
