@@ -34,7 +34,7 @@ t_token	*get_pid_expandetor()
 	fd = open("/proc/self/stat", O_RDONLY);
 	read_return = read(fd, temp, 14);
 	if (read_return == -1)
-		(NULL);
+		return (NULL);
 	token = new_token(T_ENV, "$$", 2);
 	token->expanded = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
 	token->free_expanded = true;

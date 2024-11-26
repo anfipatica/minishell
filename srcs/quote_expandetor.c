@@ -36,8 +36,8 @@ char	*get_pid_quote(void)
 	int		read_return;
 	char	temp[15];
 	char	*pid;
-	char	*aux;
 
+	ft_memset(&temp, 0, 15);
 	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
 	read_return = read(fd, temp, 14);
 	(void)read_return;

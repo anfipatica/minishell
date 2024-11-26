@@ -1,13 +1,12 @@
 
 #include "minishell.h"
 
-void next_to_dollar(char *expanded, char *line_after_dollar, int *i, t_env *env)
+char *next_to_dollar(char *expanded, char *line_after_dollar, int *i, t_env *env)
 {
 	char	*aux;
 	int n;
 	
-	n = 0;
-	printf("&line_after_dollar[n]%s\n", &line_after_dollar[n]);
+	n = 1;
 	if (line_after_dollar[n] == ' ' || line_after_dollar[n] == '\"')
 		expanded = ft_strjoin(expanded, "$");
 	else if ((ft_isalpha(line_after_dollar[n]) == 1 || line_after_dollar[n] == '_'))
@@ -17,8 +16,9 @@ void next_to_dollar(char *expanded, char *line_after_dollar, int *i, t_env *env)
 		aux = get_pid_quote();
 		expanded = ft_strjoin(expanded, aux);
 		free(aux);
-		*i++;
+		(*i)++;
 	}
+	return (expanded);
 }
 
 t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
@@ -41,7 +41,8 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 		aux = expanded;
 		if (start_quote[i] == '$')
 		{
-			next_to_dollar(expanded, &start_quote[i], &i, env);
+			expanded = next_to_dollar(expanded, &start_quote[i], &i, env);
+			printf("---expanded = %s\n", expanded);
 		}
 		else
 		{
