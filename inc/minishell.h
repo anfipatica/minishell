@@ -53,17 +53,22 @@ typedef struct s_command
 
 // Tokenizer.c
 
-t_token	*tokenizer(char *line, t_env *env);
+t_token		*tokenizer(char *line, t_env *env);
+int			wordeitor(t_token **head_token, char *start_word);
+t_token		*token_chooser(char *line, t_env *env);
+t_token		*symbol_tokenizer(t_token_value type, char *line, int n_symbol);
+
 
 //promptereitor.c
 
-int		promptereitor(t_env *env);
+void		twin_quote(char *line);
+int			promptereitor(t_env *env);
 
-//list.c
+//list_token.c
 
+void		print_tokens(t_token *token);
 t_token		*new_token(t_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
-void		print_tokens(t_token *token);
 void		ft_free_tokens(t_token *token);
 
 //get_token_name.c
@@ -80,29 +85,31 @@ void	ft_free_env(t_env *env);
 //expandetor.c
 
 t_token		*expandetor(char *line, t_env *env);
-t_token	*get_pid_expandetor(char **doble_dollar);
+t_token		*get_pid_expandetor();
 
 // quoteitor.c
 
-//void	is_closed_quote(char *line);
-void	is_even_quote(char *line);
-int		len_expanded(char *var);
-void	twin_quote(char *line);
-
-
-//copy_env.c
-
-t_env *create_node_env(char *line_env);
-t_env	*copy_env(char **env);
+t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
 
 // env.c
 
 char	*ft_getenv(char *name, t_env *env, int length);
+t_env	*create_node_env(char *line_env);
+t_env	*copy_env(char **env);
 
 
-// quoteitor.c
+// quotes_token_create.c
 
-t_token *create_str_quote(char *start_quote, t_env *env);
+t_token	*create_str_quote(char *start_quote, t_env *env);
+
+//freedom.c
+void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
+
+// quote_expandetor.c
+
+char	*nothing_to_expand(int *n, char *str);
+char	*maybe_expanded(int *n, char *str, t_env *env);
+char	*get_pid_quote(void);
 
 
 #endif

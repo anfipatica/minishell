@@ -19,17 +19,19 @@ HEADERS = -I ./inc -I $(LIBFT)
 LIBS	+=	$(LIBFT)/libft.a
 
 
-SRCS =							\
-		srcs/main.c				\
-		srcs/promptereitor.c	\
-		srcs/tokenizer.c		\
-		srcs/list_token.c		\
-		srcs/get_token_name.c	\
-		srcs/expandetor.c		\
-		srcs/quoteitor.c		\
-		srcs/copy_env.c			\
-		srcs/list_env.c			\
-		srcs/env.c				\
+SRCS =											\
+		srcs/main.c								\
+		srcs/promptereitor.c					\
+		srcs/tokenizer.c						\
+		srcs/list_token.c						\
+		srcs/get_token_name.c					\
+		srcs/expandetor.c						\
+		srcs/quoteitor.c						\
+		srcs/list_env.c							\
+		srcs/env.c								\
+		srcs/freedom.c							\
+		srcs/quote_expandetor.c					\
+		srcs/quotes_token_create.c				\
 
 
 
