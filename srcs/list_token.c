@@ -27,7 +27,7 @@ void	print_tokens(t_token *token)
 /**
  * new_token creates a new token and allocates memory for it.
  */
-t_token	*new_token(t_token_value type, char *str, int length)
+t_token	*new_token(e_token_value type, char *str, int length)
 {
 	t_token	*new_token;
 

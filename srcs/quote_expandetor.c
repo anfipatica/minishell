@@ -8,6 +8,7 @@ char	*nothing_to_expand(int *n, char *str)
 	i = 0;
 	while (str[i] != '\"' && str[i] != '$' && str[i] != ' ')
 	{
+		printf("I OK nothing_to_expand: %d\n", i);
 		i++;
 	}
 	*n += i - 1;

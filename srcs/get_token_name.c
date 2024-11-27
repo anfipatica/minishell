@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-const char	*get_token_name(t_token_value token)
+const char	*get_token_name(e_token_value token)
 {
 	if (token == T_WORD)
 		return ("T_WORD");

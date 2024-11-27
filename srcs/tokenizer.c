@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_token	*symbol_tokenizer(t_token_value type, char *line, int n_symbol)
+t_token	*symbol_tokenizer(e_token_value type, char *line, int n_symbol)
 {
 	int		i;
 
@@ -70,7 +70,7 @@ t_token	*tokenizer(char *line, t_env *env)
 			add_token_back(&head_token, fresh_token);
 			i += fresh_token->length;
 		}
-		else if (' ' == line[i])
+		else if (line[i] <= ' ')
 			i++;
 		else
 			i += wordeitor(&head_token, &line[i]);
