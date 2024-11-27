@@ -31,16 +31,15 @@
 typedef enum	s_token_value
 {
 	T_WORD,
-	T_HERE_DOC,
-	T_REDIRECT_LEFT,
-	T_APPEND,
-	T_REDIRECT_RIGHT,
-	T_PIPE,
 	T_ENV,
-	T_SPACE,
-	T_FLAG,
 	T_D_QUOTE,
-	T_S_QUOTE
+	T_S_QUOTE,
+	T_REDIRECT_LEFT,
+	T_HERE_DOC,
+	T_REDIRECT_RIGHT,
+	T_APPEND,
+	T_PIPE,
+	T_FLAG
 }				e_token_value;
 
 typedef struct s_token  

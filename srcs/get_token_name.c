@@ -16,8 +16,6 @@ const char	*get_token_name(e_token_value token)
 		return ("T_PIPE");
 	else if (token == T_ENV)
 		return ("T_ENV");
-	else if (token == T_SPACE)
-		return ("T_SPACE");
 	else if (token == T_FLAG)
 		return ("T_FLAG");
 	else if (token == T_D_QUOTE)
