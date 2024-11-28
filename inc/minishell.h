@@ -13,6 +13,17 @@
 
 # define SYMBOLS "<>|$- "
 
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define STD "\033[0m"
+# define PURPLE "\033[0;35m"
+# define BLUE "\033[1;36m"
+# define ORANG "\033[1;33m"
+
+//define automata
+#define ERROR__STATE 4
+#define ACCEPT_STATE 1
+
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -23,7 +34,7 @@
 // 	T_PIPE,				// |
 // 	T_ENV,				// $
 // 	T_SPACE,			// ' '
-// 	T_FLAG,				// - O -- (EN PRINCIPIO DEBERÍA SER PARTE DE T_WORD)
+// 	T_FLAG,				// ? O -- (EN PRINCIPIO DEBERÍA SER PARTE DE T_WORD)
 // 	T_D_QUOTE,	// ""
 // 	T_S_QUOTE	// ''
 // }				e_token_value;
@@ -55,7 +66,7 @@ typedef struct s_token
 
 typedef struct s_env
 {
-	char			*name;	
+	char			*name;
 	char			*value;
 	struct s_env	*next;
 }				t_env;
@@ -124,6 +135,11 @@ void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
 char	*nothing_to_expand(int *n, char *str);
 char	*maybe_expanded(int *n, char *str, t_env *env);
 char	*get_pid_quote(void);
+
+// automata.c
+
+int	get_new_state(int current_state, int token);
+int	print_states(t_token *token);
 
 
 #endif

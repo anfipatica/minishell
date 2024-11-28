@@ -32,7 +32,7 @@ SRCS =											\
 		srcs/freedom.c							\
 		srcs/quote_expandetor.c					\
 		srcs/quotes_token_create.c				\
-
+		srcs/automata.c				\
 
 
 
