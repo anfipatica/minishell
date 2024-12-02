@@ -11,12 +11,13 @@ void	print_tokens(t_token *token)
 	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
 	while (token)
 	{
+		printf("----------->%p\n", token);
 		printf("\n\033[44m╔═════════════════════════════╗\033[0m\n");
 		printf("\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
 		printf("\033[44m╠═════════════════════════════╣\033[0m\n");
 		printf("\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
 		printf("\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
-		if(token->expanded)
+		if(token->expanded != NULL)
 			printf("\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
 		printf("\033[44m╚═════════════════════════════╝\033[0m\n");
 		token = token->next;
@@ -79,7 +80,9 @@ void	ft_free_one_node(t_token *token)
 		return ;
 	free(token->str);
 	if (token->free_expanded == true)
+	{
 		free(token->expanded);
+	}
 	free(token);
 }
 /**
