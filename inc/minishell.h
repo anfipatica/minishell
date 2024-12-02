@@ -23,7 +23,6 @@
 //define automata
 #define ERROR__STATE 4
 #define ACCEPT_STATE 1
-
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
