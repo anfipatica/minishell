@@ -43,13 +43,19 @@ int	wordeitor(t_token **head_token, char *start_word)
 {
 	t_token	*fresh_token;
 	int		i;
+	int		j;
 
 	i = 0;
-	while (start_word[i] && ft_strchr("\"\'<>|$ ", start_word[i]) == NULL)
+	j = 0;
+	while (start_word[i] && start_word[i] <= ' ')
 		i++;
-	fresh_token = new_token(T_WORD, start_word, i);
+	while (start_word[i + j] && ft_strchr("\"\'<>|$ ", start_word[i + j]) == NULL)
+		j++;
+	if (j == 0)
+		return (i);
+	fresh_token = new_token(T_WORD, start_word, i + j);
 	add_token_back(head_token, fresh_token);
-	return (i);
+	return (i + j);
 }
 
 t_token	*tokenizer(char *line, t_env *env)
@@ -70,8 +76,6 @@ t_token	*tokenizer(char *line, t_env *env)
 			add_token_back(&head_token, fresh_token);
 			i += fresh_token->length;
 		}
-		else if (line[i] <= ' ')
-			i++;
 		else
 			i += wordeitor(&head_token, &line[i]);
 	}

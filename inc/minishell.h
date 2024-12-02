@@ -49,7 +49,8 @@ typedef enum	s_token_value
 	T_REDIRECT_RIGHT,
 	T_APPEND,
 	T_PIPE,
-	T_FLAG
+	T_FLAG,
+	T_EXEC
 }				e_token_value;
 
 typedef struct s_token  
@@ -61,6 +62,7 @@ typedef struct s_token
 	int				length;		// La longitud de str.
 	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
 	struct s_token	*next;		// A pointer to the next token.
+	bool			is_exec;	// flag si T_WORD es executable.
 }				t_token;
 
 typedef struct s_env
@@ -94,6 +96,7 @@ void		print_tokens(t_token *token);
 t_token		*new_token(e_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
 void		ft_free_tokens(t_token *token);
+void		ft_free_one_node(t_token *token);
 
 //get_token_name.c
 
@@ -140,5 +143,8 @@ char	*get_pid_quote(void);
 int	get_new_state(int current_state, int token);
 int	print_states(t_token *token);
 
+// list_checker.c
+
+void	list_checker(t_token **list);
 
 #endif

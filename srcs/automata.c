@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+// int	print_states(t_token *token)
+// {
+// 	int	current_state;
+
+// 	current_state = 0;
+// 	while (token)
+// 	{
+// 		current_state =  get_new_state(current_state, token->type);
+// 		token = token->next;
+// 		if (current_state == ERROR__STATE)
+// 			return (RED"Syntax error"STD);
+// 	}
+// 	if (current_state != ACCEPT_STATE)
+// 		return (RED"Syntax error"STD);
+// 	return (0);
+// }
+
 int	print_states(t_token *token)
 {
 	int	current_state;
@@ -31,6 +48,8 @@ printf("|                               |");
 
 	return (0);
 }
+
+
 
 int	get_new_state(int current_state, int token)
 {

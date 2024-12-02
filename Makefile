@@ -9,7 +9,7 @@ CFLAGS	+= -O3
 
 READLINE	= -lreadline
 
-#DEBUG	 =	-g3 -fsanitize=address
+DEBUG	 =	-g3 -fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -32,7 +32,8 @@ SRCS =											\
 		srcs/freedom.c							\
 		srcs/quote_expandetor.c					\
 		srcs/quotes_token_create.c				\
-		srcs/automata.c				\
+		srcs/automata.c							\
+		srcs/list_checker.c
 
 
 

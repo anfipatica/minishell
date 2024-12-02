@@ -39,6 +39,7 @@ int	promptereitor(t_env *env)
 		{
 			add_history(line);
 			first_token = tokenizer(line, env);
+			list_checker(&first_token);
 			print_tokens(first_token);
 			print_states(first_token);
 			ft_free_tokens(first_token);

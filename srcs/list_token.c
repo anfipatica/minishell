@@ -73,6 +73,15 @@ void	add_token_back(t_token **lst, t_token *new)
 	}
 }
 
+void	ft_free_one_node(t_token *token)
+{
+	if (!token)
+		return ;
+	free(token->str);
+	if (token->free_expanded == true)
+		free(token->expanded);
+	free(token);
+}
 /**
  * ft_free_tokens frees the nodes of a list and the neccesary content
  * inside each of them.
@@ -85,11 +94,8 @@ void	ft_free_tokens(t_token *token)
 		return ;
 	while (token != NULL)
 	{
-		free(token->str);
-		if (token->free_expanded == true)
-			free(token->expanded);
 		temp = token->next;
-		free(token);
+		ft_free_one_node(token);
 		token = temp;
 	}
 }
