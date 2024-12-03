@@ -33,12 +33,12 @@ all				:	$(NAME)
 bonus			: 	$(BONUS)
 
 $(NAME)			:	$(OBJS) 
-		make -C .. /libft
-		$(CC) $(CFLAGS) $(OBJS) -I .. /libft/libft.h .. /libft/libft.a -o $(NAME)
+		make -C ./libft
+		$(CC) $(CFLAGS) $(OBJS) -I ./libft/libft.h ./libft/libft.a -o $(NAME)
 
 $(BONUS)		:	$(OBJS_BONUS) 
-		make -C .. /libft
-		$(CC) $(CFLAGS) $(OBJS_BONUS) -I .. /libft/libft.h .. /libft/libft.a -o $(BONUS)
+		make -C ./libft
+		$(CC) $(CFLAGS) $(OBJS_BONUS) -I ./libft/libft.h ./libft/libft.a -o $(BONUS)
 
 	   
 clean			:
