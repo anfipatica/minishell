@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	join_tokens(t_token *node1, t_token *node2)
@@ -5,7 +6,12 @@ void	join_tokens(t_token *node1, t_token *node2)
 	char	*str_nodes;
 	t_token *aux;
 
-	if (node2->expanded)
+	if (node1->type != T_D_QUOTE && node1->type != T_S_QUOTE)
+		node1->type = node2->type;
+	node1->free_expanded = true;
+	if (node1->expanded == NULL)
+		str_nodes = ft_strjoin(node1->str, node2->expanded);
+	else if (node2->expanded != NULL)
 		str_nodes = ft_strjoin(node1->expanded, node2->expanded);
 	else
 		str_nodes = ft_strjoin(node1->expanded, node2->str);
@@ -19,28 +25,26 @@ void	join_tokens(t_token *node1, t_token *node2)
 	node1->next = aux;
 }
 
-
 void	list_checker(t_token **list)
 {
 	t_token *head;
+	t_token *lst;
 
+	lst = *list;
 	head = *list;
-	while (*list)
+	while (lst)
 	{
-		if (((*list)->type == T_D_QUOTE || (*list)->type == T_S_QUOTE) ||
-		 ((*list)->next && ((*list)->next->type == T_D_QUOTE || 
-		 (*list)->next->type == T_S_QUOTE)))
+		if ((lst->type == T_D_QUOTE || lst->type == T_S_QUOTE) ||
+		 (lst->next && (lst->next->type == T_D_QUOTE || 
+		 lst->next->type == T_S_QUOTE)))
 		{
-			//printf("type = %d, char = %c\n", (*list)->type, (*list)->next->str[0]);
-			if ((*list)->next != NULL && !ft_strchr("|<> ", (*list)->next->str[0]))
-			{
-				join_tokens(*list, (*list)->next);
-			}
+			if (lst->next != NULL && !ft_strchr("|<> ", lst->next->str[0]))
+				join_tokens(*list, lst->next);
 			else
-				*list = (*list)->next;
+				lst = lst->next;
 		}
 		else
-			*list = (*list)->next;
+			lst = lst->next;
 	}
-	*list = head;
+	lst = head;
 }

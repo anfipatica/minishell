@@ -21,6 +21,6 @@ const char	*get_token_name(e_token_value token)
 	else if (token == T_D_QUOTE)
 		return ("T_D_QUOTE");
 	else if (token == T_S_QUOTE)
-		return ("T__QUOTE");
+		return ("T_S_QUOTE");
 	return ("UNKNOWN_TOKEN");
 }
