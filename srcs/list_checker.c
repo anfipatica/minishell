@@ -6,8 +6,7 @@ void	join_tokens(t_token *node1, t_token *node2)
 	char	*str_nodes;
 	t_token *aux;
 
-	if (node1->type != T_D_QUOTE && node1->type != T_S_QUOTE)
-		node1->type = node2->type;
+	printf("node1 = %s, node2 = %s\n", node1->str, node2->str);
 	node1->free_expanded = true;
 	if (node1->expanded == NULL)
 		str_nodes = ft_strjoin(node1->str, node2->expanded);
@@ -25,26 +24,44 @@ void	join_tokens(t_token *node1, t_token *node2)
 	node1->next = aux;
 }
 
+void	unlink_node(t_token **before_space)
+{
+	t_token *space;
+
+	space = (*before_space)->next;
+	(*before_space)->next = (*before_space)->next->next;
+	ft_free_one_node(space);
+	(*before_space) = (*before_space)->next;
+
+}
+
 void	list_checker(t_token **list)
 {
 	t_token *head;
-	t_token *lst;
+	t_token *new_list;
 
-	lst = *list;
+	new_list = *list;
 	head = *list;
-	while (lst)
+	while (new_list->next)
 	{
-		if ((lst->type == T_D_QUOTE || lst->type == T_S_QUOTE) ||
-		 (lst->next && (lst->next->type == T_D_QUOTE || 
-		 lst->next->type == T_S_QUOTE)))
-		{
-			if (lst->next != NULL && !ft_strchr("|<> ", lst->next->str[0]))
-				join_tokens(*list, lst->next);
-			else
-				lst = lst->next;
-		}
+		if (new_list->type == T_S_QUOTE || new_list->type == T_D_QUOTE)
+			new_list->type = T_WORD;
+		if (new_list->next && (new_list->next->type == T_S_QUOTE || new_list->next->type == T_D_QUOTE))
+			new_list->next->type = T_WORD;
+		if (new_list->type == T_WORD && new_list->next->type == T_WORD)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_WORD && new_list->next->type == T_ENV)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_ENV && new_list->next->type == T_WORD)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_ENV && new_list->next->type == T_ENV)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->next->type == T_SPACE)
+			unlink_node(&new_list);
 		else
-			lst = lst->next;
+			new_list = new_list->next;
 	}
-	lst = head;
+	new_list = head;
 }
+//"hola" que tal "asdasd"patata
+//tal ""

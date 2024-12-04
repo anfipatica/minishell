@@ -16,11 +16,11 @@ const char	*get_token_name(e_token_value token)
 		return ("T_PIPE");
 	else if (token == T_ENV)
 		return ("T_ENV");
-	else if (token == T_FLAG)
-		return ("T_FLAG");
+	// else if (token == T_ARG)
+	// 	return ("T_ARG");
 	else if (token == T_D_QUOTE)
 		return ("T_D_QUOTE");
 	else if (token == T_S_QUOTE)
 		return ("T_S_QUOTE");
-	return ("UNKNOWN_TOKEN");
+	return ("T_SPACE");
 }

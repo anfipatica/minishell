@@ -6,7 +6,8 @@
         "stdbool.h": "c",
         "fcntl.h": "c",
         "libft.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "pipex.h": "c"
     },
     "better-comments.tags": [
 

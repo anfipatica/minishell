@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:08:46 by psapio            #+#    #+#             */
-/*   Updated: 2024/07/08 11:46:53 by psapio           ###   ########.fr       */
+/*   Updated: 2024/12/04 21:54:07 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stddef.h>
+#include "minishell.h"
 
 char	*find_path_name(char *cmd, char **envp, char **cmd_arg);
 void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);

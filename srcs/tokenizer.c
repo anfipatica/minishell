@@ -11,6 +11,16 @@ t_token	*symbol_tokenizer(e_token_value type, char *line, int n_symbol)
 		i++;
 	return (new_token(type, line, i + n_symbol));
 }
+t_token	*token_chooser2_space_version(char *line)
+{
+	int i;
+	
+	i = 0;
+	while (line[i] && line[i] <= ' ')
+		i++;
+	printf("i = %d\n", i);
+	return (new_token(T_SPACE, line, i));
+}
 
 t_token	*token_chooser(char *line, t_env *env)
 {
@@ -36,8 +46,8 @@ t_token	*token_chooser(char *line, t_env *env)
 	}
 	if (line[0] == '\'' || line[0] == '\"')
 		return (create_str_quote(line, env));
-	return (NULL);
-}	
+	return (token_chooser2_space_version(line));
+}
 
 int	wordeitor(t_token **head_token, char *start_word)
 {
@@ -58,6 +68,19 @@ int	wordeitor(t_token **head_token, char *start_word)
 	return (i + j);
 }
 
+t_token	*create_space_token(char *line, int *n)
+{
+	int	i;
+	t_token *token;
+
+	i = 0;
+	while (line[i] && line[i] <= ' ')
+		i++;
+	token = new_token(T_SPACE, line, i);
+	n += i;
+	return (token);
+}
+
 t_token	*tokenizer(char *line, t_env *env)
 {
 	t_token	*fresh_token;
@@ -68,13 +91,15 @@ t_token	*tokenizer(char *line, t_env *env)
 	head_token = NULL;
 	while (line[i])
 	{
-		if (ft_strchr("<>|$\"\'", line[i]) != NULL)
+		if (ft_strchr("<>|$\"\' ", line[i]) != NULL)
 		{	
 			fresh_token = token_chooser(&line[i], env);
 			if (fresh_token == NULL)
 				freedom_error_fresh_token(head_token, line, env);
 			add_token_back(&head_token, fresh_token);
+			printf("1. i = %d\n", i);
 			i += fresh_token->length;
+			printf("2. i = %d\n", i);
 		}
 		else
 			i += wordeitor(&head_token, &line[i]);

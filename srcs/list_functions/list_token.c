@@ -1,29 +1,5 @@
 #include "minishell.h"
 
-/**
- * This function only prints the context of the list, useful for debugging
- */
-void	print_tokens(t_token *token)
-{
-	int i;
-
-	i = 1;
-	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
-	while (token)
-	{
-		printf("----------->%p\n", token);
-		printf("\n\033[44m╔═════════════════════════════╗\033[0m\n");
-		printf("\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
-		printf("\033[44m╠═════════════════════════════╣\033[0m\n");
-		printf("\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
-		printf("\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
-		if(token->expanded != NULL)
-			printf("\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
-		printf("\033[44m╚═════════════════════════════╝\033[0m\n");
-		token = token->next;
-	}
-	printf("\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
-}
 
 /**
  * new_token creates a new token and allocates memory for it.

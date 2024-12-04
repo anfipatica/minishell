@@ -10,6 +10,7 @@
 # include <stdbool.h>
  #include <unistd.h>
 # include "libft.h"
+# include "pipex.h"
 
 # define SYMBOLS "<>|$- "
 
@@ -26,13 +27,13 @@
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
+// 	T_SPACE,			// ' '
 // 	T_HERE_DOC,			// <<
 // 	T_REDIRECT_LEFT,	// <
 // 	T_APPEND,			// >>
 // 	T_REDIRECT_RIGHT,	// >
 // 	T_PIPE,				// |
 // 	T_ENV,				// $
-// 	T_SPACE,			// ' '
 // 	T_FLAG,				// ? O -- (EN PRINCIPIO DEBERÍA SER PARTE DE T_WORD)
 // 	T_D_QUOTE,	// ""
 // 	T_S_QUOTE	// ''
@@ -41,6 +42,7 @@
 typedef enum	s_token_value
 {
 	T_WORD,
+	T_SPACE,
 	T_ENV,
 	T_D_QUOTE,
 	T_S_QUOTE,
@@ -48,9 +50,7 @@ typedef enum	s_token_value
 	T_HERE_DOC,
 	T_REDIRECT_RIGHT,
 	T_APPEND,
-	T_PIPE,
-	T_FLAG,
-	T_EXEC
+	T_PIPE
 }				e_token_value;
 
 typedef struct s_token  
@@ -61,8 +61,8 @@ typedef struct s_token
 	char			*expanded;	 // string valor de la variable $ expandida
 	int				length;		// La longitud de str.
 	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
-	struct s_token	*next;		// A pointer to the next token.
 	bool			is_exec;	// flag si T_WORD es executable.
+	struct s_token	*next;		// A pointer to the next token.
 }				t_token;
 
 typedef struct s_env
@@ -72,10 +72,61 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
+typedef struct	s_redirect
+{
+	char				*name;
+	e_token_value		redirect_type;
+	struct s_redirect	*next;
+}				t_redirect;
+
 typedef struct s_command
 {
+	char				*path_command;
+	char				**args;
+	t_redirect			*redirect;
+	struct s_command	*next;		// A pointer to the next token.
 
 }				t_command;
+
+typedef struct s_args
+{
+	char			*arg;
+	int				len_arg;
+	struct s_args	*next;
+}				t_args;
+
+
+
+/* ----------- LIST_FUNCTIONS -----------*/
+//list_command.c
+
+void		ft_free_commands(t_command *command);
+void		ft_free_one_command(t_command *command);
+void		add_command_back(t_command **lst, t_command *new);
+t_command	*new_command(void);
+
+//list_token.c
+
+void		print_tokens(t_token *token);
+t_token		*new_token(e_token_value type, char *str, int length);
+void		add_token_back(t_token **lst, t_token *new);
+void		ft_free_tokens(t_token *token);
+void		ft_free_one_node(t_token *token);
+
+// list_env.c
+
+char	*ft_getenv(char *name, t_env *env, int length);
+t_env	*create_node_env(char *line_env);
+t_env	*copy_env(char **env);
+
+// list_args.c
+
+t_args	*new_args(void);
+// char	*ft_getenv(char *name, t_env *env, int length);
+// t_env	*create_node_env(char *line_env);
+// t_env	*copy_env(char **env);
+
+
 
 // Tokenizer.c
 
@@ -90,13 +141,6 @@ t_token		*symbol_tokenizer(e_token_value type, char *line, int n_symbol);
 void		twin_quote(char *line);
 int			promptereitor(t_env *env);
 
-//list_token.c
-
-void		print_tokens(t_token *token);
-t_token		*new_token(e_token_value type, char *str, int length);
-void		add_token_back(t_token **lst, t_token *new);
-void		ft_free_tokens(t_token *token);
-void		ft_free_one_node(t_token *token);
 
 //get_token_name.c
 
@@ -117,12 +161,6 @@ t_token		*get_pid_expandetor();
 // quoteitor.c
 
 t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
-
-// env.c
-
-char	*ft_getenv(char *name, t_env *env, int length);
-t_env	*create_node_env(char *line_env);
-t_env	*copy_env(char **env);
 
 
 // quotes_token_create.c

@@ -39,10 +39,8 @@ int	promptereitor(t_env *env)
 		{
 			add_history(line);
 			first_token = tokenizer(line, env);
-			printf("\n\nANTES DE LIST_CHECKER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 			print_tokens(first_token);
 			list_checker(&first_token);
-			printf("\n\nDESPUÉS DE LIST_CHECKER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 			print_tokens(first_token);
 			print_states(first_token);
 			ft_free_tokens(first_token);

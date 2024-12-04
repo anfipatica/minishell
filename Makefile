@@ -10,7 +10,7 @@ CFLAGS	+= -g3
 
 READLINE	= -lreadline
 
-DEBUG	 =	-fsanitize=address
+#DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -19,22 +19,32 @@ HEADERS = -I ./inc -I $(LIBFT)
 
 LIBS	+=	$(LIBFT)/libft.a
 
+SRC_DIR = srcs/
+LIST_DIR = list_functions/
+PRINT_DIR = printers/
 
 SRCS =											\
-		srcs/main.c								\
-		srcs/promptereitor.c					\
-		srcs/tokenizer.c						\
-		srcs/list_token.c						\
-		srcs/get_token_name.c					\
-		srcs/expandetor.c						\
-		srcs/quoteitor.c						\
-		srcs/list_env.c							\
-		srcs/env.c								\
-		srcs/freedom.c							\
-		srcs/quote_expandetor.c					\
-		srcs/quotes_token_create.c				\
-		srcs/automata.c							\
-		srcs/list_checker.c
+		$(SRC_DIR)$(LIST_DIR)list_token.c		\
+		$(SRC_DIR)$(LIST_DIR)list_env.c			\
+		$(SRC_DIR)$(LIST_DIR)list_command.c		\
+		$(SRC_DIR)$(LIST_DIR)list_redirect.c	\
+		$(SRC_DIR)$(LIST_DIR)list_args.c		\
+
+		$(SRC_DIR)$(PRINT_DIR)get_token_name.c	\
+		$(SRC_DIR)$(PRINT_DIR)printers.c		\
+		
+		$(SRC_DIR)main.c						\
+		$(SRC_DIR)promptereitor.c				\
+		$(SRC_DIR)tokenizer.c					\
+		$(SRC_DIR)expandetor.c					\
+		$(SRC_DIR)quoteitor.c					\
+		$(SRC_DIR)env.c							\
+		$(SRC_DIR)freedom.c						\
+		$(SRC_DIR)quote_expandetor.c			\
+		$(SRC_DIR)quotes_token_create.c			\
+		$(SRC_DIR)automata.c					\
+		$(SRC_DIR)list_checker.c				
+
 
 
 
