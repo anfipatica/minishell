@@ -6,6 +6,7 @@ char	*nothing_to_expand(int *n, char *str)
 	char	*literal;
 
 	i = 0;
+	printf("ENNE N: %d string: %s\n", *n, str);
 	while (str[i] != '\"' && str[i] != '$' && str[i] != ' ')
 	{
 		i++;

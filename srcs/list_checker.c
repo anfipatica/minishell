@@ -1,21 +1,33 @@
 
 #include "minishell.h"
 
+// char *ft_ternary(void *true_case, void *false_case, bool condition)
+// {
+// 	if (condition)
+// 		return (true_case);
+// 	return (false_case);
+// }
+
+char *get_valid_string(t_token *node)
+{
+	if (node->expanded)
+		return (node->expanded);
+	return (node->str);
+}
+
+
 void	join_tokens(t_token *node1, t_token *node2)
 {
 	char	*str_nodes;
 	t_token *aux;
 
-	printf("node1 = %s, node2 = %s\n", node1->str, node2->str);
+	//printf("node1 = %s, node2 = %s\n", node1->str, node2->str);
 	node1->free_expanded = true;
-	if (node1->expanded == NULL)
-		str_nodes = ft_strjoin(node1->str, node2->expanded);
-	else if (node2->expanded != NULL)
-		str_nodes = ft_strjoin(node1->expanded, node2->expanded);
-	else
-		str_nodes = ft_strjoin(node1->expanded, node2->str);
+	str_nodes = ft_strjoin(get_valid_string(node1), get_valid_string(node2));
+	//printf("desde join_tokens node1->expanded es null: %s\n", str_nodes);
+	
 	free(node1->expanded);
-	node1->expanded = str_nodes;
+	node1->expanded = str_nodes;// check this? nice fo testing 
 	str_nodes = ft_strjoin(node1->str, node2->str);
 	free(node1->str);
 	node1->str = str_nodes;
@@ -37,12 +49,10 @@ void	unlink_node(t_token **before_space)
 
 void	list_checker(t_token **list)
 {
-	t_token *head;
 	t_token *new_list;
 
 	new_list = *list;
-	head = *list;
-	while (new_list->next)
+	while (new_list && new_list->next)
 	{
 		if (new_list->type == T_S_QUOTE || new_list->type == T_D_QUOTE)
 			new_list->type = T_WORD;
@@ -61,7 +71,7 @@ void	list_checker(t_token **list)
 		else
 			new_list = new_list->next;
 	}
-	new_list = head;
+	new_list = *list;
 }
 //"hola" que tal "asdasd"patata
 //tal ""

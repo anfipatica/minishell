@@ -27,7 +27,7 @@ void if_not_dollar(char **expanded, char *start_quote, int *i)
 	aux = NULL;
 	if (start_quote[0] != ' ')
 	{
-		aux = nothing_to_expand(i, &start_quote[0]);
+		aux = nothing_to_expand(i, start_quote);
 		printf("aux = %s\n", aux);
 		*expanded = ft_strjoin(*expanded, aux);
 		printf("expanded = %s\n", *expanded);
@@ -45,12 +45,8 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 
 	i = 1;
 	expanded = NULL;
-	if(start_quote[i] == '\"')
-	{
-		token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
-		return (token_d_quote);
-	}
-	while (start_quote[i] != '\"')
+
+	while (1)
 	{
 		aux = expanded;
 		if (start_quote[i] == '$')
@@ -59,13 +55,15 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 			if_not_dollar(&expanded, &start_quote[i], &i);
 		if (aux)
 		{
-			printf("asdasdas\n");
 			free(aux);
 			aux = NULL;
 		}
-		printf("123123123s\n");
-	//	printf("STRING ADDER: %s\n", token_d_quote->expanded);
+		// printf("I: %i\n", i);
+		// printf("str: %s\n", start_quote + i);
 		i++;
+		if (start_quote[i] == '\"')
+			break ;
+	
 	}
 	token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
 	token_d_quote->expanded = expanded;
