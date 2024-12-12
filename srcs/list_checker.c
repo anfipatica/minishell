@@ -26,6 +26,9 @@ void	join_tokens(t_token *node1, t_token *node2)
 	str_nodes = ft_strjoin(get_valid_string(node1), get_valid_string(node2));
 	//printf("desde join_tokens node1->expanded es null: %s\n", str_nodes);
 	
+	printf("jointokens\n");
+	printf("dir expanded: %p\n", node1->expanded);
+	printf("value expanded: %s\n", node1->expanded);
 	free(node1->expanded);
 	node1->expanded = str_nodes;// check this? nice fo testing 
 	str_nodes = ft_strjoin(node1->str, node2->str);
@@ -52,6 +55,7 @@ void	list_checker(t_token **list)
 	t_token *new_list;
 
 	new_list = *list;
+	printf("listchecker!!!\n");
 	while (new_list && new_list->next)
 	{
 		if (new_list->type == T_S_QUOTE || new_list->type == T_D_QUOTE)
@@ -61,9 +65,15 @@ void	list_checker(t_token **list)
 		if (new_list->type == T_WORD && new_list->next->type == T_WORD)
 			join_tokens(new_list, new_list->next);
 		else if (new_list->type == T_WORD && new_list->next->type == T_ENV)
+		{
 			join_tokens(new_list, new_list->next);
+		}
 		else if (new_list->type == T_ENV && new_list->next->type == T_WORD)
+		{
+
 			join_tokens(new_list, new_list->next);
+			printf("listchecker22222!!!\n");
+		}
 		else if (new_list->type == T_ENV && new_list->next->type == T_ENV)
 			join_tokens(new_list, new_list->next);
 		else if (new_list->next->type == T_SPACE)

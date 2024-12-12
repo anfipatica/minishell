@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:35:09 by psapio            #+#    #+#             */
-/*   Updated: 2024/10/29 13:13:58 by psapio           ###   ########.fr       */
+/*   Updated: 2024/12/12 14:56:00 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_isprint(int c);
 int		ft_atoi(const char *str);
 void	*ft_memset(void *b, int c, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

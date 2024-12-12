@@ -29,8 +29,10 @@ int	promptereitor(t_env *env)
 	t_token	*first_token;
 
 	first_token = NULL;
+	int i = 0;
 	while (1)
 	{
+		printf("iteration: %d\n", i);
 		line = readline("Prompt > ");
 		twin_quote(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
@@ -46,6 +48,7 @@ int	promptereitor(t_env *env)
 			ft_free_tokens(first_token);
 			free(line);
 		}
+		i++;
 	}
 	free(line);
 	rl_clear_history();

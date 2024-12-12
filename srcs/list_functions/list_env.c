@@ -20,7 +20,8 @@ void	print_env(t_env *env)
 t_env	*new_env(char *name, char *value)
 {
 	t_env	*new_env;
-	new_env = malloc(sizeof(t_env));
+
+	new_env = ft_calloc(sizeof(t_env), 1);
 	if (!new_env)
 		return (NULL);
 	new_env->name = name;

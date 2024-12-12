@@ -11,16 +11,16 @@ char	*find_path_name_ms(char *cmd, t_env **env, t_args *cmd_arg)
 	i = 0;
 	while (env != NULL)
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			all_path = ft_split(envp[i] + 5, ':');
+			all_path = ft_split(env[i] + 5, ':');
 			if (all_path == NULL)
 				return (NULL);
 			break ;
 		}
 		i++;
 	}
-	if (envp[i] == NULL)
+	if (env[i] == NULL)
 		return (NULL);
 	path_name = check_path(all_path, cmd);
 	error_path(path_name, cmd, all_path, cmd_arg);
@@ -53,5 +53,5 @@ char *path_creator(t_token *list, t_env *env)
 		first_word = list->str;
 	else
 		first_word = list->expanded;
-	find_path_name_ms(first_word env);
+	find_path_name_ms(first_word, env);
 }

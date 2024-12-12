@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 10:07:00 by psapio            #+#    #+#             */
-/*   Updated: 2023/11/20 16:39:48 by psapio           ###   ########.fr       */
+/*   Updated: 2024/12/12 14:55:53 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -34,6 +35,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return (s1cast[a] - s2cast[b]);
 }
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 /*
 int	main(void)
 {

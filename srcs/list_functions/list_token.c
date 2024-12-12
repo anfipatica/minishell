@@ -8,7 +8,7 @@ t_token	*new_token(e_token_value type, char *str, int length)
 {
 	t_token	*new_token;
 
-	new_token = (t_token *) malloc(sizeof(t_token));
+	new_token = (t_token *) ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
 		return (NULL);
 	new_token->type = type;
