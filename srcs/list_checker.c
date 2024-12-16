@@ -30,7 +30,7 @@ void	join_tokens(t_token *node1, t_token *node2)
 	printf("dir expanded: %p\n", node1->expanded);
 	printf("value expanded: %s\n", node1->expanded);
 	free(node1->expanded);
-	node1->expanded = str_nodes;// check this? nice fo testing 
+	node1->expanded = str_nodes;
 	str_nodes = ft_strjoin(node1->str, node2->str);
 	free(node1->str);
 	node1->str = str_nodes;

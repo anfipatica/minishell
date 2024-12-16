@@ -41,6 +41,7 @@ SRCS =											\
 		$(SRC_DIR)quote_expandetor.c			\
 		$(SRC_DIR)quotes_token_create.c			\
 		$(SRC_DIR)automata.c					\
+		$(SRC_DIR)automata_func.c					\
 		$(SRC_DIR)list_checker.c				
 
 

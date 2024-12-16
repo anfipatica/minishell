@@ -25,8 +25,9 @@ void twin_quote(char *line)
 
 int	promptereitor(t_env *env)
 {
-	char	*line;
-	t_token	*first_token;
+	char		*line;
+	t_token		*first_token;
+	t_command	*command;
 
 	first_token = NULL;
 	int i = 0;
@@ -44,10 +45,11 @@ int	promptereitor(t_env *env)
 			print_tokens(first_token);
 			list_checker(&first_token);
 			print_tokens(first_token);
-			print_states(first_token);
+			command = automata(first_token);
+			//print_states(first_token);
 			ft_free_tokens(first_token);
-			free(line);
 		}
+		free(line);
 		i++;
 	}
 	free(line);

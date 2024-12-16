@@ -1,13 +1,6 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "readline.h": "c",
-        "history.h": "c",
-        "stdbool.h": "c",
-        "fcntl.h": "c",
-        "libft.h": "c",
-        "unistd.h": "c",
-        "pipex.h": "c"
+        "minishell.h": "c"
     },
     "better-comments.tags": [
 

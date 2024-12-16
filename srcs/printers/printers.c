@@ -48,7 +48,7 @@ printf("|                               |");
 		if (token)
 			printf("|                 "BLUE"╭┈┈┈┈┈╯\033[0m       |\n");
 	}
-	if (current_state != ACCEPT_STATE)
+	if (current_state != ACCEPT_STATES)
 		return (printf("╰━━┈┈< ❌ "RED"Syntax error"STD" ❌  >┈┈━━╯\n"));
 	printf("|                               |\n");
 	printf("╰━━━┈┈<⭒.⋆🔧🅰🆄🆃🅾🅼🅰🆃🅰 🔧⋆.⭒>┈┈━━━╯\n");

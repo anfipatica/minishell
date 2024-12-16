@@ -21,8 +21,9 @@
 # define ORANG "\033[1;33m"
 
 //define automata
-#define ERROR__STATE 4
-#define ACCEPT_STATE 1
+#define ERROR__STATE	6
+#define ACCEPT_STATES	3
+
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -41,15 +42,15 @@
 typedef enum	s_token_value
 {
 	T_WORD,
-	T_SPACE,
 	T_ENV,
-	T_D_QUOTE,
-	T_S_QUOTE,
 	T_REDIRECT_LEFT,
 	T_HERE_DOC,
 	T_REDIRECT_RIGHT,
 	T_APPEND,
-	T_PIPE
+	T_PIPE,
+	T_SPACE,
+	T_S_QUOTE,
+	T_D_QUOTE
 }				e_token_value;
 
 typedef struct s_token  
@@ -75,7 +76,7 @@ typedef struct	s_redirect
 {
 	char				*name;
 	e_token_value		redirect_type;
-	struct s_redirect	*next;
+	struct s_redirect	*next; 
 }				t_redirect;
 
 typedef struct s_command
@@ -94,6 +95,10 @@ typedef struct s_args
 	struct s_args	*next;
 }				t_args;
 
+typedef	struct	s_automata
+{
+
+}				t_automata;
 
 
 /* ----------- LIST_FUNCTIONS -----------*/
@@ -178,7 +183,17 @@ char	*get_pid_quote(void);
 // automata.c
 
 int	get_new_state(int current_state, int token);
+t_command	*automata(t_token *token);
 int	print_states(t_token *token);
+
+// automata_func.c
+int	insert_command(t_token	*token, t_command *command);
+int	insert_flag(t_token	*token, t_command *command);
+int	set_redirect_type(t_token	*token, t_command *command);
+int	insert_file(t_token	*token, t_command *command);
+int	end_command(t_token	*token, t_command *command);
+int	sintax_error(t_token	*token, t_command *command);
+
 
 // list_checker.c
 
