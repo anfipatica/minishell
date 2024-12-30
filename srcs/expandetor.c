@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-t_token	*expandetor(char *line, t_env *env)
+t_token	*expandetor(char *line, t_list *env)
 {
 	int		i;
 	t_token	*token;

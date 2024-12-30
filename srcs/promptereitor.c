@@ -23,17 +23,15 @@ void twin_quote(char *line)
 	}
 }
 
-int	promptereitor(t_env *env)
+int	promptereitor(t_list *list_env)
 {
 	char		*line;
-	t_token		*first_token;
-	t_command	*command;
+	t_list		*first_token;
+//	t_list		*command;
 
 	first_token = NULL;
-	int i = 0;
 	while (1)
 	{
-		printf("iteration: %d\n", i);
 		line = readline("Prompt > ");
 		twin_quote(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
@@ -41,17 +39,18 @@ int	promptereitor(t_env *env)
 		if (line[0] != '\0')
 		{
 			add_history(line);
-			first_token = tokenizer(line, env);
-			print_tokens(first_token);
-			list_checker(&first_token);
-			print_tokens(first_token);
-			command = automata(first_token);
-			//print_states(first_token);
-			ft_free_tokens(first_token);
-			ft_free_commands(command);
+			first_token = tokenizer(line, list_env);
+			ft_lstiter(first_token, print_tokens);
+			//list_checker(first_token);
+			ft_lstiter(first_token, list_checker);
+
+			// print_tokens(first_token);
+			// command = automata(first_token);
+			// ft_free_tokens(first_token);
+			// ft_free_commands(command);
+			ft_lstclear(&first_token, ft_free_one_token);
 		}
 		free(line);
-		i++;
 	}
 	free(line);
 	rl_clear_history();

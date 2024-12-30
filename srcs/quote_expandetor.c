@@ -15,7 +15,7 @@ char	*nothing_to_expand(int *n, char *str)
 	return (literal);
 }
 
-char	*maybe_expanded(int *n, char *str, t_env *env)
+char	*maybe_expanded(int *n, char *str, t_list *env)
 {
 	int	i;
 

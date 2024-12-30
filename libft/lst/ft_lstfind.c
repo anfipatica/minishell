@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:31:25 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/12/18 17:55:11 by psapio           ###   ########.fr       */
+/*   Updated: 2024/12/30 17:54:50 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	*ft_lstfind(t_list *lst, void *context, bool (*predicate)(void *content, vo
 	t_list	*temp;
 
 	if (!lst || !predicate)
-		return NULL;
+		return (NULL);
 	temp = lst;
 	while (temp)
 	{
-		if(predicate(temp->content, context))
+		if(predicate(temp->content, context) == true)
 			return (temp);
 		temp = temp->next;
 	}
-	return NULL;
+	return (NULL);
 }

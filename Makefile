@@ -26,9 +26,6 @@ PRINT_DIR = printers/
 SRCS =											\
 		$(SRC_DIR)$(LIST_DIR)list_token.c		\
 		$(SRC_DIR)$(LIST_DIR)list_env.c			\
-		$(SRC_DIR)$(LIST_DIR)list_command.c		\
-		$(SRC_DIR)$(LIST_DIR)list_redirect.c	\
-		$(SRC_DIR)$(LIST_DIR)list_args.c		\
 		$(SRC_DIR)$(PRINT_DIR)get_token_name.c	\
 		$(SRC_DIR)$(PRINT_DIR)printers.c		\
 		$(SRC_DIR)main.c						\
@@ -40,9 +37,12 @@ SRCS =											\
 		$(SRC_DIR)freedom.c						\
 		$(SRC_DIR)quote_expandetor.c			\
 		$(SRC_DIR)quotes_token_create.c			\
-		$(SRC_DIR)automata.c					\
-		$(SRC_DIR)automata_func.c					\
-		$(SRC_DIR)list_checker.c				
+		$(SRC_DIR)list_checker.c				\
+		#$(SRC_DIR)automata_func.c				\
+		#$(SRC_DIR)automata.c					\
+		#$(SRC_DIR)$(LIST_DIR)list_command.c	\
+		#$(SRC_DIR)$(LIST_DIR)list_redirect.c	\
+		#$(SRC_DIR)$(LIST_DIR)list_args.c		\
 
 
 

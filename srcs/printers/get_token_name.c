@@ -22,5 +22,7 @@ const char	*get_token_name(e_token_value token)
 		return ("T_D_QUOTE");
 	else if (token == T_S_QUOTE)
 		return ("T_S_QUOTE");
+	else if (token == T_IN_OUT)
+		return ("T_IN_OUT");
 	return ("T_SPACE");
 }
