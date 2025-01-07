@@ -44,13 +44,14 @@ bool	find_env(void *content, void *context)
  */
 char	*ft_getenv(char *name, t_list *env, int length)
 {
-	int	str_len;
+	(void)length;
+//	int	str_len;
 	t_env	*ok_env;
 
-	if (length != 0)
-		str_len = length;
-	else
-		str_len = ft_strlen(name);
+	// if (length != 0)
+	// 	str_len = length;
+	// else
+	// 	str_len = ft_strlen(name);
 	printf("name var: %s\n", name);
 	ok_env = ft_lstfind(env, name, find_env);
 	if (ok_env)

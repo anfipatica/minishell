@@ -7,6 +7,7 @@
 t_token	*new_token(e_token_value type, char *str, int length)
 {
 	t_token	*new_token;
+	static int	i = 0;
 
 	new_token = (t_token *) ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
@@ -24,20 +25,24 @@ t_token	*new_token(e_token_value type, char *str, int length)
 		new_token->expanded = NULL;
 		new_token->free_expanded = false;
 	}
+	new_token->index = ++i;
 	return (new_token);
 }
 
-void	ft_free_one_token(void *content)
+void	ft_free_one_token(void **content)
 {
 	t_token *token;
 	if (!content)
 		return ;
 	
-	token = (t_token *) content;
+	token = (t_token *) *content;
 	free(token->str);
 	if (token->free_expanded == true)
 	{
 		free(token->expanded);
 	}
-	free(token);
+	printf("en ft_free_one_token = %p - %p\n", token, *content);
+	free(*content);
+	*content = NULL;
+	printf("en ft_free_one_token = %p - %p\n", token, *content);
 }

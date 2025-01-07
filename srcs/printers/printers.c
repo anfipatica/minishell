@@ -5,22 +5,16 @@
  */
 void	print_tokens(void *content)
 {
-	t_token	*token = (t_token *)content;
-	static int i;
+	t_token		*token = (t_token *)content;
 
-	// printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
-	// while (token)
-	// {
 	printf("\n\033[44m╔═════════════════════════════╗\033[0m\n");
-	printf("\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
+	printf("\033[44m║    🌙 🚀 TOKEN Nº %-4d      ║\033[0m\n", token->index);
 	printf("\033[44m╠═════════════════════════════╣\033[0m\n");
 	printf("\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
 	printf("\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
 	if(token->expanded != NULL)
 		printf("\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
 	printf("\033[44m╚═════════════════════════════╝\033[0m\n");
-	// }
-	// printf("\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 }
 
 // int	print_states(t_token *token)

@@ -56,12 +56,13 @@ typedef enum	s_token_value
 
 typedef struct s_token  
 {
-//	int				index;		// The index inside the list.
+	int				index;		// The index inside the list.
 	e_token_value	type;		// The token value.
 	char			*str;		// The actual text value -> La posicion en readline. Así no hay que hacer malloc
 	char			*expanded;	 // string valor de la variable $ expandida
 	int				length;		// La longitud de str.
 	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
+//	int				i_printer;
 	//bool			is_exec;	// flag si T_WORD es executable.
 }				t_token;
 
@@ -90,10 +91,10 @@ typedef struct s_args
 	int				len_arg;
 }				t_args;
 
-typedef	struct	s_automata
+typedef	struct	s_printers
 {
-
-}				t_automata;
+	int			i;
+}				t_printers;
 
 
 /* ----------- LIST_FUNCTIONS -----------*/
@@ -108,7 +109,7 @@ t_command	*new_command(void);
 
 void		print_tokens(void *token);
 t_token		*new_token(e_token_value type, char *str, int length);
-void		ft_free_one_token(void *token);
+void		ft_free_one_token(void **token);
 
 // list_env.c
 
@@ -189,6 +190,6 @@ int	sintax_error(t_token	*token, t_command *command);
 
 // list_checker.c
 
-void	list_checker(void *list);
+void	list_checker(void *node1, void *node2);
 
 #endif
