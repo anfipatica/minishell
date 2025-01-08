@@ -96,14 +96,10 @@ typedef struct s_command
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*redirect;
+	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
 }				t_command;
-
-typedef	struct	s_automata
-{
-
-}				t_automata;
 
 
 /* ----------- LIST_FUNCTIONS -----------*/
@@ -112,7 +108,7 @@ typedef	struct	s_automata
 void		ft_free_commands(t_command *command);
 void		ft_free_one_command(t_command *command);
 void		add_command_back(t_command **lst, t_command *new);
-t_command	*new_command(void);
+t_command	*new_command(t_env *env);
 
 //list_token.c
 
@@ -130,7 +126,9 @@ t_env	*copy_env(char **env);
 
 // list_args.c
 
-t_args	*new_args(void);
+t_args	*new_args(char *arg);
+void	add_args_back(t_args **head, t_args *new);
+
 // char	*ft_getenv(char *name, t_env *env, int length);
 // t_env	*create_node_env(char *line_env);
 // t_env	*copy_env(char **env);
@@ -189,7 +187,7 @@ char	*get_pid_quote(void);
 // automata.c
 
 int	get_new_state(int current_state, int token);
-t_command	*automata(t_token *token);
+t_command	*automata(t_token *token, t_env *env);
 int	print_states(t_token *token);
 
 // automata_func.c
@@ -209,11 +207,14 @@ void	list_checker(t_token **list);
 
 //PEPEX FILES
 
-char	*find_path_name(char *cmd, char **envp, char **cmd_arg);
+char	*find_path_name(char *cmd, t_env *env, char **cmd_arg);
 void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
 void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
 pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
 char	*here_dokeitor(char *limiter);
+
+
+void print_commands(t_command *command);
 
 #endif

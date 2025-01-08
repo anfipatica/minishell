@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:35:09 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 18:17:33 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 19:34:58 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdbool.h>
 
 int		ft_isalpha(int c);
 int		ft_toupper(int c);
@@ -55,6 +56,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	free_double_pointer(char **strings);
+char	*ft_ternary(char *true_case, char *false_case, bool condition);
 
 // GET_NEXT_LINE
 #  ifndef BUFFER_SIZE

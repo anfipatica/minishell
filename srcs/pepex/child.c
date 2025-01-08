@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:34:40 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 18:15:24 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 19:40:41 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define WRITE 1
 #define READ 0
 
-int	openeitor(int *p_fds, const char *file, int flags, mode_t mode)
+/* int	openeitor(int *p_fds, const char *file, int flags, mode_t mode)
 {
 	int	file_fd;
 
@@ -96,14 +96,14 @@ void	child_pepa_midle(int *p_fds, int aux_fd_r, char *mid_cmd, char **envp)
 	}
 	close(p_fds[WRITE]);
 	close(aux_fd_r);
-}
+} */
 
 // OUT_APPEND = O_CREAT | O_WRONLY | O_APPEND
 #define OUT_APPEND 1089
 // OUT_TRUNC = O_CREAT | O_WRONLY | O_TRUNC
 #define OUT_TRUNC 577
 
-pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp)
+/* pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp)
 {
 	pid_t	family;
 	int		out_fd;
@@ -130,4 +130,4 @@ pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp)
 		exit(1);
 	}
 	return (family);
-}
+} */

@@ -5,7 +5,7 @@
 //TODO Hacer un automata() que imite /printers/printers.c/print_states() sin imprimir.
 //TODO en base a algún flag del makefile.
 
-void	create_function_arr(int (*func_arr[])(t_token *, t_command *))
+void	create_function_arr(int (*func_arr[])(t_token *token, t_command *command))
 {
 	func_arr[0] = NULL;
 	func_arr[1] = insert_command;
@@ -16,18 +16,18 @@ void	create_function_arr(int (*func_arr[])(t_token *, t_command *))
 	func_arr[6] = sintax_error;
 }
 
-t_command	*automata(t_token *token)
+t_command	*automata(t_token *token, t_env *env)
 {
 	t_command	*head_command;
 	t_command	*command;
 	int			current_state;
-	int		(*func_arr[7])(t_token *, t_command *);
+	int			(*func_arr[7])(t_token *, t_command *);
 
+	head_command = NULL;
 	command = NULL;
 	current_state = 0;
+	command = new_command(env);
 	create_function_arr(func_arr);
-	head_command = new_command();
-	command = head_command;
 	while (token)
 	{
 		printf("state = %d\n", current_state);
@@ -38,7 +38,7 @@ t_command	*automata(t_token *token)
 	}
 	if (current_state > ACCEPT_STATES)
 		printf(RED"SINTAX_ERROR\n"STD);
-
+	add_command_back(&head_command, command);
 	return (head_command);
 }
 
@@ -54,8 +54,8 @@ int	get_new_state(int current_state, int token)
 		{3, 3, 6, 6, 6, 6, 6, 6},//- 4 - estado redirect
 		{1, 1, 4, 4, 4, 4, 4, 6},//- 5 - estado pipe
 		{6, 6, 6, 6, 6, 6, 6, 6} //- 6 - estado err - ERROR__STATE
-	};// |  |  |  |  |  |  |  |
-// 		 |  |  |  |  |  |  |  |
+	};//-|  |  |  |  |  |  |  |
+//- 	 |  |  |  |  |  |  |  |
 //-		 W  $  <  << >  >> <> |     [ ][ ]TOKENS
 	return (matrix[current_state][token]);
 }

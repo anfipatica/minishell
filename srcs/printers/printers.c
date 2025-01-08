@@ -3,6 +3,20 @@
 /**
  * This function only prints the context of the list, useful for debugging
  */
+
+void print_commands(t_command *command)
+{
+	if (command)
+		printf("cmd_Path:%s\n\n", command->path_command);
+	while(command->args)
+	{
+		printf("args:%s\n", command->args->arg);
+		command->args = command->args->next;
+	}
+	//printf("redirect:%s\n", command->path_command);
+}
+
+
 void	print_tokens(t_token *token)
 {
 	int i;

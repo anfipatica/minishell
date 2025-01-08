@@ -4,14 +4,14 @@
 /**
  * new_token creates a new token and allocates memory for it.
  */
-t_args	*new_args(void)
+t_args	*new_args(char *arg)
 {
 	t_args	*new_args;
 
 	new_args = (t_args *) malloc(sizeof(t_args));
 	if (!new_args)
 		return (NULL);
-	new_args->arg = NULL;
+	new_args->arg = arg;
 	new_args->next = NULL;
 	return (new_args);
 }
@@ -20,23 +20,23 @@ t_args	*new_args(void)
  * add_args_back receives the head of the list and the new args
  * to add at the end of said list. If there is no head, new becomes it.
  */
-// void	add_args_back(t_args **lst, t_args *new)
-// {
-// 	t_args	*temp;
+void	add_args_back(t_args **head, t_args *new)
+{
+	t_args	*temp;
 
-// 	if (*lst == NULL)
-// 	{
-// 		*lst = new;
-// 		new->next = NULL;
-// 	}
-// 	else
-// 	{
-// 		temp = *lst;
-// 		while (temp->next)
-// 			temp = temp->next;
-// 		temp->next = new;
-// 	}
-// }
+	if (*head == NULL)
+	{
+		*head = new;
+		new->next = NULL;
+	}
+	else
+	{
+		temp = *head;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new;
+	}
+}
 
 // void	ft_free_one_args(t_args *args)
 // {

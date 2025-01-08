@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:04:12 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 18:10:49 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 19:41:37 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define WRITE 1
 #define READ 0
 
-void	wait_all(pid_t last_family)
+/* void	wait_all(pid_t last_family)
 {
 	pid_t	ret_wait;
 	int		status;
@@ -61,7 +61,7 @@ int	parser(int argc, char **argv)
 		argv[2] = here_dokeitor(argv[2]);
 	}
 	return (i);
-}
+} */
 
 /* int	main(int argc, char **argv, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 18:10:40 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 20:07:46 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,26 @@ void	error_path(char *path_name, char *cmd, char **all_path, char **cmd_arg)
 	}
 }
 
-char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
+char	*find_path_name(char *cmd, t_env *env, char **cmd_arg)
 {
 	char	**all_path;
 	char	*path_name;
 	int		i;
-
 	if (cmd == NULL || ft_strchr(cmd, '/') != NULL)
 		return (cmd);
 	i = 0;
-	while (envp[i] != NULL)
+	while (env != NULL)
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(env->name, "PATH", 4) == 0)
 		{
-			all_path = ft_split(envp[i] + 5, ':');
+			all_path = ft_split(env->value, ':');
 			if (all_path == NULL)
 				return (NULL);
 			break ;
 		}
-		i++;
+		env = env->next;
 	}
-	if (envp[i] == NULL)
+	if (env == NULL)
 		return (NULL);
 	path_name = check_path(all_path, cmd);
 	error_path(path_name, cmd, all_path, cmd_arg);

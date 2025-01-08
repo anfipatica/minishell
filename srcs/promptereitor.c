@@ -45,8 +45,8 @@ int	promptereitor(t_env *env)
 			print_tokens(first_token);
 			list_checker(&first_token);
 			print_tokens(first_token);
-			command = automata(first_token);
-			//print_states(first_token);
+			command = automata(first_token, env);
+			print_commands(command);
 			ft_free_tokens(first_token);
 			ft_free_commands(command);
 		}

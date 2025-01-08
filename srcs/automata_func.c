@@ -2,20 +2,21 @@
 
 int	insert_command(t_token	*token, t_command *command)
 {
+	printf("holaaaa!\n");
 	if (command->path_command)
 		return (insert_flag(token, command));
 	printf("INSERT_COMMAND\n");
-	//crear el command_path;
-	(void) token;
-	(void) command;
+	command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
+	insert_flag(token, command);
 	return (0);
 }
 
 int	insert_flag(t_token	*token, t_command *command)
 {
 	printf("INSERT_FLAG\n");
-	(void) token;
-	(void) command;
+	t_args	*aux_arg;
+	aux_arg = new_args(ft_ternary(token->expanded, token->str, token->expanded));
+	add_args_back(&(command->args), aux_arg);
 	return (0);
 }
 
