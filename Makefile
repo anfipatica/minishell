@@ -44,7 +44,6 @@ SRCS =											\
 		$(SRC_DIR)automata.c					\
 		$(SRC_DIR)automata_func.c				\
 		$(SRC_DIR)list_checker.c				\
-
 		$(PEPEX_DIR)child.c						\
 		$(PEPEX_DIR)commander.c					\
 		$(PEPEX_DIR)here_docereitor.c			\
