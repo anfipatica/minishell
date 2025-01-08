@@ -60,28 +60,26 @@ typedef enum	s_token_value
 
 typedef struct s_token  
 {
-//	int				index;		// The index inside the list.
+	int				index;		// The index inside the list.
 	e_token_value	type;		// The token value.
 	char			*str;		// The actual text value -> La posicion en readline. Así no hay que hacer malloc
 	char			*expanded;	 // string valor de la variable $ expandida
 	int				length;		// La longitud de str.
 	bool			free_expanded; // Si expanded hemos hecho malloc porque es propia o no porque viene de getenv.
-	bool			is_exec;	// flag si T_WORD es executable.
-	struct s_token	*next;		// A pointer to the next token.
+//	int				i_printer;
+	//bool			is_exec;	// flag si T_WORD es executable.
 }				t_token;
 
 typedef struct s_env
 {
 	char			*name;
 	char			*value;
-	struct s_env	*next;
 }				t_env;
 
 typedef struct	s_redirect
 {
 	char				*name;
 	e_token_value		redirect_type;
-	struct s_redirect	*next; 
 }				t_redirect;
 
 typedef struct s_command
@@ -89,21 +87,23 @@ typedef struct s_command
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*redirect;
-	struct s_command	*next;		// A pointer to the next token.
-
 }				t_command;
 
 typedef struct s_args
 {
 	char			*arg;
+<<<<<<< HEAD
 	struct s_args	*next;
 //	int				len_arg;
+=======
+	int				len_arg;
+>>>>>>> 9cf165f900edab2b656c7a070c7b4eefc1ba24a1
 }				t_args;
 
-typedef	struct	s_automata
+typedef	struct	s_printers
 {
-
-}				t_automata;
+	int			i;
+}				t_printers;
 
 
 /* ----------- LIST_FUNCTIONS -----------*/
@@ -116,17 +116,15 @@ t_command	*new_command(void);
 
 //list_token.c
 
-void		print_tokens(t_token *token);
+void		print_tokens(void *token);
 t_token		*new_token(e_token_value type, char *str, int length);
-void		add_token_back(t_token **lst, t_token *new);
-void		ft_free_tokens(t_token *token);
-void		ft_free_one_node(t_token *token);
+void		ft_free_one_token(void **token);
 
 // list_env.c
 
-char	*ft_getenv(char *name, t_env *env, int length);
+char	*ft_getenv(char *name, t_list *env, int length);
 t_env	*create_node_env(char *line_env);
-t_env	*copy_env(char **env);
+t_list	*copy_env(char **env);
 
 // list_args.c
 
@@ -139,16 +137,16 @@ t_args	*new_args(void);
 
 // Tokenizer.c
 
-t_token		*tokenizer(char *line, t_env *env);
-int			wordeitor(t_token **head_token, char *start_word);
-t_token		*token_chooser(char *line, t_env *env);
+t_list		*tokenizer(char *line, t_list *env);
+int			wordeitor(t_list **head_token, char *start_word);
+t_token		*token_chooser(char *line, t_list *env);
 t_token		*symbol_tokenizer(e_token_value type, char *line, int n_symbol);
 
 
 //promptereitor.c
 
 void		twin_quote(char *line);
-int			promptereitor(t_env *env);
+int			promptereitor(t_list *env);
 
 
 //get_token_name.c
@@ -159,31 +157,34 @@ const char	*get_token_name(e_token_value token);
 
 void	print_env(t_env *env);
 t_env	*new_env(char *name, char *value);
-void	add_env_back(t_env **lst, t_env *new);
-void	ft_free_env(t_env *env);
+void	ft_free_env(void *env);
 
 //expandetor.c
 
-t_token		*expandetor(char *line, t_env *env);
+t_token		*expandetor(char *line, t_list *env);
 t_token		*get_pid_expandetor();
 
 // quoteitor.c
 
-t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
-
+t_token *expand_d_quote(char *start_quote, int length_dq, t_list *env);
+void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_list *env);
 
 // quotes_token_create.c
 
-t_token	*create_str_quote(char *start_quote, t_env *env);
+t_token	*create_str_quote(char *start_quote, t_list *env);
 
 //freedom.c
+<<<<<<< HEAD
 
 void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
+=======
+void	freedom_error_fresh_token(t_list *head_token, char *line, t_list *env);
+>>>>>>> 9cf165f900edab2b656c7a070c7b4eefc1ba24a1
 
 // quote_expandetor.c
 
 char	*nothing_to_expand(int *n, char *str);
-char	*maybe_expanded(int *n, char *str, t_env *env);
+char	*maybe_expanded(int *n, char *str, t_list *env);
 char	*get_pid_quote(void);
 
 // automata.c
@@ -204,7 +205,7 @@ int	sintax_error(t_token	*token, t_command *command);
 
 // list_checker.c
 
-void	list_checker(t_token **list);
+void	list_checker(void *node1, void *node2);
 
 
 //PEPEX FILES
