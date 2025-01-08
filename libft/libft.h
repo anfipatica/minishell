@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:35:09 by psapio            #+#    #+#             */
-/*   Updated: 2024/12/12 14:56:00 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 16:40:32 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,9 @@ void	ft_putnbr_fd(int n, int fd);
 
 typedef struct s_data
 {
-	char	sicily[BUFFER_SIZE + 1];
-	char	*aux;
-	char	*new_york;
-}	t_data;
+	void		*content;
+	struct s_data *next;
+}				t_data;
 
 char	*get_next_line(int fd);
 

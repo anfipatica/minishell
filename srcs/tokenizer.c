@@ -28,6 +28,8 @@ t_token	*token_chooser(char *line, t_env *env)
 	{
 		if (line[1] && line[1] == '<')
 			return (new_token(T_HERE_DOC, line, 2));
+		else if (line[1] && line[1] == '>')
+			return (new_token(T_IN_OUT, line, 2));
 		return (new_token(T_REDIRECT_LEFT, line, 1));
 	}
 	if (line[0] == '>')

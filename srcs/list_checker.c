@@ -1,12 +1,6 @@
 
 #include "minishell.h"
 
-// char *ft_ternary(void *true_case, void *false_case, bool condition)
-// {
-// 	if (condition)
-// 		return (true_case);
-// 	return (false_case);
-// }
 
 char *get_valid_string(t_token *node)
 {

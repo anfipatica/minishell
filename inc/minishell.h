@@ -8,7 +8,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
- #include <unistd.h>
+# include <unistd.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stddef.h>
 # include "libft.h"
 
 # define SYMBOLS "<>|$- "
@@ -47,6 +51,7 @@ typedef enum	s_token_value
 	T_HERE_DOC,
 	T_REDIRECT_RIGHT,
 	T_APPEND,
+	T_IN_OUT,
 	T_PIPE,
 	T_SPACE,
 	T_S_QUOTE,
@@ -82,7 +87,7 @@ typedef struct	s_redirect
 typedef struct s_command
 {
 	char				*path_command;
-	char				**args;
+	t_args				*args;
 	t_redirect			*redirect;
 	struct s_command	*next;		// A pointer to the next token.
 
@@ -91,8 +96,8 @@ typedef struct s_command
 typedef struct s_args
 {
 	char			*arg;
-	int				len_arg;
 	struct s_args	*next;
+//	int				len_arg;
 }				t_args;
 
 typedef	struct	s_automata
@@ -172,6 +177,7 @@ t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
 t_token	*create_str_quote(char *start_quote, t_env *env);
 
 //freedom.c
+
 void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
 
 // quote_expandetor.c
@@ -187,6 +193,7 @@ t_command	*automata(t_token *token);
 int	print_states(t_token *token);
 
 // automata_func.c
+
 int	insert_command(t_token	*token, t_command *command);
 int	insert_flag(t_token	*token, t_command *command);
 int	set_redirect_type(t_token	*token, t_command *command);
@@ -198,5 +205,15 @@ int	sintax_error(t_token	*token, t_command *command);
 // list_checker.c
 
 void	list_checker(t_token **list);
+
+
+//PEPEX FILES
+
+char	*find_path_name(char *cmd, char **envp, char **cmd_arg);
+void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
+void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
+pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
+void	print_error(const char *msg);
+char	*here_dokeitor(char *limiter);
 
 #endif

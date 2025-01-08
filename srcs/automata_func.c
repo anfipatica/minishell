@@ -2,9 +2,9 @@
 
 int	insert_command(t_token	*token, t_command *command)
 {
-	printf("INSERT_COMMAND\n");
 	if (command->path_command)
 		return (insert_flag(token, command));
+	printf("INSERT_COMMAND\n");
 	//crear el command_path;
 	(void) token;
 	(void) command;
