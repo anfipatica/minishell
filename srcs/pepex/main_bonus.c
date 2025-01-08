@@ -6,11 +6,12 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:04:12 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 16:56:57 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 18:10:49 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
+
 #define WRITE 1
 #define READ 0
 

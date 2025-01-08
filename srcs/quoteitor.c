@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_list *env)
+void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_env *env)
 {
 	char	*aux;
 	int n;
@@ -36,7 +36,7 @@ void if_not_dollar(char **expanded, char *start_quote, int *i)
 	else
 		*expanded = ft_strjoin(*expanded, " ");
 }
-t_token *expand_d_quote(char *start_quote, int length_dq, t_list *env)
+t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 {
 	char	*expanded;
 	char	*aux;

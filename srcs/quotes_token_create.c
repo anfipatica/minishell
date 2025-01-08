@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-t_token *create_str_quote(char *start_quote, t_list *env)
+t_token *create_str_quote(char *start_quote, t_env *env)
 {
 	char	*finish_quote;
 	int		length;

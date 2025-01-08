@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:34:40 by psapio            #+#    #+#             */
-/*   Updated: 2024/07/03 12:14:49 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 18:15:24 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
+
 #include <errno.h>
 #define WRITE 1
 #define READ 0

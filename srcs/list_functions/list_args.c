@@ -12,7 +12,6 @@ t_args	*new_args(void)
 	if (!new_args)
 		return (NULL);
 	new_args->arg = NULL;
-	new_args->len_arg = 0;
 	new_args->next = NULL;
 	return (new_args);
 }

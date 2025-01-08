@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   here_docereitor.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2024/07/08 11:58:19 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/08 18:10:43 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
+
 
 char	*here_dokeitor(char *limiter)
 {

@@ -1,9 +1,6 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "libft.h": "c",
-        "type_traits": "c",
-        "readline.h": "c"
+        "minishell.h": "c"
     },
     "better-comments.tags": [
 

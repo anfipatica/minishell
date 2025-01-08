@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   free_double_pointer.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 21:02:47 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/06/24 21:09:25 by jvasquez         ###   ########.fr       */
+/*   Created: 2024/06/24 16:47:11 by psapio            #+#    #+#             */
+/*   Updated: 2024/07/01 19:05:57 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	free_double_pointer(char **strings)
 {
-	if (lst == NULL)
-		return (0);
-	while (lst)
+	int	i;
+
+	i = 0;
+	while (strings[i] != NULL)
 	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
+		free(strings[i]);
+		i++;
 	}
-	return (lst);
+	free(strings);
 }

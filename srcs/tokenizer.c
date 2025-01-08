@@ -22,7 +22,7 @@ t_token	*token_chooser2_space_version(char *line)
 	return (new_token(T_SPACE, line, i));
 }
 
-t_token	*token_chooser(char *line, t_list *env)
+t_token	*token_chooser(char *line, t_env *env)
 {
 	if (line[0] == '<')
 	{
@@ -51,10 +51,9 @@ t_token	*token_chooser(char *line, t_list *env)
 	return (token_chooser2_space_version(line));
 }
 
-int	wordeitor(t_list **head_token, char *start_word)
+int	wordeitor(t_token **head_token, char *start_word)
 {
 	t_token	*fresh_token;
-	t_list	*list_token;
 	int		i;
 	int		j;
 
@@ -67,8 +66,7 @@ int	wordeitor(t_list **head_token, char *start_word)
 	if (j == 0)
 		return (i);
 	fresh_token = new_token(T_WORD, start_word, i + j);
-	list_token = ft_lstnew(fresh_token);
-	ft_lstadd_back(head_token, list_token);
+	add_token_back(head_token, fresh_token);
 	return (i + j);
 }
 
@@ -85,28 +83,28 @@ t_token	*create_space_token(char *line, int *n)
 	return (token);
 }
 
-t_list	*tokenizer(char *line, t_list *list_env)
+t_token	*tokenizer(char *line, t_env *env)
 {
 	t_token	*fresh_token;
-	t_list	*list_token;
-	t_list	*head_list_token;
+	t_token	*head_token;
 	int		i;
 
 	i = 0;
-	head_list_token = NULL;
+	head_token = NULL;
 	while (line[i])
 	{
 		if (ft_strchr("<>|$\"\' ", line[i]) != NULL)
 		{	
-			fresh_token = token_chooser(&line[i], list_env);
+			fresh_token = token_chooser(&line[i], env);
 			if (fresh_token == NULL)
-				freedom_error_fresh_token(head_list_token, line, list_env);
+				freedom_error_fresh_token(head_token, line, env);
+			add_token_back(&head_token, fresh_token);
+			printf("1. i = %d\n", i);
 			i += fresh_token->length;
-			list_token = ft_lstnew(fresh_token);
-			ft_lstadd_back(&head_list_token, list_token);
+			printf("2. i = %d\n", i);
 		}
 		else
-			i += wordeitor(&head_list_token, &line[i]);
+			i += wordeitor(&head_token, &line[i]);
 	}
-	return (head_list_token);
+	return (head_token);
 }
