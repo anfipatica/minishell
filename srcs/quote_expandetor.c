@@ -6,7 +6,6 @@ char	*nothing_to_expand(int *n, char *str)
 	char	*literal;
 
 	i = 0;
-	printf("ENNE N: %d string: %s\n", *n, str);
 	while (str[i] != '\"' && str[i] != '$' && str[i] != ' ')
 	{
 		i++;
@@ -16,7 +15,7 @@ char	*nothing_to_expand(int *n, char *str)
 	return (literal);
 }
 
-char	*maybe_expanded(int *n, char *str, t_env *env)
+char	*maybe_expanded(int *n, char *str, t_list *env)
 {
 	int	i;
 
@@ -27,7 +26,6 @@ char	*maybe_expanded(int *n, char *str, t_env *env)
 		i++;
 	*n += i;
 	maybe_expanded_str = ft_getenv(str, env, i);
-	printf("in maybe_expanded: str = %s\n", maybe_expanded_str);
 	return (maybe_expanded_str);
 }
 

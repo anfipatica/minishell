@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
+#CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
@@ -27,9 +27,6 @@ PEPEX_DIR = srcs/pepex/
 SRCS =											\
 		$(SRC_DIR)$(LIST_DIR)list_token.c		\
 		$(SRC_DIR)$(LIST_DIR)list_env.c			\
-		$(SRC_DIR)$(LIST_DIR)list_command.c		\
-		$(SRC_DIR)$(LIST_DIR)list_redirect.c	\
-		$(SRC_DIR)$(LIST_DIR)list_args.c		\
 		$(SRC_DIR)$(PRINT_DIR)get_token_name.c	\
 		$(SRC_DIR)$(PRINT_DIR)printers.c		\
 		$(SRC_DIR)main.c						\

@@ -23,17 +23,27 @@ void twin_quote(char *line)
 	}
 }
 
-int	promptereitor(t_env *env)
+bool	predicate_if_space_or_empty(void *content, void *context)
+{
+	printf("content = %p\n", content);
+	if (content == NULL)
+	{
+		printf("asdasdasd\n");
+		return (true);
+	}
+	if (ft_strcmp((const char *)context, ((t_token *)content)->str) == 0)
+		return (true);
+	return (false);
+}
+
+int	promptereitor(t_list *list_env)
 {
 	char		*line;
-	t_token		*first_token;
-	t_command	*command;
-
+	t_list		*first_token;
+//	t_list		*command;
 	first_token = NULL;
-	int i = 0;
 	while (1)
 	{
-		printf("iteration: %d\n", i);
 		line = readline("Prompt > ");
 		twin_quote(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
@@ -51,7 +61,6 @@ int	promptereitor(t_env *env)
 			ft_free_commands(command);
 		}
 		free(line);
-		i++;
 	}
 	free(line);
 	rl_clear_history();

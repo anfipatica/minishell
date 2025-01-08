@@ -20,25 +20,27 @@ t_command	*automata(t_token *token)
 {
 	t_command	*head_command;
 	t_command	*command;
+	t_command	*command;
 	int			current_state;
 	int		(*func_arr[7])(t_token *, t_command *);
 
-	command = NULL;
 	current_state = 0;
 	create_function_arr(func_arr);
 	head_command = new_command();
+	command = head_command;
 	command = head_command;
 	while (token)
 	{
 		printf("state = %d\n", current_state);
 		current_state = get_new_state(current_state, token->type);
 		if (func_arr[current_state](token, command) == ERROR__STATE)
+		if (func_arr[current_state](token, command) == ERROR__STATE)
 			return (ft_free_commands(head_command), NULL);
 		token = token->next;
 	}
 	if (current_state > ACCEPT_STATES)
 		printf(RED"SINTAX_ERROR\n"STD);
-
+	
 	return (head_command);
 }
 
