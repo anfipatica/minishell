@@ -1,17 +1,17 @@
 #include "minishell.h"
 
-int	insert_command(t_token	*token, t_command *command)
+/* int	insert_command(t_token	*token, t_command *command)
 {
-	printf("holaaaa!\n");
-	if (command->path_command)
-		return (insert_flag(token, command));
-	printf("INSERT_COMMAND\n");
-	command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
-	insert_flag(token, command);
+	// printf("holaaaa!\n");
+	// if (command->path_command)
+	// 	return (insert_args(token, command));
+	// printf("INSERT_COMMAND\n");
+	// command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
+	insert_args(token, command);
 	return (0);
-}
+} */
 
-int	insert_flag(t_token	*token, t_command *command)
+int	insert_args(t_token	*token, t_command *command)
 {
 	printf("INSERT_FLAG\n");
 	t_args	*aux_arg;
@@ -22,17 +22,17 @@ int	insert_flag(t_token	*token, t_command *command)
 
 int	set_redirect_type(t_token	*token, t_command *command)
 {
+
 	printf("SET_REDIRECT_TYPE\n");
-	(void) token;
-	(void) command;
+	command->aux_redirect = new_redirect(token->type);
 	return (0);
 }
 
 int	insert_file(t_token	*token, t_command *command)
 {
 	printf("INSERT_FILE\n");
-	(void) token;
-	(void) command;
+	command->aux_redirect->name = ft_ternary(token->expanded, token->str, token->expanded);
+	add_redirect_back(&(command->redirect), command->aux_redirect);
 	return (0);
 }
 

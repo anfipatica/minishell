@@ -25,8 +25,8 @@
 # define ORANG "\033[1;33m"
 
 //define automata
-#define ERROR__STATE	6
-#define ACCEPT_STATES	3
+#define ERROR__STATE	5
+#define ACCEPT_STATES	2
 
 // typedef enum	s_token_value
 // {
@@ -88,7 +88,6 @@ typedef struct s_args
 {
 	char			*arg;
 	struct s_args	*next;
-//	int				len_arg;
 }				t_args;
 
 typedef struct s_command
@@ -96,6 +95,7 @@ typedef struct s_command
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*redirect;
+	t_redirect			*aux_redirect;
 	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
@@ -117,6 +117,7 @@ t_token		*new_token(e_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
 void		ft_free_tokens(t_token *token);
 void		ft_free_one_node(t_token *token);
+t_token *eval(t_token *lst);
 
 // list_env.c
 
@@ -128,8 +129,16 @@ t_env	*copy_env(char **env);
 
 t_args	*new_args(char *arg);
 void	add_args_back(t_args **head, t_args *new);
+void	ft_free_one_args(t_args *args);
+void	ft_free_list_args(t_args *arg_node);
 
-// char	*ft_getenv(char *name, t_env *env, int length);
+// list_redirect.c
+t_redirect	*new_redirect(e_token_value redirect_type);
+void	add_redirect_back(t_redirect **lst, t_redirect *new);
+void	ft_free_one_redirect(t_redirect *redirect);
+void	ft_free_redirects(t_redirect *redirect);
+
+// char		*ft_getenv(char *name, t_env *env, int length);
 // t_env	*create_node_env(char *line_env);
 // t_env	*copy_env(char **env);
 
@@ -193,7 +202,7 @@ int	print_states(t_token *token);
 // automata_func.c
 
 int	insert_command(t_token	*token, t_command *command);
-int	insert_flag(t_token	*token, t_command *command);
+int	insert_args(t_token	*token, t_command *command);
 int	set_redirect_type(t_token	*token, t_command *command);
 int	insert_file(t_token	*token, t_command *command);
 int	end_command(t_token	*token, t_command *command);

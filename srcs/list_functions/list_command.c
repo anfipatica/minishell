@@ -37,6 +37,7 @@ t_command	*new_command(t_env *env)
 	new_command->path_command = NULL;
 	new_command->args = NULL;
 	new_command->redirect = NULL;
+	new_command->aux_redirect = NULL;
 	new_command->env = env;
 	new_command->next = NULL;
 	return (new_command);
@@ -69,15 +70,9 @@ void	ft_free_one_command(t_command *command)
 	if (!command)
 		return ;
 	free(command->path_command);
-	//free_args matrix
-	//free_redirect struct
 	free(command);
 }
 
-/**
- poi uscire * ft_free_commands frees the nodes of a list and the neccesary content
- * inside each of them.
- */
 void	ft_free_commands(t_command *command)
 {
 	t_command	*temp;
@@ -87,6 +82,8 @@ void	ft_free_commands(t_command *command)
 	while (command != NULL)
 	{
 		temp = command->next;
+		ft_free_list_args(command->args);
+		ft_free_redirects(command->redirect);
 		ft_free_one_command(command);
 		command = temp;
 	}

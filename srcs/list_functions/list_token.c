@@ -55,9 +55,11 @@ void	ft_free_one_node(t_token *token)
 	if (!token)
 		return ;
 	free(token->str);
+	token->str = NULL;
 	if (token->free_expanded == true)
 	{
 		free(token->expanded);
+		token->expanded = NULL;
 	}
 	free(token);
 }
@@ -78,3 +80,28 @@ void	ft_free_tokens(t_token *token)
 		token = temp;
 	}
 }
+
+t_token *eval(t_token *lst)
+{
+	t_token *result = NULL;
+
+	if (!lst)
+		return NULL;
+
+	lst->next = eval(lst->next);
+
+	if (lst->type == T_SPACE)
+	{
+		result = lst->next;
+		ft_free_one_node(lst);
+	}
+	else
+		result = lst;
+	return (result);
+	
+}
+
+/* void	ft_lstdel(t_token **lst, void *context, bool (*predicate)(void *, void *), void (*del)(void *))
+{
+	*lst = eval(*lst, context, predicate, del);
+} */

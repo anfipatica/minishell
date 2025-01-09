@@ -8,12 +8,12 @@
 void	create_function_arr(int (*func_arr[])(t_token *token, t_command *command))
 {
 	func_arr[0] = NULL;
-	func_arr[1] = insert_command;
-	func_arr[2] = insert_flag;
-	func_arr[3] = insert_file;
-	func_arr[4] = set_redirect_type;
-	func_arr[5] = end_command;
-	func_arr[6] = sintax_error;
+	//func_arr[1] = insert_command;
+	func_arr[1] = insert_args;
+	func_arr[2] = insert_file;
+	func_arr[3] = set_redirect_type;
+	func_arr[4] = end_command;
+	func_arr[5] = sintax_error;
 }
 
 t_command	*automata(t_token *token, t_env *env)
@@ -37,8 +37,9 @@ t_command	*automata(t_token *token, t_env *env)
 		token = token->next;
 	}
 	if (current_state > ACCEPT_STATES)
-		printf(RED"SINTAX_ERROR\n"STD);
+		return (printf(RED"SINTAX_ERROR\n"STD), NULL);
 	add_command_back(&head_command, command);
+
 	return (head_command);
 }
 
@@ -46,14 +47,13 @@ int	get_new_state(int current_state, int token)
 {
 	printf("|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
 
-	const int	matrix[7][8] = { //-[ ]*****ESTADOS*****
-		{1, 1, 4, 4, 4, 4, 4, 6},//- 0 - estado inicial
-		{2, 2, 4, 4, 4, 4, 4, 5},//- 1 - estado command - ACCEPT_STATE
-		{2, 2, 4, 4, 4, 4, 4, 5},//- 2 - estado flag - ACCEPT_STATE
-		{1, 1, 4, 4, 4, 4, 4, 5},//- 3 - estado file - ACCEPT_STATE
-		{3, 3, 6, 6, 6, 6, 6, 6},//- 4 - estado redirect
-		{1, 1, 4, 4, 4, 4, 4, 6},//- 5 - estado pipe
-		{6, 6, 6, 6, 6, 6, 6, 6} //- 6 - estado err - ERROR__STATE
+	const int	matrix[6][8] = { //-[ ]*****ESTADOS*****
+		{1, 1, 3, 3, 3, 3, 3, 5},//- 0 - estado inicial
+		{1, 1, 3, 3, 3, 3, 3, 4},//- 1 - estado flag - ACCEPT_STATE
+		{1, 1, 3, 3, 3, 3, 3, 4},//- 2 - estado file - ACCEPT_STATE
+		{2, 2, 5, 5, 5, 5, 5, 5},//- 3 - estado redirect
+		{1, 1, 3, 3, 3, 3, 3, 5},//- 4 - estado pipe
+		{5, 5, 5, 5, 5, 5, 5, 5} //- 5 - estado err - ERROR__STATE
 	};//-|  |  |  |  |  |  |  |
 //- 	 |  |  |  |  |  |  |  |
 //-		 W  $  <  << >  >> <> |     [ ][ ]TOKENS

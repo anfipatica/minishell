@@ -38,30 +38,26 @@ void	add_args_back(t_args **head, t_args *new)
 	}
 }
 
-// void	ft_free_one_args(t_args *args)
-// {
-// 	if (!args)
-// 		return ;
-// 	free(args->path_args);
-// 	//free_args matrix
-// 	//free_redirect struct
-// 	free(args);
-// }
+void	ft_free_one_args(t_args *args)
+{
+	if (!args)
+		return ;
 
-// /**
-//  poi uscire * ft_free_argss frees the nodes of a list and the neccesary content
-//  * inside each of them.
-//  */
-// void	ft_free_argss(t_args *args)
-// {
-// 	t_args	*temp;
+	free(args);
+}
 
-// 	if (!args)
-// 		return ;
-// 	while (args != NULL)
-// 	{
-// 		temp = args->next;
-// 		ft_free_one_args(args);
-// 		args = temp;
-// 	}
-// }
+void	ft_free_list_args(t_args *arg_node)
+{
+	t_args	*temp;
+
+	if (!arg_node)
+	{
+		return ;
+	}
+	while (arg_node)
+	{
+		temp = arg_node->next;
+		ft_free_one_args(arg_node);
+		arg_node = temp;
+	}
+}

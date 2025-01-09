@@ -6,14 +6,28 @@
 
 void print_commands(t_command *command)
 {
-	if (command)
-		printf("cmd_Path:%s\n\n", command->path_command);
-	while(command->args)
+	t_args	*aux_args;
+	t_redirect *aux_redirect;
+
+	if (!command)
+		return ;
+	aux_args = command->args;
+	aux_redirect = command->redirect;
+	printf("-----------------------------------------------\n");
+	while(aux_args)
 	{
-		printf("args:%s\n", command->args->arg);
-		command->args = command->args->next;
+		printf(BLUE"args: %s\n"STD, aux_args->arg);
+		aux_args = aux_args->next;
 	}
-	//printf("redirect:%s\n", command->path_command);
+	if (aux_redirect)
+		printf("- - - - - - - - - - - - - - - - - - - - - - - -\n");
+	while(aux_redirect)
+	{
+		printf(PURPLE"redirect: %d - %s\n"STD, aux_redirect->redirect_type, aux_redirect->name);
+		aux_redirect = aux_redirect->next;
+	}
+	printf("-----------------------------------------------\n");
+
 }
 
 

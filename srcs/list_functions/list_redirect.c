@@ -66,7 +66,6 @@ void	ft_free_one_redirect(t_redirect *redirect)
 {
 	if (!redirect)
 		return ;
-	// FREE TODO
 	free(redirect);
 }
 /**

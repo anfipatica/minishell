@@ -70,12 +70,11 @@ void	list_checker(t_token **list)
 		}
 		else if (new_list->type == T_ENV && new_list->next->type == T_ENV)
 			join_tokens(new_list, new_list->next);
-		else if (new_list->next->type == T_SPACE)
-			unlink_node(&new_list);
 		else
 			new_list = new_list->next;
 	}
 	new_list = *list;
+	*list = eval(new_list);
 }
 //"hola" que tal "asdasd"patata
 //tal ""
