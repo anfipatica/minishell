@@ -11,22 +11,27 @@ void print_commands(t_command *command)
 
 	if (!command)
 		return ;
+	printf("-----------------------------------------------\n");
+	while (command)
+	{
 	aux_args = command->args;
 	aux_redirect = command->redirect;
-	printf("-----------------------------------------------\n");
-	while(aux_args)
-	{
-		printf(BLUE"args: %s\n"STD, aux_args->arg);
-		aux_args = aux_args->next;
+		while(aux_args)
+		{
+			printf(BLUE"args: %s\n"STD, aux_args->arg);
+			aux_args = aux_args->next;
+		}
+		if (aux_redirect)
+			printf("- - - - - - - - - - - - - - - - - - - - - - - -\n");
+		while(aux_redirect)
+		{
+			printf(PURPLE"redirect: %d - %s\n"STD, aux_redirect->redirect_type, aux_redirect->name);
+			aux_redirect = aux_redirect->next;
+		}
+		printf("-----------------------------------------------\n");
+		command = command->next;
 	}
-	if (aux_redirect)
-		printf("- - - - - - - - - - - - - - - - - - - - - - - -\n");
-	while(aux_redirect)
-	{
-		printf(PURPLE"redirect: %d - %s\n"STD, aux_redirect->redirect_type, aux_redirect->name);
-		aux_redirect = aux_redirect->next;
-	}
-	printf("-----------------------------------------------\n");
+
 
 }
 

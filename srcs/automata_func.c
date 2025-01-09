@@ -39,8 +39,8 @@ int	insert_file(t_token	*token, t_command *command)
 int	end_command(t_token	*token, t_command *command)
 {
 	printf("END_COMMAND\n");
-	(void) token;
 	(void) command;
+	(void) token;
 	return (0);
 }
 

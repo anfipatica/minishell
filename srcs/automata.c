@@ -30,8 +30,12 @@ t_command	*automata(t_token *token, t_env *env)
 	create_function_arr(func_arr);
 	while (token)
 	{
-		printf("state = %d\n", current_state);
 		current_state = get_new_state(current_state, token->type);
+		if (current_state == 4)
+		{
+			add_command_back(&head_command, command);
+			command = new_command(env);
+		}
 		if (func_arr[current_state](token, command) == ERROR__STATE)
 			return (ft_free_commands(head_command), NULL);
 		token = token->next;
@@ -39,7 +43,6 @@ t_command	*automata(t_token *token, t_env *env)
 	if (current_state > ACCEPT_STATES)
 		return (printf(RED"SINTAX_ERROR\n"STD), NULL);
 	add_command_back(&head_command, command);
-
 	return (head_command);
 }
 
