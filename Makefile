@@ -49,6 +49,7 @@ SRCS =											\
 		$(PEPEX_DIR)here_docereitor.c			\
 		$(PEPEX_DIR)main_bonus.c				\
 		$(PEPEX_DIR)main.c						\
+		$(SRC_DIR)executor.c					\
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))

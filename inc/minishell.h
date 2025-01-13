@@ -92,6 +92,7 @@ typedef struct s_args
 
 typedef struct s_command
 {
+	int				p_fds[2];
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*redirect;
@@ -225,5 +226,9 @@ char	*here_dokeitor(char *limiter);
 
 
 void print_commands(t_command *command);
+
+//EXECUTOR.C
+int	executor(t_command *command);
+
 
 #endif

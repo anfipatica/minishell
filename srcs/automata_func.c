@@ -2,11 +2,11 @@
 
 /* int	insert_command(t_token	*token, t_command *command)
 {
-	// printf("holaaaa!\n");
-	// if (command->path_command)
-	// 	return (insert_args(token, command));
-	// printf("INSERT_COMMAND\n");
-	// command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
+	printf("holaaaa!\n");
+	if (command->path_command)
+		return (insert_args(token, command));
+	printf("INSERT_COMMAND\n");
+	command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
 	insert_args(token, command);
 	return (0);
 } */

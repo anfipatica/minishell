@@ -4,6 +4,26 @@
 /**
  * new_token creates a new token and allocates memory for it.
  */
+
+
+char **lts_args_to_matrix(t_args *args)
+{
+	char **args_matrix;
+	int i;
+
+	i = 0;
+	while (args)
+	{
+		args = args->next;
+		i++;
+	}
+	args_matrix = malloc(i * sizeof(char *) + 1);
+	if (!args_matrix)
+		return(NULL);
+
+	
+}
+
 t_args	*new_args(char *arg)
 {
 	t_args	*new_args;

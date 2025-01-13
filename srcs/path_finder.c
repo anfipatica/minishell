@@ -19,8 +19,6 @@ void path_finder(t_token *token, t_env *env)
 
 	command->args = ft_ternary(token->expanded, token->str, token->expanded);
 	command->path_command = is_acces(command->args, env);
-
-	execve()
 }
 
 /* 
