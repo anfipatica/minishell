@@ -1,10 +1,13 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "libft.h": "c",
-        "string.h": "c",
-        "stdbool.h": "c"
-    },
+		"minishell.h": "c",
+		"libft.h": "c",
+		"string.h": "c",
+		"stdbool.h": "c",
+		"type_traits": "c",
+		"errno.h": "c",
+		"features.h": "c"
+	},
     "better-comments.tags": [
 
         {

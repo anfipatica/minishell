@@ -6,13 +6,12 @@
 // /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 // /*                                                +#+#+#+#+#+   +#+           */
 // /*   Created: 2024/06/27 13:34:40 by psapio            #+#    #+#             */
-// /*   Updated: 2025/01/13 16:03:10 by ymunoz-m         ###   ########.fr       */
+// /*   Updated: 2025/01/15 13:31:29 by ymunoz-m         ###   ########.fr       */
 // /*                                                                            */
 // /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// #include <errno.h>
 // #define WRITE 1
 // #define READ 0
 
@@ -31,18 +30,22 @@
 // 	return (file_fd);
 // }
 
-// void	ft_perror(char *str)
-// {
-// 	if (str == NULL)
-// 		write(2, "\"\": empty command\n", 19);
-// 	else if ((str != NULL) && (errno != 0))
-// 		perror(str);
-// 	else
-// 	{
-// 		write(2, str, ft_strlen(str));
-// 		write(2, ": command not found\n", 21);
-// 	}
-// }
+void	ft_perror(char *str)
+{
+	if (str == NULL)
+		write(2, "\"\": empty command\n", 19);
+	else if ((str != NULL) && (errno != 0))
+	{
+		printf("asdkjaskdhaskdhahskdj\n");
+		perror(str);
+	}
+	else
+	{
+		write(2, str, ft_strlen(str));
+		write(2, ": command not found\n", 21);
+	}
+	exit(1);
+}
 
 // void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
 // {

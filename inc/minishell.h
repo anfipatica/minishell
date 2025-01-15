@@ -13,6 +13,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stddef.h>
+# include <errno.h>
 # include "libft.h"
 
 # define SYMBOLS "<>|$- "
@@ -27,6 +28,9 @@
 //define automata
 #define ERROR__STATE	5
 #define ACCEPT_STATES	2
+
+#define	ARGS	0
+#define	ENV	1
 
 // typedef enum	s_token_value
 // {
@@ -124,6 +128,7 @@ t_token *eval(t_token *lst);
 char	*ft_getenv(char *name, t_env *env, int length);
 t_env	*create_node_env(char *line_env);
 t_env	*copy_env(char **env);
+char	**lts_env_to_matrix(t_env *env);
 
 // list_args.c
 
@@ -131,6 +136,7 @@ t_args	*new_args(char *arg);
 void	add_args_back(t_args **head, t_args *new);
 void	ft_free_one_args(t_args *args);
 void	ft_free_list_args(t_args *arg_node);
+char	**lts_args_to_matrix(t_args *args);
 
 // list_redirect.c
 t_redirect	*new_redirect(e_token_value redirect_type);
@@ -139,6 +145,7 @@ void	ft_free_one_redirect(t_redirect *redirect);
 void	ft_free_redirects(t_redirect *redirect);
 
 /* -------------- PRINTERS ------------- -*/
+
 //get_token_name.c
 
 const char	*get_token_name(e_token_value token);
@@ -152,12 +159,13 @@ int	print_states(t_token *token);
 
 /* --------------- PEPEX ---------------- */
 
-char	*find_path_name(char *cmd, t_env *env, char **cmd_arg);
+char	*find_path_name(char *cmd, char **env, char **cmd_arg);
 void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
 void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
 pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
 char	*here_dokeitor(char *limiter);
+void	ft_perror(char *str);
 
 
 /* ----------- EVERYTHING ELSE ---------- */

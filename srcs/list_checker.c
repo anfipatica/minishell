@@ -43,7 +43,7 @@ void	unlink_node(t_token **before_space)
 	(*before_space) = (*before_space)->next;
 
 }
-
+//TODO Arreglar si le pasamos esto -> "hola" a solas!
 void	list_checker(t_token **list)
 {
 	t_token *new_list;

@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/09 16:07:28 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:30:19 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,34 @@ void	error_path(char *path_name, char *cmd, char **all_path, char **cmd_arg)
 			free_double_pointer(all_path);
 		if (cmd_arg)
 			free_double_pointer(cmd_arg);
-		exit(1);
 	}
 }
 
-char	*find_path_name(char *cmd, t_env *env, char **cmd_arg)
+char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 {
+	(void)cmd_arg;
 	char	**all_path;
 	char	*path_name;
 	int		i;
+
 	if (cmd == NULL || ft_strchr(cmd, '/') != NULL)
 		return (cmd);
 	i = 0;
-	while (env != NULL)
+	while (envp[i] != NULL)
 	{
-		if (ft_strncmp(env->name, "PATH", 4) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			all_path = ft_split(env->value, ':');
+			all_path = ft_split(envp[i] + 5, ':');
 			if (all_path == NULL)
 				return (NULL);
 			break ;
 		}
-		env = env->next;
+		i++;
 	}
-	if (env == NULL)
+	if (envp[i] == NULL)
 		return (NULL);
 	path_name = check_path(all_path, cmd);
-	error_path(path_name, cmd, all_path, cmd_arg);
+	//error_path(path_name, cmd, all_path, cmd_arg);
 	free_double_pointer(all_path);
 	return (path_name);
 }

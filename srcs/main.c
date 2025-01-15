@@ -13,7 +13,7 @@ int	main(int argc, char **argv, char **env_original)
 	return (0);
 }
 
-//TODO	clasificar las palabras
+////	clasificar las palabras
 //TODO	tenemos que implementar las multiridirecions del pipex;
 //TODO	hacer los buldings que son relativamente faciles
 //TODO	implementar las siñales

@@ -39,6 +39,7 @@ void print_commands(t_command *command)
 void	print_tokens(t_token *token)
 {
 	int i;
+	char strfield[100];
 
 	i = 1;
 	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
@@ -47,8 +48,9 @@ void	print_tokens(t_token *token)
 		printf("\n\033[44m╔═════════════════════════════╗\033[0m\n");
 		printf("\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
 		printf("\033[44m╠═════════════════════════════╣\033[0m\n");
-		printf("\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
-		printf("\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
+		printf("\033[44m║💡  Type      :   %-10s ║\033[0m\n", get_token_name(token->type));
+		sprintf(strfield, "→%s←", token->str);
+		printf("\033[44m║📜  String    :  %-15s ║\033[0m\n", strfield);
 		if(token->expanded != NULL)
 			printf("\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
 		printf("\033[44m╚═════════════════════════════╝\033[0m\n");
