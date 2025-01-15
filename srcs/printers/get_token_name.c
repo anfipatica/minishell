@@ -22,5 +22,8 @@ const char	*get_token_name(e_token_value token)
 		return ("T_S_QUOTE");
 	else if (token == T_IN_OUT)
 		return ("T_IN_OUT");
-	return ("T_SPACE");
+	else if (token == T_SPACE)
+		return ("T_SPACE");
+	else
+		return ("UNRECOGNIZED TOKEN");
 }

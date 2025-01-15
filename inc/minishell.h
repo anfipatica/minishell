@@ -103,7 +103,7 @@ typedef struct s_command
 }				t_command;
 
 
-/* ----------- LIST_FUNCTIONS -----------*/
+/* ----------- LIST_FUNCTIONS ----------- */
 //list_command.c
 
 void		ft_free_commands(t_command *command);
@@ -113,7 +113,6 @@ t_command	*new_command(t_env *env);
 
 //list_token.c
 
-void		print_tokens(t_token *token);
 t_token		*new_token(e_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
 void		ft_free_tokens(t_token *token);
@@ -139,11 +138,29 @@ void	add_redirect_back(t_redirect **lst, t_redirect *new);
 void	ft_free_one_redirect(t_redirect *redirect);
 void	ft_free_redirects(t_redirect *redirect);
 
-// char		*ft_getenv(char *name, t_env *env, int length);
-// t_env	*create_node_env(char *line_env);
-// t_env	*copy_env(char **env);
+/* -------------- PRINTERS ------------- -*/
+//get_token_name.c
+
+const char	*get_token_name(e_token_value token);
+
+//printers.c
+
+void	print_commands(t_command *command);
+void		print_tokens(t_token *token);
+int	print_states(t_token *token);
 
 
+/* --------------- PEPEX ---------------- */
+
+char	*find_path_name(char *cmd, t_env *env, char **cmd_arg);
+void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
+void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
+pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
+void	print_error(const char *msg);
+char	*here_dokeitor(char *limiter);
+
+
+/* ----------- EVERYTHING ELSE ---------- */
 
 // Tokenizer.c
 
@@ -152,16 +169,10 @@ int			wordeitor(t_token **head_token, char *start_word);
 t_token		*token_chooser(char *line, t_env *env);
 t_token		*symbol_tokenizer(e_token_value type, char *line, int n_symbol);
 
-
 //promptereitor.c
 
 void		twin_quote(char *line);
 int			promptereitor(t_env *env);
-
-
-//get_token_name.c
-
-const char	*get_token_name(e_token_value token);
 
 //list_env.c
 
@@ -178,7 +189,6 @@ t_token		*get_pid_expandetor();
 // quoteitor.c
 
 t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
-
 
 // quotes_token_create.c
 
@@ -198,7 +208,6 @@ char	*get_pid_quote(void);
 
 int	get_new_state(int current_state, int token);
 t_command	*automata(t_token *token, t_env *env);
-int	print_states(t_token *token);
 
 // automata_func.c
 
@@ -209,23 +218,9 @@ int	insert_file(t_token	*token, t_command *command);
 int	end_command(t_token	*token, t_command *command);
 int	sintax_error(t_token	*token, t_command *command);
 
-
 // list_checker.c
 
 void	list_checker(t_token **list);
-
-
-//PEPEX FILES
-
-char	*find_path_name(char *cmd, t_env *env, char **cmd_arg);
-void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
-void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
-pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
-void	print_error(const char *msg);
-char	*here_dokeitor(char *limiter);
-
-
-void print_commands(t_command *command);
 
 //EXECUTOR.C
 int	executor(t_command *command);

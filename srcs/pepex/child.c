@@ -44,34 +44,34 @@
 // 	}
 // }
 
-void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
-{
-	pid_t	family;
-	int		in_fd;
-	char	**cmd_arg;
-	char	*path_name;
+// void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
+// {
+// 	pid_t	family;
+// 	int		in_fd;
+// 	char	**cmd_arg;
+// 	char	*path_name;
 
-	family = fork();
-	if (family == 0)
-	{
-		close(p_fds[READ]);
-		in_fd = openeitor(p_fds, infile, O_RDONLY, 0);
-		dup2(in_fd, 0);
-		close(in_fd);
-		cmd_arg = ft_split(first_cmd, ' ');
-		if (cmd_arg == NULL)
-			exit(1);
-		path_name = find_path_name(cmd_arg[0], envp, cmd_arg);
-		dup2(p_fds[WRITE], 1);
-		close(p_fds[WRITE]);
-		if (path_name != NULL)
-			execve(path_name, cmd_arg, envp);
-		free(path_name);
-		ft_perror(cmd_arg[0]);
-		free_double_pointer(cmd_arg);
-		exit(1);
-	}
-}
+// 	family = fork();
+// 	if (family == 0)
+// 	{
+// 		close(p_fds[READ]);
+// 		in_fd = openeitor(p_fds, infile, O_RDONLY, 0);
+// 		dup2(in_fd, 0);
+// 		close(in_fd);
+// 		cmd_arg = ft_split(first_cmd, ' ');
+// 		if (cmd_arg == NULL)
+// 			exit(1);
+// 		path_name = find_path_name(cmd_arg[0], envp, cmd_arg);
+// 		dup2(p_fds[WRITE], 1);
+// 		close(p_fds[WRITE]);
+// 		if (path_name != NULL)
+// 			execve(path_name, cmd_arg, envp);
+// 		free(path_name);
+// 		ft_perror(cmd_arg[0]);
+// 		free_double_pointer(cmd_arg);
+// 		exit(1);
+// 	}
+// }
 
 // void	child_pepa_midle(int *p_fds, int aux_fd_r, char *mid_cmd, char **envp)
 // {

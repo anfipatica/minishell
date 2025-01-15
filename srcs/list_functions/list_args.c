@@ -5,7 +5,6 @@
  * new_token creates a new token and allocates memory for it.
  */
 
-
 char **lts_args_to_matrix(t_args *args)
 {
 	char **args_matrix;
@@ -21,7 +20,7 @@ char **lts_args_to_matrix(t_args *args)
 	if (!args_matrix)
 		return(NULL);
 
-	
+	return (0);
 }
 
 t_args	*new_args(char *arg)
