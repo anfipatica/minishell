@@ -81,16 +81,16 @@ void	ft_free_tokens(t_token *token)
 	}
 }
 
-t_token *eval(t_token *lst)
+t_token *check_and_delete(t_token *lst)
 {
 	t_token *result = NULL;
 
 	if (!lst)
 		return NULL;
 
-	lst->next = eval(lst->next);
+	lst->next = check_and_delete(lst->next);
 
-	if (lst->type == T_SPACE)
+	if (lst->type == T_SPACE ||  (lst->type == T_ENV && !(lst->expanded)))
 	{
 		result = lst->next;
 		ft_free_one_node(lst);

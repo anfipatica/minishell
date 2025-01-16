@@ -26,6 +26,7 @@ char	*maybe_expanded(int *n, char *str, t_env *env)
 	while (str[i] && (ft_isalnum(str[i]) == 1 || str[i] == '_'))
 		i++;
 	*n += i;
+	printf("enVv: %*s\n", i, str);
 	maybe_expanded_str = ft_getenv(str, env, i);
 	printf("in maybe_expanded: str = %s\n", maybe_expanded_str);
 	return (maybe_expanded_str);

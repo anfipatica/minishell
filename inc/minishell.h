@@ -67,7 +67,7 @@ typedef enum	s_token_value
 	T_D_QUOTE
 }				e_token_value;
 
-typedef struct s_token  
+typedef struct s_token
 {
 //	int				index;		// The index inside the list.
 	e_token_value	type;		// The token value.
@@ -90,7 +90,7 @@ typedef struct	s_redirect
 {
 	char				*name;
 	e_token_value		redirect_type;
-	struct s_redirect	*next; 
+	struct s_redirect	*next;
 }				t_redirect;
 
 typedef struct s_args
@@ -101,7 +101,7 @@ typedef struct s_args
 
 typedef struct s_command
 {
-	int				p_fds[2];
+	int					p_fds[2];
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*redirect;
@@ -126,7 +126,7 @@ t_token		*new_token(e_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
 void		ft_free_tokens(t_token *token);
 void		ft_free_one_node(t_token *token);
-t_token *eval(t_token *lst);
+t_token		*check_and_delete(t_token *lst);
 
 // list_env.c
 
