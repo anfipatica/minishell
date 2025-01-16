@@ -12,6 +12,7 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+ #include <sys/stat.h>
 # include <stddef.h>
 # include <errno.h>
 # include "libft.h"

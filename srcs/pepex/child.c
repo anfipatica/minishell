@@ -32,11 +32,12 @@
 
 void	ft_perror(char *str)
 {
+	printf("errno = %d\n", errno);
 	if (str == NULL)
 		write(2, "\"\": empty command\n", 19);
 	else if ((str != NULL) && (errno != 0))
 	{
-		printf("asdkjaskdhaskdhahskdj\n");
+		printf("Sdasdasdasd\n");
 		perror(str);
 	}
 	else

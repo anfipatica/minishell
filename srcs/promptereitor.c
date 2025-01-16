@@ -35,12 +35,12 @@ int	promptereitor(t_env *env)
 	{
 		printf("iteration: %d\n", i);
 		line = readline("Prompt > ");
-		twin_quote(line);
-		if (ft_strncmp(line, "exit", 5) == 0)
+		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;
 		if (line[0] != '\0')
 		{
 			add_history(line);
+			twin_quote(line);
 			first_token = tokenizer(line, env);
 			print_tokens(first_token);
 			list_checker(&first_token);
