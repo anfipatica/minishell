@@ -5,7 +5,7 @@ t_token	*expandetor(char *line, t_env *env)
 {
 	int		i;
 	t_token	*token;
-
+	printf("~~~~~~~~~~~~~\n");
 	if (ft_isdigit(line[1]) == 1)
 		return (new_token(T_ENV, line, 1));
 	if (ft_isalpha(line[1]) == 0 && line[1] != '_')
@@ -15,6 +15,7 @@ t_token	*expandetor(char *line, t_env *env)
 		i++;
 	token = new_token(T_ENV, line, i);
 	token->expanded = ft_getenv((token->str) + 1, env, 0);
+	printf("**********%s\n", token->expanded);
 	return (token);
 }
 

@@ -30,23 +30,6 @@
 // 	return (file_fd);
 // }
 
-void	ft_perror(char *str)
-{
-	printf("errno = %d\n", errno);
-	if (str == NULL)
-		write(2, "\"\": empty command\n", 19);
-	else if ((str != NULL) && (errno != 0))
-	{
-		printf("Sdasdasdasd\n");
-		perror(str);
-	}
-	else
-	{
-		write(2, str, ft_strlen(str));
-		write(2, ": command not found\n", 21);
-	}
-	exit(1);
-}
 
 // void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
 // {

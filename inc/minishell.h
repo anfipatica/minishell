@@ -33,6 +33,10 @@
 #define	ARGS	0
 #define	ENV	1
 
+//ERRORS
+#define IS_DIR 1
+#define COMMAND_DOESNT_EXIST 2
+
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -234,5 +238,7 @@ void	list_checker(t_token **list);
 //EXECUTOR.C
 int	executor(t_command *command);
 
+//error.c
+void	error_exit(char *str, int error);
 
 #endif

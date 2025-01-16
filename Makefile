@@ -50,6 +50,7 @@ SRCS =											\
 		$(PEPEX_DIR)main_bonus.c				\
 		$(PEPEX_DIR)main.c						\
 		$(SRC_DIR)executor.c					\
+		$(SRC_DIR)error.c					\
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))

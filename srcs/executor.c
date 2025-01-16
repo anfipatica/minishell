@@ -1,37 +1,24 @@
 #include "minishell.h"
 
-void	print_binary_que_no_necesitamos(int n)
+void	dir_or_file(char **matrix[2], char *path_name)
 {
-	int	mask =  0b1000000;
+	struct stat	buffer;
 
-	for (int i = 0; i <= 8; i++)
-	{
-		if ((n & mask) == 0)
-			printf("0");
-		else
-			printf("1");
-		mask >>= 1;
-	}
-	printf("\n");
+	if (!path_name)
+		return (error_exit(matrix[ARGS][0], COMMAND_DOESNT_EXIST));
+	execve(path_name, matrix[ARGS], matrix[ENV]);
+	if (stat(path_name, &buffer) == -1)
+		ft_perror(matrix[ARGS][0]);
+	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
+		return (error_exit(path_name, IS_DIR));
 }
-void	print_binary(int n)
-{
-	for (int i = 31; i >= 0; i--)
-	{
-		if ((n & (1 << i)) == 0)
-			printf("0");
-		else
-			printf("1");
-	}
-	printf("\n");
-}
+
 void	exe_without_pipe(t_command *command)
 {
 	pid_t	family;
 	int	status;
 	char	*path_name;
 	char **matrix[2];
-	struct stat	buffer;
 
 	family = fork();
 	if (family == 0)
@@ -41,19 +28,12 @@ void	exe_without_pipe(t_command *command)
 		if (matrix[ARGS] == NULL)
 			return ;
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-		stat(path_name, &buffer);
-		print_binary(buffer.st_mode);
-		print_binary(__S_IFMT);
-		print_binary(__S_IFDIR);
-
-		if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
-			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n"); //TODO ESTO
-		if (path_name)
-			execve(path_name, matrix[ARGS], matrix[ENV]);
+		printf("path_name = %s\n", path_name);
+		dir_or_file(matrix, path_name);
 		free(path_name);
-		ft_perror(matrix[ARGS][0]);
 		free(matrix[ARGS]);
 		free_double_pointer(matrix[ENV]);
+		exit(1);
 	}
 	else
 		wait(&status);
