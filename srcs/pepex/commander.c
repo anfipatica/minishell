@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/16 12:56:14 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:55:44 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 	char	*path_name;
 	int		i;
 
-	if (cmd == NULL || ft_strchr(cmd, '/') != NULL)
+	if (cmd == NULL || ft_strchr(cmd, '/') != NULL || cmd[0] == '\0')
 		return (cmd);
 	i = 0;
 	while (envp[i] != NULL)

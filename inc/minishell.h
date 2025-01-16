@@ -35,7 +35,7 @@
 
 //ERRORS
 #define IS_DIR 1
-#define COMMAND_DOESNT_EXIST 2
+#define COMMAND_NOT_FOUND 2
 
 // typedef enum	s_token_value
 // {
@@ -210,6 +210,7 @@ t_token	*create_str_quote(char *start_quote, t_env *env);
 //freedom.c
 
 void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
+void	free_exit_execution(char *path_name, char **matrix[2]);
 
 // quote_expandetor.c
 

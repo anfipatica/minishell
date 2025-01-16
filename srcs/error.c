@@ -8,7 +8,6 @@ void	ft_perror(char *str)
 	else if ((str != NULL) && (errno != 0))
 	{
 		printf("%s\n", str);
-		printf("Sdasdasdasd\n");
 		perror(str);
 	}
 	else
@@ -16,14 +15,14 @@ void	ft_perror(char *str)
 		write(2, str, ft_strlen(str));
 		write(2, ": command not found\n", 21);
 	}
-	exit(1);
+	//exit(1); ---------------- en caso de qeu se necesita lo ponemos
 }
 
 void	error_exit(char *str, int error)
 {
 	if (error == IS_DIR)
 		printf("%s: Is a directory\n", str);
-	else if (error == COMMAND_DOESNT_EXIST)
+	else if (error == COMMAND_NOT_FOUND)
 		printf("%s: command not found\n", str);
 	else
 		printf("Unknown error\n");
