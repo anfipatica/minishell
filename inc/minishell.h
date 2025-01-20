@@ -36,7 +36,16 @@
 //ERRORS
 #define IS_DIR 1
 #define COMMAND_NOT_FOUND 2
+#define OPEN_ERROR -1
 
+#define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
+#define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
+#define O_HERE_DOC (O_WRONLY | O_CREAT | O_APPEND)
+
+#define STD_PERMISSIONS 0644
+#define NULL_FD -2
+
+#define SPACES " \f\n\r\t\v"
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -111,6 +120,10 @@ typedef struct s_command
 
 }				t_command;
 
+// typedef struct s_error_return
+// {
+// 	int	error_return[1];
+// }				t_error_return;
 
 /* ----------- LIST_FUNCTIONS ----------- */
 //list_command.c

@@ -21,10 +21,18 @@ void	ft_perror(char *str)
 void	error_exit(char *str, int error)
 {
 	if (error == IS_DIR)
-		dprintf(2, "%s: Is a directory\n", str);
+	{
+		ft_putstr_fd(str, 2);
+		write(2, ": Is a directory\n", 18);
+		exit(126);
+	}
 	else if (error == COMMAND_NOT_FOUND)
-		dprintf(2, "%s: command not found\n", str);
+	{
+		ft_putstr_fd(str, 2);
+		write(2, ": command not found\n", 21);
+		exit(127);
+	}
 	else
-		dprintf(2, "Unknown error\n");
+		printf("Unknown error\n");
 }
 

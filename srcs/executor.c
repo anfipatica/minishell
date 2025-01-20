@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-#define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
-#define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
-
-#define STD_PERMISSIONS 0644
-#define NULL_FD -2
-#define OPEN_ERROR -1
-
 
 /*
 O_NOATIME -> no update de fecha en la lectura
@@ -48,10 +41,14 @@ int	in_file(t_redirect *file)
 	int	in_fd;
 
 	in_fd =	NULL_FD;
-	while (file && in_fd != OPEN_ERROR)
+	while (file)
 	{
 		if (file->redirect_type == T_REDIRECT_LEFT)
 			in_fd = open(file->name, O_RDONLY);
+		if (file->redirect_type == T_HERE_DOC)
+			in_fd = open("/tmp/.caca", O_HERE_DOC, STD_PERMISSIONS);
+		if (in_fd == OPEN_ERROR)
+			return (ft_perror(file->name), in_fd);
 		if (file->next == NULL)
 			break ;
 		file = file->next;
@@ -70,6 +67,8 @@ int	out_file(t_redirect *file)
 			out_fd = open(file->name, O_REDIRECT_RIGHT, STD_PERMISSIONS);
 		else if (file->redirect_type == T_APPEND)
 			out_fd = open(file->name, O_REDIRECT_APPEND, STD_PERMISSIONS);
+		if (out_fd == OPEN_ERROR)
+			ft_perror(file->name);
 		if (file->next == NULL)
 			break ;
 		file = file->next;
@@ -82,11 +81,11 @@ bool	handle_files(t_redirect *file)
 	int	in_fd;
 	int	out_fd;
 
-	in_fd = in_file(file);
-	if (in_fd == OPEN_ERROR)
-		return (false);
 	out_fd = out_file(file);
 	if (out_fd == OPEN_ERROR)
+		return (false);
+	in_fd = in_file(file);
+	if (in_fd == OPEN_ERROR)
 		return (false);
 	dup2_file(in_fd, 0);
 	dup2_file(out_fd, 1);
@@ -99,7 +98,7 @@ void	execute_or_error(char **matrix[2], char *path_name)
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
 	execve(path_name, matrix[ARGS], matrix[ENV]);
-	if (stat(path_name, &buffer) == OPEN_ERROR)
+	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
 	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
 		error_exit(path_name, IS_DIR);
@@ -112,6 +111,7 @@ void	exe_without_pipe(t_command *command)
 	char	*path_name;
 	char 	**matrix[2];
 
+
 	family = fork();
 	if (family == 0)
 	{
@@ -122,14 +122,17 @@ void	exe_without_pipe(t_command *command)
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		if (command->head_redirect)
 			if (handle_files(command->head_redirect) == false)
+			{
 				exit(1);
+			}
+		printf("bluuuuuuuu dipintod id blu\n");
 		execute_or_error(matrix, path_name);
 		free_exit_execution(path_name, matrix);
 	}
 	else
 	{
 		wait(&status);
-	//	dprintf(2, "STATUS: %d\n", WTERMSIG(status));
+		dprintf(2, "STATUS: %d\n", WEXITSTATUS(status));
 	}
 }
 

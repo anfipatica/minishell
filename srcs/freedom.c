@@ -15,5 +15,5 @@ void	free_exit_execution(char *path_name, char **matrix[2])
 	free(matrix[ARGS]);
 	free_double_pointer(matrix[ENV]);
 
-	exit(1);
+	exit(99);
 }
