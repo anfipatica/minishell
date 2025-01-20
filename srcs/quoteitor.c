@@ -7,7 +7,7 @@ void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_env *env)
 	int n;
 	
 	n = 1;
-	printf("line_After_dollar = %s\n", line_after_dollar);
+	dprintf(2, "line_After_dollar = %s\n", line_after_dollar);
 	if (line_after_dollar[n] == '$')
 	{
 		aux = get_pid_quote();
@@ -29,9 +29,9 @@ void if_not_dollar(char **expanded, char *start_quote, int *i)
 	if (start_quote[0] != ' ')
 	{
 		aux = nothing_to_expand(i, start_quote);
-		printf("aux = %s\n", aux);
+		dprintf(2, "aux = %s\n", aux);
 		*expanded = ft_strjoin(*expanded, aux);
-		printf("expanded = %s\n", *expanded);
+		dprintf(2, "expanded = %s\n", *expanded);
 		free(aux);
 	}
 	else
@@ -59,8 +59,8 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 			free(aux);
 			aux = NULL;
 		}
-		// printf("I: %i\n", i);
-		// printf("str: %s\n", start_quote + i);
+		// dprintf(2, "I: %i\n", i);
+		// dprintf(2, "str: %s\n", start_quote + i);
 		i++;
 		if (start_quote[i] == '\"')
 			break ;
@@ -69,6 +69,6 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 	token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
 	token_d_quote->expanded = expanded;
 	token_d_quote->free_expanded = true;
-	printf("token_d_quote: %s\n", token_d_quote->expanded);
+	dprintf(2, "token_d_quote: %s\n", token_d_quote->expanded);
 	return (token_d_quote);
 }

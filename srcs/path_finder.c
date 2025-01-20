@@ -30,5 +30,5 @@ int main(void)
 {bool genero;
 char str[] = "bebe";
 genero = false;
-	printf("%s\n", ft_ternary("vivo", "muerto", NULL));
+	dprintf(2, "%s\n", ft_ternary("vivo", "muerto", NULL));
 } */

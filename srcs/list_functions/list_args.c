@@ -31,7 +31,7 @@ char **lts_args_to_matrix(t_args *args)
 	}
 	args_matrix[i] = NULL;
 /* 	for (int j = 0; args_matrix[j]; ++j)
-		printf("args_matrix = %s\n", args_matrix[j]); */
+		dprintf(2, "args_matrix = %s\n", args_matrix[j]); */
 	return (args_matrix);
 }
 

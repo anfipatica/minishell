@@ -8,20 +8,20 @@
 // 	int i;
 
 // 	i = 1;
-// 	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
+// 	dprintf(2, "\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
 // 	while (token)
 // 	{
-// 		printf("\n\033[44m╔═════════════════════════════╗\033[0m\n");
-// 		printf("\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
-// 		printf("\033[44m╠═════════════════════════════╣\033[0m\n");
-// 		printf("\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
-// 		printf("\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
+// 		dprintf(2, "\n\033[44m╔═════════════════════════════╗\033[0m\n");
+// 		dprintf(2, "\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
+// 		dprintf(2, "\033[44m╠═════════════════════════════╣\033[0m\n");
+// 		dprintf(2, "\033[44m║💡  Type      :   %s        ║\033[0m\n", get_token_name(token->type));
+// 		dprintf(2, "\033[44m║📜  String    :  →%s←       ║\033[0m\n", token->str);
 // 		if(token->expanded != NULL)
-// 			printf("\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
-// 		printf("\033[44m╚═════════════════════════════╝\033[0m\n");
+// 			dprintf(2, "\033[44m║✨  Expand Var:  →%s←       ║\033[0m\n", token->expanded);
+// 		dprintf(2, "\033[44m╚═════════════════════════════╝\033[0m\n");
 // 		token = token->next;
 // 	}
-// 	printf("\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
+// 	dprintf(2, "\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 // }
 
 /**
@@ -38,7 +38,7 @@ t_command	*new_command(t_env *env)
 	new_command->p_fds[1] = 1;
 	new_command->path_command = NULL;
 	new_command->args = NULL;
-	new_command->redirect = NULL;
+	new_command->head_redirect = NULL;
 	new_command->aux_redirect = NULL;
 	new_command->env = env;
 	new_command->next = NULL;
@@ -85,7 +85,7 @@ void	ft_free_commands(t_command *command)
 	{
 		temp = command->next;
 		ft_free_list_args(command->args);
-		ft_free_redirects(command->redirect);
+		ft_free_redirects(command->head_redirect);
 		ft_free_one_command(command);
 		command = temp;
 	}

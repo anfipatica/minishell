@@ -39,14 +39,14 @@ t_command	*automata(t_token *token, t_env *env)
 		token = token->next;
 	}
 	if (current_state > ACCEPT_STATES)
-		return (printf(RED"SINTAX_ERROR\n"STD), NULL);
+		return (dprintf(2, RED"SINTAX_ERROR\n"STD), NULL);
 	add_command_back(&head_command, command);
 	return (head_command);
 }
 
 int	get_new_state(int current_state, int token)
 {
-	printf("|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
+	dprintf(2, "|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
 
 	const int	matrix[6][8] = { //-[ ]*****ESTADOS*****
 		{1, 1, 3, 3, 3, 3, 3, 5},//- 0 - estado inicial

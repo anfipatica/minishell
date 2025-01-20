@@ -104,7 +104,7 @@ typedef struct s_command
 	int					p_fds[2];
 	char				*path_command;
 	t_args				*args;
-	t_redirect			*redirect;
+	t_redirect			*head_redirect;
 	t_redirect			*aux_redirect;
 	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.

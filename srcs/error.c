@@ -2,12 +2,12 @@
 
 void	ft_perror(char *str)
 {
-	printf("errno = %d\n", errno);
+	dprintf(2, "errno = %d\n", errno);
 	if (str == NULL)
 		write(2, "\"\": empty command\n", 19);
 	else if ((str != NULL) && (errno != 0))
 	{
-		printf("%s\n", str);
+		dprintf(2, "%s\n", str);
 		perror(str);
 	}
 	else
@@ -21,10 +21,10 @@ void	ft_perror(char *str)
 void	error_exit(char *str, int error)
 {
 	if (error == IS_DIR)
-		printf("%s: Is a directory\n", str);
+		dprintf(2, "%s: Is a directory\n", str);
 	else if (error == COMMAND_NOT_FOUND)
-		printf("%s: command not found\n", str);
+		dprintf(2, "%s: command not found\n", str);
 	else
-		printf("Unknown error\n");
+		dprintf(2, "Unknown error\n");
 }
 

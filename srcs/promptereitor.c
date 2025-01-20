@@ -33,7 +33,7 @@ int	promptereitor(t_env *env)
 	int i = 0;
 	while (1)
 	{
-		printf("iteration: %d\n", i);
+		dprintf(2, "iteration: %d\n", i);
 		line = readline("Prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;

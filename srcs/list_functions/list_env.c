@@ -35,19 +35,19 @@ char **lts_env_to_matrix(t_env *env)
 	}
 	env_matrix[i] = NULL;
 /* 	for (int j = 0; env_matrix[j]; ++j)
-		printf("env_matrix = %s\n", env_matrix[j]); */
+		dprintf(2, "env_matrix = %s\n", env_matrix[j]); */
 	return (env_matrix);
 }
 
 void	print_env(t_env *env)
 {
-	printf("\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
+	dprintf(2, "\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
 	while (env)
 	{
-		printf("name: %s - value: %s\n", env->name, env->value);
+		dprintf(2, "name: %s - value: %s\n", env->name, env->value);
 		env = env->next;
 	}
-	printf("\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
+	dprintf(2, "\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 }
 
 /**

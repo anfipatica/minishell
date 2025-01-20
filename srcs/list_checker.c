@@ -15,14 +15,14 @@ void	join_tokens(t_token *node1, t_token *node2)
 	char	*str_nodes;
 	t_token *aux;
 
-	//printf("node1 = %s, node2 = %s\n", node1->str, node2->str);
+	//dprintf(2, "node1 = %s, node2 = %s\n", node1->str, node2->str);
 	//node1->free_expanded = true;
 	str_nodes = ft_strjoin(get_valid_string(node1), get_valid_string(node2));
-	//printf("desde join_tokens node1->expanded es null: %s\n", str_nodes);
+	//dprintf(2, "desde join_tokens node1->expanded es null: %s\n", str_nodes);
 	
-	printf("jointokens\n");
-	printf("dir expanded: %p\n", node1->expanded);
-	printf("value expanded: %s\n", node1->expanded);
+	dprintf(2, "jointokens\n");
+	dprintf(2, "dir expanded: %p\n", node1->expanded);
+	dprintf(2, "value expanded: %s\n", node1->expanded);
 	if (node1->free_expanded  == true)
 		free(node1->expanded);
 	node1->expanded = str_nodes;
@@ -74,3 +74,30 @@ void	list_checker(t_token **list)
 	new_list = *list;
 	*list = check_and_delete(new_list);
 }
+
+/* void	list_checker(t_token **list)
+{
+	t_token *new_list;
+
+	new_list = *list;
+	while (new_list->next)
+	{
+		if (new_list->type == T_S_QUOTE || new_list->type == T_D_QUOTE)
+			new_list->type = T_WORD;
+		if (new_list->next && (new_list->next->type == T_S_QUOTE || new_list->next->type == T_D_QUOTE))
+			new_list->next->type = T_WORD;
+		if (new_list->type == T_WORD && new_list->next->type == T_WORD)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_WORD && new_list->next->type == T_ENV)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_ENV && new_list->next->type == T_WORD)
+			join_tokens(new_list, new_list->next);
+		else if (new_list->type == T_ENV && new_list->next->type == T_ENV)
+			join_tokens(new_list, new_list->next);
+		else
+			new_list = new_list->next;
+	}
+	new_list = *list;
+	*list = eval(new_list);
+	*list = check_and_delete(new_list);
+} */
