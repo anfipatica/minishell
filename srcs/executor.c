@@ -46,13 +46,14 @@ int	in_file(t_redirect *file)
 		if (file->redirect_type == T_REDIRECT_LEFT)
 			in_fd = open(file->name, O_RDONLY);
 		if (file->redirect_type == T_HERE_DOC)
-			in_fd = open("/tmp/.caca", O_HERE_DOC, STD_PERMISSIONS);
+			in_fd = open("/tmp/.tmp", O_HERE_DOC, STD_PERMISSIONS);
 		if (in_fd == OPEN_ERROR)
 			return (ft_perror(file->name), in_fd);
 		if (file->next == NULL)
 			break ;
 		file = file->next;
 	}
+	// FD N3 printf("FILE DESCRIPTOR: %d\n", in_fd);""
 	return (in_fd);
 }
 
@@ -76,11 +77,28 @@ int	out_file(t_redirect *file)
 	return (out_fd);
 }
 
+//esta funcion recibe la lista y 
+//devuelve el ultimo fd del rispectivo heredoc 
+int find_heredoc(t_redirect *file)
+{
+	dprintf(2, "file->name: %s\n", file->name);
+	while(file)
+	{
+		if (file->redirect_type == T_HERE_DOC)
+			here_dokeitor(file->name);
+		file = file->next;
+	}
+}
+
 bool	handle_files(t_redirect *file)
 {
 	int	in_fd;
 	int	out_fd;
+	int	heredoc_fd;
 
+	heredoc_fd = find_heredoc(file);
+	if (heredoc_fd == OPEN_ERROR)
+		return (false);
 	out_fd = out_file(file);
 	if (out_fd == OPEN_ERROR)
 		return (false);

@@ -40,7 +40,7 @@
 
 #define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
 #define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
-#define O_HERE_DOC (O_WRONLY | O_CREAT | O_APPEND)
+#define O_HERE_DOC (O_RDWR | O_CREAT | O_APPEND)
 
 #define STD_PERMISSIONS 0644
 #define NULL_FD -2
@@ -97,7 +97,7 @@ typedef struct s_env
 
 typedef struct	s_redirect
 {
-	char				*name;
+	char				*name; //arg del rispectivo redirect
 	e_token_value		redirect_type;
 	struct s_redirect	*next;
 }				t_redirect;
@@ -182,7 +182,7 @@ void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
 void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
 pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
-char	*here_dokeitor(char *limiter);
+int		here_dokeitor(char *limiter);
 void	ft_perror(char *str);
 
 

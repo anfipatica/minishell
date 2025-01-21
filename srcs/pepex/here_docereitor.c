@@ -6,43 +6,36 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 18:10:43 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/21 14:28:13 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-char	*here_dokeitor(char *limiter)
+int here_dokeitor(char *limiter)
 {
-	int		fd_doc;
+	dprintf(2, "limiter: %s\n", limiter);
+	int		heredoc_fd;
 	char	*input_line;
 	char	*limiter_nl;
 
-	limiter_nl = ft_strjoin(limiter, "\n");
-	fd_doc = open("/tmp/tempfile", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (fd_doc == -1)
-		return (unlink("/tmp/tempfile"), NULL);
+	heredoc_fd = open("/tmp/tempfile", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (heredoc_fd == -1)
+		return (unlink("/tmp/tempfile"), OPEN_ERROR);
 	while (1)
-	{
-		write(1, "heredoc> ", 9);
-		input_line = get_next_line(0);
-		if (input_line == NULL || ft_strcmp(limiter_nl, input_line) == 0)
-		{
-			free(limiter_nl);
-			free(input_line);
-			break ;
-		}
-		write(fd_doc, input_line, ft_strlen(input_line));
-		free(input_line);
-	}
-	close(fd_doc);
-	return ("/tmp/tempfile");
+ 	{
+ 		input_line = readline("> ");
+
+		dprintf(2, "limiter: %s, input_line: %s\n", limiter, input_line);
+ 		if (input_line == NULL || ft_strcmp(limiter, input_line) == 0)
+ 		{
+ 			free(input_line);
+ 			break ;
+ 		}
+ 		write(heredoc_fd, input_line, ft_strlen(input_line));
+		write(heredoc_fd, "\n", 1);
+ 		free(input_line);
+ 	}
+
+	return (heredoc_fd);
 }
-/*
-void terminator_here_doc(int fd)
-{
-	close(fd_doc);
-	unlink("/tmp/tempfile");
-}
-*/
