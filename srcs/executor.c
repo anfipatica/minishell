@@ -77,28 +77,15 @@ int	out_file(t_redirect *file)
 	return (out_fd);
 }
 
-//esta funcion recibe la lista y 
-//devuelve el ultimo fd del rispectivo heredoc 
-int find_heredoc(t_redirect *file)
-{
-	dprintf(2, "file->name: %s\n", file->name);
-	while(file)
-	{
-		if (file->redirect_type == T_HERE_DOC)
-			here_dokeitor(file->name);
-		file = file->next;
-	}
-}
-
 bool	handle_files(t_redirect *file)
 {
 	int	in_fd;
 	int	out_fd;
-	int	heredoc_fd;
+	// int	heredoc_fd;
 
-	heredoc_fd = find_heredoc(file);
-	if (heredoc_fd == OPEN_ERROR)
-		return (false);
+	// heredoc_fd = find_heredoc(file);
+	// if (heredoc_fd == OPEN_ERROR)
+	// 	return (false);
 	out_fd = out_file(file);
 	if (out_fd == OPEN_ERROR)
 		return (false);
@@ -129,7 +116,6 @@ void	exe_without_pipe(t_command *command)
 	char	*path_name;
 	char 	**matrix[2];
 
-
 	family = fork();
 	if (family == 0)
 	{
@@ -143,7 +129,6 @@ void	exe_without_pipe(t_command *command)
 			{
 				exit(1);
 			}
-		printf("bluuuuuuuu dipintod id blu\n");
 		execute_or_error(matrix, path_name);
 		free_exit_execution(path_name, matrix);
 	}
@@ -154,10 +139,22 @@ void	exe_without_pipe(t_command *command)
 	}
 }
 
+
 int	executor(t_command *command)
 {
+	int	heredoc_fd;
+
 	if (!command)
 		return (0);
+	while(command)
+	{
+		find_heredoc(command->head_redirect);
+		
+		command = command->next;
+	}
+	heredoc_fd = find_heredoc();
+	if (heredoc_fd == OPEN_ERROR)
+		return (false);
 	exe_without_pipe(command);
 	return (0);
 }

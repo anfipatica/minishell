@@ -6,27 +6,40 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/21 14:28:13 by psapio           ###   ########.fr       */
+/*   Updated: 2025/01/22 18:09:28 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int here_dokeitor(char *limiter)
+// list_heredoc_in_command(t_command *command)
+// {
+	
+// }
+
+
+
+char	*filename_generator(void)
 {
-	dprintf(2, "limiter: %s\n", limiter);
+	static int	index_filename;
+
+	return (ft_strjoin("/tmp/filetemp", ft_itoa(index_filename))); //!despuees habra que liberar
+}
+
+
+
+
+char *here_dokeitor(char *limiter, char *new_temp_file)
+{
 	int		heredoc_fd;
 	char	*input_line;
-	char	*limiter_nl;
 
-	heredoc_fd = open("/tmp/tempfile", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	heredoc_fd = open(new_temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (heredoc_fd == -1)
-		return (unlink("/tmp/tempfile"), OPEN_ERROR);
+		return (unlink(new_temp_file), OPEN_ERROR);
 	while (1)
  	{
  		input_line = readline("> ");
-
-		dprintf(2, "limiter: %s, input_line: %s\n", limiter, input_line);
  		if (input_line == NULL || ft_strcmp(limiter, input_line) == 0)
  		{
  			free(input_line);
@@ -37,5 +50,24 @@ int here_dokeitor(char *limiter)
  		free(input_line);
  	}
 
-	return (heredoc_fd);
+	return (new_temp_file);
+}
+
+
+
+//esta funcion recibe la lista y 
+//devuelve el ultimo fd del rispectivo heredoc 
+char *find_heredoc(t_redirect *file)
+{
+	char *last_heredoc;
+	
+	dprintf(2, "file->name: %s\n", file->name);
+	while(file)
+	{
+		if (file->redirect_type == T_HERE_DOC)
+			last_heredoc = here_dokeitor(file->name, filename_generator());
+		file->name = last_heredoc;
+		file = file->next;
+	}
+	return(last_heredoc);
 }

@@ -14,8 +14,11 @@ int	main(int argc, char **argv, char **env_original)
 }
 
 ////	clasificar las palabras
-//TODO	tenemos que implementar las multiridirecions del pipex;
+
+//TODO  generador de nombre de archivos
+
 //TODO	hacer los buldings que son relativamente faciles
 //TODO	implementar las siñales
 //TODO	incrustrarle el pipex que funcione!
+
 //- 	LO TENEMOS!
