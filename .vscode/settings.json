@@ -6,7 +6,9 @@
 		"stdbool.h": "c",
 		"type_traits": "c",
 		"errno.h": "c",
-		"features.h": "c"
+		"features.h": "c",
+		"fcntl.h": "c",
+		"unistd.h": "c"
 	},
     "better-comments.tags": [
 

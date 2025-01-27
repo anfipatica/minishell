@@ -49,15 +49,15 @@ int	get_new_state(int current_state, int token)
 	dprintf(2, "|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
 
 	const int	matrix[6][8] = { //-[ ]*****ESTADOS*****
-		{1, 1, 3, 3, 3, 3, 3, 5},//- 0 - estado inicial
-		{1, 1, 3, 3, 3, 3, 3, 4},//- 1 - estado flag - ACCEPT_STATE
-		{1, 1, 3, 3, 3, 3, 3, 4},//- 2 - estado file - ACCEPT_STATE
-		{2, 2, 5, 5, 5, 5, 5, 5},//- 3 - estado redirect
-		{1, 1, 3, 3, 3, 3, 3, 5},//- 4 - estado pipe
-		{5, 5, 5, 5, 5, 5, 5, 5} //- 5 - estado err - ERROR__STATE
-};//-    |  |  |  |  |  |  |  |
-//-      |  |  |  |  |  |  |  |
-//-	     W  $  <  << >  >> <> |     [ ][ ]TOKENS
+		{1, 1, 3, 3, 3, 3, 3, 5}, //- 0 - estado inicial
+		{1, 1, 3, 3, 3, 3, 3, 4}, //- 1 - estado flag - ACCEPT_STATE
+		{1, 1, 3, 3, 3, 3, 3, 4}, //- 2 - estado file - ACCEPT_STATE
+		{2, 2, 5, 5, 5, 5, 5, 5}, //- 3 - estado redirect
+		{1, 1, 3, 3, 3, 3, 3, 5}, //- 4 - estado pipe
+		{5, 5, 5, 5, 5, 5, 5, 5}  //- 5 - estado err - ERROR__STATE
+};//-  |  |  |  |  |  |  |  |
+//-    |  |  |  |  |  |  |  |
+//-	 W  $  <  << >  >> <> |      [ ][ ]TOKENS
 	return (matrix[current_state][token]);
 }
 

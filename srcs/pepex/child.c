@@ -12,24 +12,21 @@
 
 #include "minishell.h"
 
-// #define WRITE 1
-// #define READ 0
 
-// int	openeitor(int *p_fds, const char *file, int flags, mode_t mode)
-// {
-// 	int	file_fd;
+int	openeitor(int *p_fds, const char *file, int flags, mode_t mode)
+{
+	int	file_fd;
 
-// 	file_fd = open(file, flags, mode);
-// 	if (file_fd == -1)
-// 	{
-// 		close(p_fds[WRITE]);
-// 		close(p_fds[READ]);
-// 		perror(file);
-// 		exit(1);
-// 	}
-// 	return (file_fd);
-// }
-
+	file_fd = open(file, flags, mode);
+	if (file_fd == -1)
+	{
+		close(p_fds[OUT_FILE]);
+		close(p_fds[IN_FILE]);
+		perror(file);
+		exit(1);
+	}
+	return (file_fd);
+}
 
 // void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
 // {

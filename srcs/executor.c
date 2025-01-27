@@ -1,100 +1,43 @@
 #include "minishell.h"
 
 
-/*
-O_NOATIME -> no update de fecha en la lectura
-O_TMPFILE -> crea un tempfile
-O_TRUNC
-*/
-// void in_vs_out_file(int in_fd, int out_fd)
-// {
-// 	dprintf(2, "in_fd-> %d\n", in_fd);
-// 	dprintf(2, "out_fd-> %d\n", out_fd);
-// 	if (in_fd != NULL_FD)
-// 	{
-// 		dup2(in_fd, 0);
-// 		close(in_fd);
-// 	}
-// 	if (out_fd != NULL_FD)
-// 	{
-// 		dup2(out_fd, 1);
-// 		close(out_fd);
-// 	}
-// }
-
-void dup2_file(int fd, int system_fd)
+int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd)
 {
-	if (fd == NULL_FD)
-		return ;
-	dup2(fd, system_fd);
-	close(fd);
-}
+	int	file_fd;
 
-/*
-in_fd puede ser:
- (-2) - NULL_FD    -> no hay redirección de infile.
- (-1) - OPEN_ERROR -> open ha fallado.
- (3 o >3)          -> fd existente, open ha funcionado.
-*/
-int	in_file(t_redirect *file)
-{
-	int	in_fd;
-
-	in_fd =	NULL_FD;
-	while (file)
+	file_fd = open(file, flags, mode);
+	if (file_fd == -1)
 	{
-		if (file->redirect_type == T_REDIRECT_LEFT)
-			in_fd = open(file->name, O_RDONLY);
-		if (file->redirect_type == T_HERE_DOC)
-			in_fd = open("/tmp/.tmp", O_HERE_DOC, STD_PERMISSIONS);
-		if (in_fd == OPEN_ERROR)
-			return (ft_perror(file->name), in_fd);
-		if (file->next == NULL)
-			break ;
-		file = file->next;
+		perror(file);
+		return OPEN_ERROR;
 	}
-	// FD N3 printf("FILE DESCRIPTOR: %d\n", in_fd);""
-	return (in_fd);
+	if (dup2(file_fd, system_fd) == -1)
+		return (perror(file), OPEN_ERROR);
+	close(file_fd);
+	return (file_fd);
 }
 
-int	out_file(t_redirect *file)
-{
-	int	out_fd;
 
-	out_fd = NULL_FD;
-	while (file && out_fd != OPEN_ERROR)
+int	handle_files(t_redirect *file)
+{
+	int	state;
+
+	state = 0;
+	while (file && state != OPEN_ERROR)
 	{
 		if (file->redirect_type == T_REDIRECT_RIGHT)
-			out_fd = open(file->name, O_REDIRECT_RIGHT, STD_PERMISSIONS);
+			state = dup2_openeitor(file->name, O_REDIRECT_RIGHT, STD_PERMISSIONS, OUT_FILE);
 		else if (file->redirect_type == T_APPEND)
-			out_fd = open(file->name, O_REDIRECT_APPEND, STD_PERMISSIONS);
-		if (out_fd == OPEN_ERROR)
-			ft_perror(file->name);
-		if (file->next == NULL)
-			break ;
+			state = dup2_openeitor(file->name, O_REDIRECT_APPEND, STD_PERMISSIONS, OUT_FILE);
+		else if (file->redirect_type == T_HERE_DOC)
+			state = dup2_openeitor(file->name, O_HERE_DOC, 0, IN_FILE);
+		else if (file->redirect_type == T_REDIRECT_LEFT)
+			state = dup2_openeitor(file->name, O_REDIRECT_LEFT, 0, IN_FILE);
+		if (file->redirect_type == T_HERE_DOC)
+			unlink(file->name);
 		file = file->next;
 	}
-	return (out_fd);
-}
-
-bool	handle_files(t_redirect *file)
-{
-	int	in_fd;
-	int	out_fd;
-	// int	heredoc_fd;
-
-	// heredoc_fd = find_heredoc(file);
-	// if (heredoc_fd == OPEN_ERROR)
-	// 	return (false);
-	out_fd = out_file(file);
-	if (out_fd == OPEN_ERROR)
-		return (false);
-	in_fd = in_file(file);
-	if (in_fd == OPEN_ERROR)
-		return (false);
-	dup2_file(in_fd, 0);
-	dup2_file(out_fd, 1);
-	return (true);
+	return (state);
 }
 void	execute_or_error(char **matrix[2], char *path_name)
 {
@@ -125,7 +68,7 @@ void	exe_without_pipe(t_command *command)
 			return ;
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		if (command->head_redirect)
-			if (handle_files(command->head_redirect) == false)
+			if (handle_files(command->head_redirect) == OPEN_ERROR)
 			{
 				exit(1);
 			}
@@ -142,19 +85,15 @@ void	exe_without_pipe(t_command *command)
 
 int	executor(t_command *command)
 {
-	int	heredoc_fd;
+	// int	heredoc_fd;
+
+	// heredoc_fd = 0
 
 	if (!command)
 		return (0);
-	while(command)
-	{
-		find_heredoc(command->head_redirect);
-		
-		command = command->next;
-	}
-	heredoc_fd = find_heredoc();
-	if (heredoc_fd == OPEN_ERROR)
-		return (false);
+	find_heredoc(command);
+	// if (heredoc_fd == OPEN_ERROR)
+	// 	return (false);
 	exe_without_pipe(command);
 	return (0);
 }

@@ -40,12 +40,17 @@
 
 #define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
 #define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
-#define O_HERE_DOC (O_RDWR | O_CREAT | O_APPEND)
+#define O_HERE_DOC (O_RDONLY)
+#define O_REDIRECT_LEFT (O_RDONLY)
 
 #define STD_PERMISSIONS 0644
 #define NULL_FD -2
 
 #define SPACES " \f\n\r\t\v"
+
+
+#define OUT_FILE 1
+#define IN_FILE 0
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -111,11 +116,11 @@ typedef struct s_args
 typedef struct s_command
 {
 	int					p_fds[2];
-	char				*path_command;
+	char					*path_command;
 	t_args				*args;
 	t_redirect			*head_redirect;
 	t_redirect			*aux_redirect;
-	t_env				*env;
+	t_env					*env;
 	struct s_command	*next;		// A pointer to the next token.
 
 }				t_command;
@@ -182,8 +187,8 @@ void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
 void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
 pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
-int		here_dokeitor(char *limiter);
 void	ft_perror(char *str);
+int	openeitor(int *p_fds, const char *file, int flags, mode_t mode);
 
 
 /* ----------- EVERYTHING ELSE ---------- */
@@ -254,5 +259,11 @@ int	executor(t_command *command);
 
 //error.c
 void	error_exit(char *str, int error);
+
+//here_docereitor.c
+char	*filename_generator(void);
+char	*here_dokeitor(char *limiter, char *new_temp_file);
+void	find_heredoc(t_command *file);
+
 
 #endif

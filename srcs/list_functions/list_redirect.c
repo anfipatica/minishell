@@ -81,6 +81,8 @@ void	ft_free_redirects(t_redirect *redirect)
 	while (redirect != NULL)
 	{
 		temp = redirect->next;
+		if (redirect->redirect_type == T_HERE_DOC)
+			free(redirect->name);
 		ft_free_one_redirect(redirect);
 		redirect = temp;
 	}
