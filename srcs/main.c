@@ -14,8 +14,7 @@ int	main(int argc, char **argv, char **env_original)
 }
 
 ////	clasificar las palabras
-
-//TODO  generador de nombre de archivos
+////  generador de nombre de archivos
 
 //TODO	hacer los buldings que son relativamente faciles
 //TODO	implementar las siñales

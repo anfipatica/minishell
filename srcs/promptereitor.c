@@ -30,10 +30,8 @@ int	promptereitor(t_env *env)
 	t_command	*command;
 
 	first_token = NULL;
-	int i = 0;
 	while (1)
 	{
-		dprintf(2, "iteration: %d\n", i);
 		line = readline("Prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;
@@ -46,14 +44,12 @@ int	promptereitor(t_env *env)
 			list_checker(&first_token);
 			print_tokens(first_token);
 			command = automata(first_token, env);
-			print_commands(command);
-			executor(command);
+			if (command)
+				continue_execution(command);
 			ft_free_commands(command);
 			ft_free_tokens(first_token);
-
 		}
 		free(line);
-		i++;
 	}
 	free(line);
 	rl_clear_history();

@@ -115,7 +115,7 @@ typedef struct s_args
 
 typedef struct s_command
 {
-	int					p_fds[2];
+	// int					p_fds[2]; awhawhwahawhawhaw
 	char					*path_command;
 	t_args				*args;
 	t_redirect			*head_redirect;
@@ -200,19 +200,19 @@ int			wordeitor(t_token **head_token, char *start_word);
 t_token		*token_chooser(char *line, t_env *env);
 t_token		*symbol_tokenizer(e_token_value type, char *line, int n_symbol);
 
-//promptereitor.c
+// promptereitor.c
 
 void		twin_quote(char *line);
 int			promptereitor(t_env *env);
 
-//list_env.c
+// list_env.c
 
 void	print_env(t_env *env);
 t_env	*new_env(char *name, char *value);
 void	add_env_back(t_env **lst, t_env *new);
 void	ft_free_env(t_env *env);
 
-//expandetor.c
+// expandetor.c
 
 t_token		*expandetor(char *line, t_env *env);
 t_token		*get_pid_expandetor();
@@ -225,7 +225,7 @@ t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env);
 
 t_token	*create_str_quote(char *start_quote, t_env *env);
 
-//freedom.c
+// freedom.c
 
 void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
 void	free_exit_execution(char *path_name, char **matrix[2]);
@@ -254,13 +254,15 @@ int	sintax_error(t_token	*token, t_command *command);
 
 void	list_checker(t_token **list);
 
-//EXECUTOR.C
-int	executor(t_command *command);
+// executor.c
+int		executor(t_command *command);
+void	continue_execution(t_command *command);
 
-//error.c
+
+// error.c
 void	error_exit(char *str, int error);
 
-//here_docereitor.c
+// here_docereitor.c
 char	*filename_generator(void);
 char	*here_dokeitor(char *limiter, char *new_temp_file);
 void	find_heredoc(t_command *file);

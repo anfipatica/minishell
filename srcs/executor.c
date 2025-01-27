@@ -17,7 +17,6 @@ int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd)
 	return (file_fd);
 }
 
-
 int	handle_files(t_redirect *file)
 {
 	int	state;
@@ -83,7 +82,7 @@ void	exe_without_pipe(t_command *command)
 }
 
 
-int	executor(t_command *command)
+int	executor_viejo(t_command *command)
 {
 	// int	heredoc_fd;
 
@@ -91,9 +90,60 @@ int	executor(t_command *command)
 
 	if (!command)
 		return (0);
-	find_heredoc(command);
 	// if (heredoc_fd == OPEN_ERROR)
 	// 	return (false);
 	exe_without_pipe(command);
 	return (0);
+}
+// infile  es de 0 osea el de lectura
+// outfile es de 1 osea el de escritura
+
+void	child_pepa_new(t_command *command, int	action, int	p_fds[2])
+{
+	pid_t	pid_family;
+	char 	**matrix[2];
+	char	*path_name;
+
+
+	pid_family = fork();
+	if (pid_family == 0)
+	{
+		matrix[ARGS] = lts_args_to_matrix(command->args);
+		matrix[ENV] = lts_env_to_matrix(command->env);
+		dprintf(2, "asasd\n");
+		if (matrix[ARGS] == NULL)
+			return ;
+		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
+	
+		dup2(p_fds[action], action);
+		close(p_fds[action]);
+		execute_or_error(matrix, path_name);
+		free_exit_execution(path_name, matrix);
+	}
+
+}
+
+int	executor(t_command *command)
+{
+	int		p_fds[2];
+	int		status;
+
+	pipe(p_fds);
+	child_pepa_new(command, OUT_FILE, p_fds);
+	close(p_fds[OUT_FILE]);
+	child_pepa_new(command->next, IN_FILE, p_fds);
+	close(p_fds[IN_FILE]);
+	wait(&status);
+	wait(&status);
+	return (0);
+}
+
+void	continue_execution(t_command *command)
+{
+	print_commands(command);
+	find_heredoc(command);
+	if (!(command->next))
+		exe_without_pipe(command); //- Perfecto
+	else
+		executor(command);
 }

@@ -46,7 +46,7 @@ SRCS =											\
 		$(SRC_DIR)list_checker.c				\
 		$(PEPEX_DIR)child.c						\
 		$(PEPEX_DIR)commander.c					\
-		$(PEPEX_DIR)here_dokeitor.c			\
+		$(PEPEX_DIR)here_dokeitor.c				\
 		$(PEPEX_DIR)main_bonus.c				\
 		$(PEPEX_DIR)main.c						\
 		$(SRC_DIR)executor.c					\

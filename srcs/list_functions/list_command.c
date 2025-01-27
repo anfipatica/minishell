@@ -34,8 +34,6 @@ t_command	*new_command(t_env *env)
 	new_command = (t_command *) malloc(sizeof(t_command));
 	if (!new_command)
 		return (NULL);
-	new_command->p_fds[0] = 0;
-	new_command->p_fds[1] = 1;
 	new_command->path_command = NULL;
 	new_command->args = NULL;
 	new_command->head_redirect = NULL;
