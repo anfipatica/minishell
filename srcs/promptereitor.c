@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void twin_quote(char *line)
+bool twin_quote(char *line)
 {
 
 	int i = 0;
@@ -15,12 +15,18 @@ void twin_quote(char *line)
 			i++;
 			while (line[i] != '\0' && line[i] != quote_type)
 				i++;
-
 		}
 		if (line[i] == '\0')
-			exit(22);
+		{
+			printf(RED"Hey,\n"
+			"your quote is missing a buddy to complete the pair!\n"
+			"Don’t leave it hanging, it’s lonely!\n"STD);
+			free(line);
+			return (false);
+		}
 		i++;
 	}
+	return (true);
 }
 
 int	promptereitor(t_env *env)
@@ -29,16 +35,15 @@ int	promptereitor(t_env *env)
 	t_token		*first_token;
 	t_command	*command;
 
-	first_token = NULL;
 	while (1)
 	{
 		line = readline("Prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;
 		if (line[0] != '\0')
-		{
 			add_history(line);
-			twin_quote(line);
+		if (twin_quote(line) == false)
+			continue ;
 			first_token = tokenizer(line, env);
 			print_tokens(first_token);
 			list_checker(&first_token);
@@ -48,11 +53,9 @@ int	promptereitor(t_env *env)
 				continue_execution(command);
 			ft_free_commands(command);
 			ft_free_tokens(first_token);
-		}
 		free(line);
 	}
 	free(line);
 	rl_clear_history();
 	return (0);
 }
-

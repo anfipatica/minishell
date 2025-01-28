@@ -18,7 +18,7 @@ t_env *create_node_env(char *line_env)
 	return (env_node);
 }
 
-t_env *copy_env(char **env)
+t_env *copy_env(char **env_original)
 {
 	t_env *head_list;
 	t_env *new_node;
@@ -26,9 +26,9 @@ t_env *copy_env(char **env)
 
 	head_list = NULL;
 	i = 0;
-	while (env[i])
+	while (env_original[i])
 	{
-		new_node = create_node_env(env[i]);
+		new_node = create_node_env(env_original[i]);
 		add_env_back(&head_list, new_node);
 		i++;
 	}

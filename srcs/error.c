@@ -36,3 +36,4 @@ void	error_exit(char *str, int error)
 		printf("Unknown error\n");
 }
 
+

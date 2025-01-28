@@ -1,7 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -12,7 +11,7 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
- #include <sys/stat.h>
+# include <sys/stat.h>
 # include <stddef.h>
 # include <errno.h>
 # include "libft.h"
@@ -27,30 +26,29 @@
 # define ORANG "\033[1;33m"
 
 //define automata
-#define ERROR__STATE	5
-#define ACCEPT_STATES	2
+# define ERROR__STATE	5
+# define ACCEPT_STATES	2
 
-#define	ARGS	0
-#define	ENV	1
+# define	ARGS	0
+# define	ENV	1
 
 //ERRORS
-#define IS_DIR 1
-#define COMMAND_NOT_FOUND 2
-#define OPEN_ERROR -1
+# define IS_DIR 1
+# define COMMAND_NOT_FOUND 2
+# define OPEN_ERROR -1
 
-#define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
-#define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
-#define O_HERE_DOC (O_RDONLY)
-#define O_REDIRECT_LEFT (O_RDONLY)
+# define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
+# define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
+# define O_HERE_DOC (O_RDONLY)
+# define O_REDIRECT_LEFT (O_RDONLY)
 
-#define STD_PERMISSIONS 0644
-#define NULL_FD -2
+# define STD_PERMISSIONS 0644
+# define NULL_FD -2
 
-#define SPACES " \f\n\r\t\v"
+# define SPACES " \f\n\r\t\v"
 
-
-#define OUT_FILE 1
-#define IN_FILE 0
+# define OUT_FILE 1
+# define IN_FILE 0
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -182,13 +180,14 @@ int	print_states(t_token *token);
 
 /* --------------- PEPEX ---------------- */
 
+void	print_error(const char *msg);
 char	*find_path_name(char *cmd, char **env, char **cmd_arg);
 void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
 void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
 pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
 void	ft_perror(char *str);
-int	openeitor(int *p_fds, const char *file, int flags, mode_t mode);
+int		openeitor(int *p_fds, const char *file, int flags, mode_t mode);
 
 
 /* ----------- EVERYTHING ELSE ---------- */
@@ -202,7 +201,7 @@ t_token		*symbol_tokenizer(e_token_value type, char *line, int n_symbol);
 
 // promptereitor.c
 
-void		twin_quote(char *line);
+bool		twin_quote(char *line);
 int			promptereitor(t_env *env);
 
 // list_env.c
@@ -266,6 +265,5 @@ void	error_exit(char *str, int error);
 char	*filename_generator(void);
 char	*here_dokeitor(char *limiter, char *new_temp_file);
 void	find_heredoc(t_command *file);
-
 
 #endif
