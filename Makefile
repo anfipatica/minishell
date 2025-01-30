@@ -80,4 +80,12 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re libmlx libft
+r: run
+run: all
+	@./$(NAME)
+
+v: valgrind
+valgrind: all
+	@valgrind --leak-check=full --track-fds=yes --trace-children=yes ./$(NAME)
+
+.PHONY: all clean fclean re libmlx libft r run v valgrind

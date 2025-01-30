@@ -28,6 +28,8 @@
 //define automata
 # define ERROR__STATE	5
 # define ACCEPT_STATES	2
+# define PIPE_STATE		4
+
 
 # define	ARGS	0
 # define	ENV	1

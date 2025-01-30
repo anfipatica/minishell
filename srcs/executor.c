@@ -44,6 +44,7 @@ void	execute_or_error(char **matrix[2], char *path_name)
 
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
+	// while (1) ;
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
@@ -108,9 +109,9 @@ void	child_pepa_new(t_command *command, int	action, int	p_fds[2])
 	pid_family = fork();
 	if (pid_family == 0)
 	{
+		close(p_fds[action == IN_FILE ? OUT_FILE : IN_FILE]); //! IMPORTANTE ESTO ES LO QUE HA HECHO SAN LUIS AAAAAAAAH
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
-		dprintf(2, "asasd\n");
 		if (matrix[ARGS] == NULL)
 			return ;
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
