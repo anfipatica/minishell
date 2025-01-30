@@ -25,6 +25,7 @@ int	set_redirect_type(t_token	*token, t_command *command)
 
 	dprintf(2, "SET_REDIRECT_TYPE\n");
 	command->aux_redirect = new_redirect(token->type);
+	add_redirect_back(&(command->head_redirect), command->aux_redirect);
 	return (0);
 }
 
@@ -32,7 +33,6 @@ int	insert_file(t_token	*token, t_command *command)
 {
 	dprintf(2, "INSERT_FILE\n");
 	command->aux_redirect->name = ft_ternary(token->expanded, token->str, token->expanded);
-	add_redirect_back(&(command->head_redirect), command->aux_redirect);
 	return (0);
 }
 
@@ -51,3 +51,4 @@ int	sintax_error(t_token	*token, t_command *command)
 	(void) command;
 	return (ERROR__STATE);
 }
+// ls -la > file | grep hello > file2

@@ -45,7 +45,9 @@ void	execute_or_error(char **matrix[2], char *path_name)
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
 	// while (1) ;
+	printf("11111111111\n");	
 	execve(path_name, matrix[ARGS], matrix[ENV]);
+	printf("22222222222\n");
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
 	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
@@ -66,6 +68,7 @@ void	exe_without_pipe(t_command *command)
 		matrix[ENV] = lts_env_to_matrix(command->env);
 		if (matrix[ARGS] == NULL)
 			return ;
+		printf("aaaaaaaaaaaaaaaa\n");
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		if (command->head_redirect)
 			if (handle_files(command->head_redirect) == OPEN_ERROR)
@@ -115,7 +118,6 @@ void	child_pepa_new(t_command *command, int	action, int	p_fds[2])
 		if (matrix[ARGS] == NULL)
 			return ;
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-	
 		dup2(p_fds[action], action);
 		close(p_fds[action]);
 		execute_or_error(matrix, path_name);
@@ -139,7 +141,7 @@ int	executor(t_command *command)
 	return (0);
 }
 
-void	continue_execution(t_command *command)
+void	begin_execution(t_command *command)
 {
 	print_commands(command);
 	find_heredoc(command);

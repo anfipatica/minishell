@@ -62,12 +62,6 @@ void	add_redirect_back(t_redirect **lst, t_redirect *new)
 	}
 }
 
-void	ft_free_one_redirect(t_redirect *redirect)
-{
-	if (!redirect)
-		return ;
-	free(redirect);
-}
 /**
  * ft_free_redirects frees the nodes of a list and the neccesary content
  * inside each of them.
@@ -76,6 +70,7 @@ void	ft_free_redirects(t_redirect *redirect)
 {
 	t_redirect	*temp;
 
+	printf("COÑO!\n");
 	if (!redirect)
 		return ;
 	while (redirect != NULL)
@@ -83,7 +78,7 @@ void	ft_free_redirects(t_redirect *redirect)
 		temp = redirect->next;
 		if (redirect->redirect_type == T_HERE_DOC)
 			free(redirect->name);
-		ft_free_one_redirect(redirect);
+		free(redirect);
 		redirect = temp;
 	}
 }

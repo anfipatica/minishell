@@ -43,6 +43,17 @@ t_command	*new_command(t_env *env)
 	return (new_command);
 }
 
+void len_command_list(t_command *command)
+{
+	int	i = 0;
+	while (command)
+	{
+		i++;
+		command = command->next;
+		printf("COMMAND LEEEEEEENG: %d\n", i);
+	}
+}
+
 /**
  * add_command_back receives the head of the list and the new command
  * to add at the end of said list. If there is no head, new becomes it.
@@ -70,20 +81,27 @@ void	ft_free_one_command(t_command *command)
 	if (!command)
 		return ;
 	free(command->path_command);
+	ft_free_redirects(command->head_redirect);
+	ft_free_list_args(command->args);
 	free(command);
 }
+
+
 
 void	ft_free_commands(t_command *command)
 {
 	t_command	*temp;
 
-	if (!command)
-		return ;
+	printf("OTRO COÑO\n");
+	printf("free ccommand%p\n", command);
+	//len_command_list(command);
 	while (command != NULL)
 	{
 		temp = command->next;
-		ft_free_list_args(command->args);
-		ft_free_redirects(command->head_redirect);
+		
+		printf("OTRO COÑO\n");
+
+		// ft_free_redirects(command->head_redirect);
 		ft_free_one_command(command);
 		command = temp;
 	}

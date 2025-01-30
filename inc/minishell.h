@@ -137,6 +137,7 @@ void		ft_free_commands(t_command *command);
 void		ft_free_one_command(t_command *command);
 void		add_command_back(t_command **lst, t_command *new);
 t_command	*new_command(t_env *env);
+void len_command_list(t_command *command);
 
 //list_token.c
 
@@ -257,7 +258,7 @@ void	list_checker(t_token **list);
 
 // executor.c
 int		executor(t_command *command);
-void	continue_execution(t_command *command);
+void	begin_execution(t_command *command);
 
 
 // error.c

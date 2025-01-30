@@ -13,6 +13,8 @@ void	function_array_filler(int (*array_of_functions[])(t_token *token, t_command
 	array_of_functions[5] = sintax_error;
 }
 
+
+
 t_command	*automata(t_token *token, t_env *env)
 {
 	t_command	*head_command;
@@ -20,32 +22,51 @@ t_command	*automata(t_token *token, t_env *env)
 	int			current_state;
 	int			(*array_of_functions[6])(t_token *token, t_command *command);
 
+	if (!token)
+		return (NULL);
+
 	head_command = NULL;
-	command = NULL;
-	current_state = 0;
 	command = new_command(env);
+	len_command_list(head_command);
+	current_state = 0;
 	function_array_filler(array_of_functions);
 	while (token)
 	{
 		current_state = get_new_state(current_state, token->type);
+		dprintf(2, "holaaaaa -> %d\n", current_state);
 		if (current_state == PIPE_STATE)
 		{
+			write(2, "PIPEPEPEPEPEPEAA\n", 18);
 			add_command_back(&head_command, command);
 			command = new_command(env);
 		}
 		if (array_of_functions[current_state](token, command) == ERROR__STATE)
-			return (ft_free_commands(head_command), NULL);
+		{
+			write(2, "HOLALASAS\n", 11);
+			return (ft_free_one_command(command), ft_free_commands(head_command), NULL);
+		}
 		token = token->next;
 	}
 	add_command_back(&head_command, command);
+	dprintf(2, "adios -> %d\n", current_state);
 	if (current_state > ACCEPT_STATES)
 		return (dprintf(2, RED"SINTAX_ERROR\n"STD), ft_free_commands(head_command), NULL);
 	return (head_command);
 }
 
+char *str_states[] = {
+	"0 - estado inicial",
+	"1 - estado flag - ACCEPT_STATE",
+	"2 - estado file - ACCEPT_STATE",
+	"3 - estado redirect",
+	"4 - estado pipe",
+	"5 - estado err - ERROR__STATE",
+	NULL
+};
+
 int	get_new_state(int current_state, int token)
 {
-	dprintf(2, "|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
+	// dprintf(2, "|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
 
 	const int	matrix[6][8] = { //--[ ]*****ESTADOS*****
 		{1, 1, 3, 3, 3, 3, 3, 5}, //- 0 - estado inicial
@@ -57,6 +78,7 @@ int	get_new_state(int current_state, int token)
 };	//-  |  |  |  |  |  |  |  |
 	//-  |  |  |  |  |  |  |  |
 	//-	 W  $  <  << >  >> <> |      [ ][ ]TOKENS
+	printf("prev: %d new: %d text:[%s]\n", current_state, matrix[current_state][token], str_states[matrix[current_state][token]]);
 	return (matrix[current_state][token]);
 }
 
