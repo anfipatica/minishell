@@ -18,7 +18,7 @@ void print_commands(t_command *command)
 	aux_redirect = command->head_redirect;
 		while(aux_args)
 		{
-			dprintf(2, BLUE"args: %s\n"STD, aux_args->arg);
+			dprintf(2, BLUE"args: %s\n"STD, aux_args->name);
 			aux_args = aux_args->next;
 		}
 		if (aux_redirect)

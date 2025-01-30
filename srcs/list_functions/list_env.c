@@ -89,6 +89,15 @@ void	add_env_back(t_env **head_list, t_env *new_node)
 	}
 }
 
+void	ft_free_one_env(t_env *env)
+{
+	if (!env)
+		return ;
+	free(env->name);
+	free(env->value);
+	free(env);
+}
+
 /**
  * ft_free_env frees the nodes of a list and the neccesary content
  * inside each of them.
@@ -101,10 +110,8 @@ void	ft_free_env(t_env *env)
 		return ;
 	while (env != NULL)
 	{
-		free(env->name);
-		free(env->value);
 		temp = env->next;
-		free(env);
+		ft_free_one_env(env);
 		env = temp;
 	}
 }

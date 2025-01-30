@@ -71,10 +71,10 @@ void	exe_without_pipe(t_command *command)
 		printf("aaaaaaaaaaaaaaaa\n");
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		if (command->head_redirect)
+		{
 			if (handle_files(command->head_redirect) == OPEN_ERROR)
-			{
 				exit(1);
-			}
+		}
 		execute_or_error(matrix, path_name);
 		free_exit_execution(path_name, matrix);
 	}
@@ -141,12 +141,38 @@ int	executor(t_command *command)
 	return (0);
 }
 
+int	check_builtins(t_command *command)
+{
+	if (ft_strcmp(command->args->name, "cd") == 0)
+		return(ft_cd(), 0);
+	if (ft_strcmp(command->args->name, "echo") == 0)
+		return(ft_echo(), 0);
+	if (ft_strcmp(command->args->name, "env") == 0)
+		return(ft_env(command), 0);
+	if (ft_strcmp(command->args->name, "exit") == 0)
+		return(ft_exit(), 0);
+	if (ft_strcmp(command->args->name, "export") == 0)
+		return(ft_export(), 0);
+	if (ft_strcmp(command->args->name, "pwd") == 0)
+		return(ft_pwd(), 0);
+	if (ft_strcmp(command->args->name, "unset") == 0)
+		return(ft_unset(), 0);
+	return (1);
+}
+
 void	begin_execution(t_command *command)
 {
 	print_commands(command);
 	find_heredoc(command);
+	if (check_builtins(command) == 0)
+		return ;
 	if (!(command->next))
 		exe_without_pipe(command); //- Perfecto
 	else
 		executor(command);
 }
+/*
+! OJO si tenemos un solo comando y es bulidig tiene que executarse en el padre;
+! si es mas de un comanddo entonces todo pasa en los hijos;
+! porquee no tendrias quee cerra nuestra minichell!!!!!
+*/

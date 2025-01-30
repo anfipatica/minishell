@@ -109,18 +109,18 @@ typedef struct	s_redirect
 
 typedef struct s_args
 {
-	char			*arg;
+	char			*name;
 	struct s_args	*next;
 }				t_args;
 
 typedef struct s_command
 {
-	// int					p_fds[2]; awhawhwahawhawhaw
-	char					*path_command;
+	// int				p_fds[2]; awhawhwahawhawhaw
+	char				*path_command;
 	t_args				*args;
 	t_redirect			*head_redirect;
 	t_redirect			*aux_redirect;
-	t_env					*env;
+	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
 }				t_command;
@@ -153,6 +153,8 @@ char	*ft_getenv(char *name, t_env *env, int length);
 t_env	*create_node_env(char *line_env);
 t_env	*copy_env(char **env);
 char	**lts_env_to_matrix(t_env *env);
+void	ft_free_env(t_env *env);
+void	ft_free_one_env(t_env *env);
 
 // list_args.c
 
@@ -260,6 +262,14 @@ void	list_checker(t_token **list);
 int		executor(t_command *command);
 void	begin_execution(t_command *command);
 
+// built-ins
+void ft_cd(void);
+void ft_echo(void);
+void ft_env(t_command *command);
+void ft_exit(void);
+void ft_export(void);
+void ft_pwd(void);
+void ft_unset(void);
 
 // error.c
 void	error_exit(char *str, int error);

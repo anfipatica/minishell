@@ -2,5 +2,5 @@
 
 void ft_exit(void)
 {
-	
+	printf("FT_EXIT\n");
 }

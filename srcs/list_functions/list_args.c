@@ -25,7 +25,7 @@ char **lts_args_to_matrix(t_args *args)
 	i = 0;
 	while (args)
 	{
-		args_matrix[i] = args->arg;
+		args_matrix[i] = args->name;
 		i++;
 		args = args->next;
 	}
@@ -42,7 +42,7 @@ t_args	*new_args(char *arg)
 	new_args = (t_args *) malloc(sizeof(t_args));
 	if (!new_args)
 		return (NULL);
-	new_args->arg = arg;
+	new_args->name = arg;
 	new_args->next = NULL;
 	return (new_args);
 }
