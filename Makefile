@@ -32,6 +32,13 @@ SRCS =											\
 		$(SRC_DIR)$(LIST_DIR)list_args.c		\
 		$(SRC_DIR)$(PRINT_DIR)get_token_name.c	\
 		$(SRC_DIR)$(PRINT_DIR)printers.c		\
+		$(SRC_DIR)/built-ins/cd.c				\
+		$(SRC_DIR)/built-ins/echo.c				\
+		$(SRC_DIR)/built-ins/env.c				\
+		$(SRC_DIR)/built-ins/exit.c				\
+		$(SRC_DIR)/built-ins/export.c			\
+		$(SRC_DIR)/built-ins/pwd.c				\
+		$(SRC_DIR)/built-ins/unset.c			\
 		$(SRC_DIR)main.c						\
 		$(SRC_DIR)promptereitor.c				\
 		$(SRC_DIR)tokenizer.c					\
