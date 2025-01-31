@@ -11,7 +11,7 @@ void print_commands(t_command *command)
 
 	if (!command)
 		return ;
-	dprintf(2, "-----------------------------------------------\n");
+	dprintf(2, "══════════════\n");
 	while (command)
 	{
 	aux_args = command->args;
@@ -22,13 +22,13 @@ void print_commands(t_command *command)
 			aux_args = aux_args->next;
 		}
 		if (aux_redirect)
-			dprintf(2, "- - - - - - - - - - - - - - - - - - - - - - - -\n");
+			dprintf(2, "┈┈<⭒.⋆˚⋆.>┈┈\n");
 		while(aux_redirect)
 		{
 			dprintf(2, PURPLE"redirect: %d - %s\n"STD, aux_redirect->redirect_type, aux_redirect->name);
 			aux_redirect = aux_redirect->next;
 		}
-		dprintf(2, "-----------------------------------------------\n");
+		dprintf(2, "══════════════\n");
 		command = command->next;
 	}
 

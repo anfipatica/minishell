@@ -27,6 +27,30 @@ int	openeitor(int *p_fds, const char *file, int flags, mode_t mode)
 	}
 	return (file_fd);
 }
+// infile  es de 0 osea el de lectura
+// outfile es de 1 osea el de escritura
+void	child_pepa_new(t_command *command, int	action, int	p_fds[2])
+{
+	pid_t	pid_family;
+	char 	**matrix[2];
+	char	*path_name;
+
+	dprintf(2, "HERE PEPA\n");
+	pid_family = fork();
+	if (pid_family == 0)
+	{
+		close(p_fds[action == IN_FILE ? OUT_FILE : IN_FILE]); //! IMPORTANTE ESTO ES LO QUE HA HECHO SAN LUIS AAAAAAAAH
+		matrix[ARGS] = lts_args_to_matrix(command->args);
+		matrix[ENV] = lts_env_to_matrix(command->env);
+		if (matrix[ARGS] == NULL)
+			return ;
+		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
+		dup2(p_fds[action], action);
+		close(p_fds[action]);
+		execute_or_error(matrix, path_name);
+		free_exit_execution(path_name, matrix);
+	}
+}
 
 // void	child_pepe_first(int *p_fds, char * first_cmd, char *infile, char **envp)
 // {

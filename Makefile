@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
+#CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
@@ -58,6 +58,8 @@ SRCS =											\
 		$(PEPEX_DIR)main.c						\
 		$(SRC_DIR)executor.c					\
 		$(SRC_DIR)error.c						\
+		$(SRC_DIR)check_builtins.c				\
+		$(SRC_DIR)fd_handler.c					\
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))

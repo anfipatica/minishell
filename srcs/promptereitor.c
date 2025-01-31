@@ -46,15 +46,12 @@ int	promptereitor(t_env *env)
 			if (twin_quote(line) == false)
 				continue ;
 			first_token = tokenizer(line, env);
-			// print_tokens(first_token);
+			//print_tokens(first_token);
 			list_checker(&first_token);
-			// print_tokens(first_token);
-			write(2, "ASDASDDASASDASDD\n", 18);
+			//print_tokens(first_token);
 			command = automata(first_token, env);
-			printf("command promtereitor: %p\n", command);
 			if (command)
 				begin_execution(command);
-			write(2, "adasdsda\n", 10);
 			if (command)
 				ft_free_commands(command);
 			ft_free_tokens(first_token);

@@ -13,7 +13,6 @@
 
 int	insert_args(t_token	*token, t_command *command)
 {
-	dprintf(2, "INSERT_FLAG\n");
 	t_args	*aux_arg;
 	aux_arg = new_args(ft_ternary(token->expanded, token->str, token->expanded));
 	add_args_back(&(command->args), aux_arg);
@@ -22,8 +21,6 @@ int	insert_args(t_token	*token, t_command *command)
 
 int	set_redirect_type(t_token	*token, t_command *command)
 {
-
-	dprintf(2, "SET_REDIRECT_TYPE\n");
 	command->aux_redirect = new_redirect(token->type);
 	add_redirect_back(&(command->head_redirect), command->aux_redirect);
 	return (0);
@@ -31,14 +28,12 @@ int	set_redirect_type(t_token	*token, t_command *command)
 
 int	insert_file(t_token	*token, t_command *command)
 {
-	dprintf(2, "INSERT_FILE\n");
 	command->aux_redirect->name = ft_ternary(token->expanded, token->str, token->expanded);
 	return (0);
 }
 
 int	end_command(t_token	*token, t_command *command)
 {
-	dprintf(2, "END_COMMAND\n");
 	(void) command;
 	(void) token;
 	return (0);

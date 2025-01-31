@@ -137,7 +137,7 @@ void		ft_free_commands(t_command *command);
 void		ft_free_one_command(t_command *command);
 void		add_command_back(t_command **lst, t_command *new);
 t_command	*new_command(t_env *env);
-void len_command_list(t_command *command);
+void		len_command_list(t_command *command);
 
 //list_token.c
 
@@ -193,6 +193,7 @@ pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
 void	print_error(const char *msg);
 void	ft_perror(char *str);
 int		openeitor(int *p_fds, const char *file, int flags, mode_t mode);
+void	child_pepa_new(t_command *command, int	action, int	p_fds[2]);
 
 
 /* ----------- EVERYTHING ELSE ---------- */
@@ -278,5 +279,10 @@ void	error_exit(char *str, int error);
 char	*filename_generator(void);
 char	*here_dokeitor(char *limiter, char *new_temp_file);
 void	find_heredoc(t_command *file);
+
+//fd_handler.c
+
+int	handle_files(t_redirect *file);
+int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
 
 #endif

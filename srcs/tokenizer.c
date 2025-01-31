@@ -18,7 +18,6 @@ t_token	*token_chooser2_space_version(char *line)
 	i = 0;
 	while (line[i] && ft_strchr(SPACES, line[i]))
 		i++;
-	dprintf(2, "i = %d\n", i);
 	return (new_token(T_SPACE, line, i));
 }
 
@@ -99,9 +98,7 @@ t_token	*tokenizer(char *line, t_env *env)
 			if (fresh_token == NULL)
 				freedom_error_fresh_token(head_token, line, env);
 			add_token_back(&head_token, fresh_token);
-			dprintf(2, "1. i = %d\n", i);
 			i += fresh_token->length;
-			dprintf(2, "2. i = %d\n", i);
 		}
 		else
 			i += wordeitor(&head_token, &line[i]);

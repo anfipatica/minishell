@@ -42,7 +42,7 @@ t_command	*new_command(t_env *env)
 	new_command->next = NULL;
 	return (new_command);
 }
-
+/* 
 void len_command_list(t_command *command)
 {
 	int	i = 0;
@@ -53,6 +53,7 @@ void len_command_list(t_command *command)
 		printf("COMMAND LEEEEEEENG: %d\n", i);
 	}
 }
+ */
 
 /**
  * add_command_back receives the head of the list and the new command
@@ -92,16 +93,9 @@ void	ft_free_commands(t_command *command)
 {
 	t_command	*temp;
 
-	printf("OTRO COÑO\n");
-	printf("free ccommand%p\n", command);
-	//len_command_list(command);
 	while (command != NULL)
 	{
 		temp = command->next;
-		
-		printf("OTRO COÑO\n");
-
-		// ft_free_redirects(command->head_redirect);
 		ft_free_one_command(command);
 		command = temp;
 	}
