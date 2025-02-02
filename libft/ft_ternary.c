@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char *ft_ternary(char *true_case, char *false_case, bool condition)
+char	*ft_ternary( bool condition, char *true_case, char *false_case)
 {
 	if (condition)
 		return (true_case);

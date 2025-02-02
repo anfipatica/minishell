@@ -118,12 +118,21 @@ typedef struct s_command
 	// int				p_fds[2]; awhawhwahawhawhaw
 	char				*path_command;
 	t_args				*args;
-	t_redirect			*head_redirect;
-	t_redirect			*aux_redirect;
+	t_redirect			*head_redirect; //?Quizás normalizar más estos nombres, que uno sea head y otro solo args me da un poco de toc
 	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
 }				t_command;
+
+typedef struct s_backpack
+{
+	t_command	*head_command;
+	t_command	*last_command;
+	t_args		*arg_aux;
+	t_redirect	*redirect_aux;
+	t_token		*token;
+	t_env		*env;
+}					t_backpack;
 
 // typedef struct s_error_return
 // {
@@ -137,7 +146,7 @@ void		ft_free_commands(t_command *command);
 void		ft_free_one_command(t_command *command);
 void		add_command_back(t_command **lst, t_command *new);
 t_command	*new_command(t_env *env);
-void		len_command_list(t_command *command);
+void len_command_list(t_command *command);
 
 //list_token.c
 
@@ -248,12 +257,12 @@ t_command	*automata(t_token *token, t_env *env);
 
 // automata_func.c
 
-int	insert_command(t_token	*token, t_command *command);
-int	insert_args(t_token	*token, t_command *command);
-int	set_redirect_type(t_token	*token, t_command *command);
-int	insert_file(t_token	*token, t_command *command);
-int	end_command(t_token	*token, t_command *command);
-int	sintax_error(t_token	*token, t_command *command);
+int	insert_command(t_backpack *backpack);
+int	insert_args(t_backpack *s_backpack);
+int	set_redirect_type(t_backpack *backpack);
+int	insert_file(t_backpack *backpack);
+int	end_command(t_backpack *backpack);
+int	syntax_error(t_backpack *backpack);
 
 // list_checker.c
 
@@ -262,6 +271,7 @@ void	list_checker(t_token **list);
 // executor.c
 int		executor(t_command *command);
 void	begin_execution(t_command *command);
+void	execute_or_error(char **matrix[2], char *path_name);
 
 // built-ins
 void ft_cd(void);
@@ -284,5 +294,9 @@ void	find_heredoc(t_command *file);
 
 int	handle_files(t_redirect *file);
 int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
+
+//check_builtins.c
+
+int	check_builtins(t_command *command);
 
 #endif

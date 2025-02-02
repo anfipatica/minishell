@@ -1,49 +1,55 @@
 #include "minishell.h"
 
-/* int	insert_command(t_token	*token, t_command *command)
-{
-	ddddprintf(2, 2, 2, 2, "holaaaa!\n");
-	if (command->path_command)
-		return (insert_args(token, command));
-	dprintf(2, "INSERT_COMMAND\n");
-	command->path_command = find_path_name(ft_ternary(token->expanded, token->str, token->expanded), command->env, NULL);
-	insert_args(token, command);
-	return (0);
-} */
 
-int	insert_args(t_token	*token, t_command *command)
+int	insert_args(t_backpack *backpack)
 {
-	t_args	*aux_arg;
-	aux_arg = new_args(ft_ternary(token->expanded, token->str, token->expanded));
-	add_args_back(&(command->args), aux_arg);
+	t_token	*token;
+
+	token = backpack->token;
+	if (!backpack->last_command)
+	{
+		backpack->last_command = new_command(backpack->env);
+		add_command_back(&(backpack->head_command), backpack->last_command);
+	}
+	backpack->arg_aux = new_args(ft_ternary(token->expanded, token->expanded, token->str));
+	add_args_back(&(backpack->last_command->args), backpack->arg_aux);
 	return (0);
 }
 
-int	set_redirect_type(t_token	*token, t_command *command)
+int	set_redirect_type(t_backpack *backpack)
 {
-	command->aux_redirect = new_redirect(token->type);
-	add_redirect_back(&(command->head_redirect), command->aux_redirect);
+	t_token	*token;
+
+	token = backpack->token;
+	if (!backpack->last_command)
+	{
+		backpack->last_command = new_command(backpack->env);
+		add_command_back(&(backpack->head_command), backpack->last_command);
+	}
+	backpack->redirect_aux = new_redirect(token->type);
+	add_redirect_back(&(backpack->last_command->head_redirect), backpack->redirect_aux);
 	return (0);
 }
 
-int	insert_file(t_token	*token, t_command *command)
+int	insert_file(t_backpack *backpack)
 {
-	command->aux_redirect->name = ft_ternary(token->expanded, token->str, token->expanded);
+	t_token	*token;
+
+	token = backpack->token;
+	backpack->redirect_aux->name = ft_ternary(token->expanded, token->expanded, token->str);
 	return (0);
 }
 
-int	end_command(t_token	*token, t_command *command)
+int	end_command(t_backpack *backpack)
 {
-	(void) command;
-	(void) token;
+	backpack->last_command = NULL;
 	return (0);
 }
 
-int	sintax_error(t_token	*token, t_command *command)
+int	syntax_error(t_backpack *backpack)
 {
-	dprintf(2, RED"SINTAX_ERROR\n"STD);
-	(void) token;
-	(void) command;
+	write(2, RED"SYNTAX ERROR\n"STD, 24);
+	ft_free_commands(backpack->head_command);
 	return (ERROR__STATE);
 }
 // ls -la > file | grep hello > file2

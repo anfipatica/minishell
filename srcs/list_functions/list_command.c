@@ -37,7 +37,6 @@ t_command	*new_command(t_env *env)
 	new_command->path_command = NULL;
 	new_command->args = NULL;
 	new_command->head_redirect = NULL;
-	new_command->aux_redirect = NULL;
 	new_command->env = env;
 	new_command->next = NULL;
 	return (new_command);

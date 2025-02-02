@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:35:09 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/08 19:34:58 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/02 22:32:20 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	free_double_pointer(char **strings);
-char	*ft_ternary(char *true_case, char *false_case, bool condition);
+char	*ft_ternary( bool condition, char *true_case, char *false_case);
 
 // GET_NEXT_LINE
 #  ifndef BUFFER_SIZE

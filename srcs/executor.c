@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 void	execute_or_error(char **matrix[2], char *path_name)
@@ -7,7 +5,7 @@ void	execute_or_error(char **matrix[2], char *path_name)
 	struct stat	buffer;
 
 	if (!path_name || !path_name[0])
-		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));	
+		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
@@ -29,6 +27,7 @@ void	exe_without_pipe(t_command *command)
 		matrix[ENV] = lts_env_to_matrix(command->env);
 		if (matrix[ARGS] == NULL)
 			return ;
+		printf("aaaaaaaaaaaaaaaa\n");
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		if (command->head_redirect)
 		{
@@ -45,13 +44,12 @@ void	exe_without_pipe(t_command *command)
 	}
 }
 
-int	executor(t_command *command) //!es donde tenemos que hacer el multy pipe con un while
+int	executor(t_command *command)
 {
 	int		p_fds[2];
 	int		status;
 
 	pipe(p_fds);
-	dprintf(2, "pipe in%d pipe out%d\n", p_fds[0], p_fds[1]);
 	child_pepa_new(command, OUT_FILE, p_fds);
 	close(p_fds[OUT_FILE]);
 	child_pepa_new(command->next, IN_FILE, p_fds);
@@ -65,15 +63,17 @@ void	begin_execution(t_command *command)
 {
 	print_commands(command);
 	find_heredoc(command);
-	if (check_builtins(command) == 0)
+	//!Si no se comprueba command->args, da segfault. Si nos pasan "> file", es válido y falla.
+	//!Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
+	if (command->args && check_builtins(command) == 0)
 		return ;
 	if (!(command->next))
-		exe_without_pipe(command); //- Perfecto
+		exe_without_pipe(command); //- REVISAR LO DE SI NO HAY NINGÚN COMANDO Y SOLO REDIRECCIONES.
 	else
 		executor(command);
 }
 /*
 ! OJO si tenemos un solo comando y es bulidig tiene que executarse en el padre;
-! si es mas de un comanddo (pipe) entonces todo pasa en los hijos;
+! si es mas de un comanddo entonces todo pasa en los hijos;
 ! porquee no tendrias quee cerra nuestra minichell!!!!!
 */
