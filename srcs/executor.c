@@ -40,18 +40,29 @@ void	exe_without_pipe(t_command *command)
 	}
 }
 
+// cmd | cmd2
+
 int	executor(t_command *command)
 {
-	int		p_fds[2];
+	int		pipefd[2];
 	int		status;
+	int		old_fd;
 
-	pipe(p_fds);
-	child_pepa_new(command, OUT_FILE, p_fds);
-	close(p_fds[OUT_FILE]);
-	child_pepa_new(command->next, IN_FILE, p_fds);
-	close(p_fds[IN_FILE]);
-	wait(&status);
-	wait(&status);
+	while (command)
+	{
+		if(command->next)
+			pipe(pipefd);
+		funcion_que_executa(command, old_fd, pipefd);
+		old_fd = pipefd[IN_FILE];
+		close(pipefd[OUT_FILE]);
+	}
+	close(pipefd[IN_FILE]);
+	// child_pepa_new(command, OUT_FILE, pipefd);
+	// close(pipefd[OUT_FILE]);
+	// child_pepa_new(command->next, IN_FILE, pipefd);
+	// close(pipefd[IN_FILE]);
+
+	// wait(&status);
 	return (0);
 }
 
