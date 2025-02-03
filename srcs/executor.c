@@ -25,15 +25,11 @@ void	exe_without_pipe(t_command *command)
 	{
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
+		if (handle_files(command->head_redirect) == OPEN_ERROR)
+			exit(1);
 		if (matrix[ARGS] == NULL)
-			return ;
-		printf("aaaaaaaaaaaaaaaa\n");
+			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-		if (command->head_redirect)
-		{
-			if (handle_files(command->head_redirect) == OPEN_ERROR)
-				exit(1);
-		}
 		execute_or_error(matrix, path_name);
 		free_exit_execution(path_name, matrix);
 	}
@@ -65,7 +61,7 @@ void	begin_execution(t_command *command)
 	find_heredoc(command);
 	//!Si no se comprueba command->args, da segfault. Si nos pasan "> file", es válido y falla.
 	//!Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
-	if (command->args && check_builtins(command) == 0)
+	if (check_builtins(command) == 0)
 		return ;
 	if (!(command->next))
 		exe_without_pipe(command); //- REVISAR LO DE SI NO HAY NINGÚN COMANDO Y SOLO REDIRECCIONES.

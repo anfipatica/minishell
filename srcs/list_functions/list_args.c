@@ -19,6 +19,8 @@ char **lts_args_to_matrix(t_args *args)
 	char	**args_matrix;
 	int	i;
 
+	if (!args)
+		return (NULL);
 	args_matrix = malloc((len_list_args(args) + 1) * sizeof(char *));
 	if (!args_matrix)
 		return(NULL);

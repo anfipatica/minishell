@@ -3,6 +3,8 @@
 
 int	check_builtins(t_command *command)
 {
+	if (!command->args || command->next)
+		return (1);
 	if (ft_strcmp(command->args->name, "cd") == 0)
 		return(ft_cd(), 0);
 	if (ft_strcmp(command->args->name, "echo") == 0)

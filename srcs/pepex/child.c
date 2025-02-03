@@ -42,8 +42,10 @@ void	child_pepa_new(t_command *command, int	action, int	p_fds[2])
 		close(p_fds[action == IN_FILE ? OUT_FILE : IN_FILE]); //! IMPORTANTE ESTO ES LO QUE HA HECHO SAN LUIS AAAAAAAAH
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
+		if (handle_files(command->head_redirect) == OPEN_ERROR)
+			exit(1);
 		if (matrix[ARGS] == NULL)
-			return ;
+			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		dup2(p_fds[action], action);
 		close(p_fds[action]);
