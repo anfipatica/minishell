@@ -30,7 +30,6 @@
 # define ACCEPT_STATES	2
 # define PIPE_STATE		4
 
-
 # define	ARGS	0
 # define	ENV	1
 
@@ -51,6 +50,9 @@
 
 # define OUT_FILE 1
 # define IN_FILE 0
+
+// EXEC
+# define CHILD 0
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -269,7 +271,7 @@ int	syntax_error(t_backpack *backpack);
 void	list_checker(t_token **list);
 
 // executor.c
-int		executor(t_command *command);
+int		daddy_executor(t_command *command);
 void	begin_execution(t_command *command);
 void	execute_or_error(char **matrix[2], char *path_name);
 

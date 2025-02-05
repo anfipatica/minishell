@@ -21,7 +21,7 @@ void	exe_without_pipe(t_command *command)
 	char 	**matrix[2];
 
 	family = fork();
-	if (family == 0)
+	if (family == CHILD)
 	{
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
@@ -42,33 +42,75 @@ void	exe_without_pipe(t_command *command)
 
 // cmd | cmd2
 
-int	executor(t_command *command)
+void wait_all(void)
 {
-	int		pipefd[2];
-	int		status;
-	int		old_fd;
+	int status;
+	pid_t value_wp;
+
+	value_wp = 0;
+	while (value_wp != -1)
+	{
+		value_wp = waitpid(-1, &status, 0);
+	}
+}
+
+void exec_jr(t_command *command, int in_fd, int *pipefd)
+{
+	(void)in_fd;
+	(void)pipefd;
+	char 	**matrix[2];
+	char 	*path_name;
+	pid_t 	family;
+
+	family = fork();
+	if (family == CHILD)
+	{
+		if (in_fd != NULL_FD)
+		{
+			dup2(in_fd, 0);
+			close(in_fd);
+		}
+		if (command->next)
+		{
+			close(pipefd[IN_FILE]);
+			dup2(pipefd[OUT_FILE], 1);
+			close(pipefd[OUT_FILE]);
+		}
+
+		dprintf(2, "HIJO: in: %d pipe[OUT]: %d pipe[IN]: %d\n", in_fd, pipefd[OUT_FILE], pipefd[IN_FILE]);
+		matrix[ARGS] = lts_args_to_matrix(command->args);
+		matrix[ENV] = lts_env_to_matrix(command->env);
+		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
+		execve(path_name, matrix[ARGS], matrix[ENV]);
+		exit(1); //!Gestionar mejor esto
+	}
+}
+
+//TODO  ls | cat -e
+int	daddy_executor(t_command *command)
+{
+	int		pipefd[2] = {0, 1};
+	// int		status;
+	int		in_fd = NULL_FD;
 
 	while (command)
 	{
 		if(command->next)
 			pipe(pipefd);
-		funcion_que_executa(command, old_fd, pipefd);
-		old_fd = pipefd[IN_FILE];
+		exec_jr(command, in_fd, pipefd);
+		close(in_fd);
+		in_fd = pipefd[IN_FILE];
 		close(pipefd[OUT_FILE]);
+		command = command->next;
 	}
 	close(pipefd[IN_FILE]);
-	// child_pepa_new(command, OUT_FILE, pipefd);
-	// close(pipefd[OUT_FILE]);
-	// child_pepa_new(command->next, IN_FILE, pipefd);
-	// close(pipefd[IN_FILE]);
-
-	// wait(&status);
+	wait_all();
 	return (0);
 }
 
 void	begin_execution(t_command *command)
 {
-	print_commands(command);
+	// print_commands(command);
 	find_heredoc(command);
 	//!Si no se comprueba command->args, da segfault. Si nos pasan "> file", es válido y falla.
 	//!Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
@@ -77,7 +119,7 @@ void	begin_execution(t_command *command)
 	if (!(command->next))
 		exe_without_pipe(command); //- REVISAR LO DE SI NO HAY NINGÚN COMANDO Y SOLO REDIRECCIONES.
 	else
-		executor(command);
+		daddy_executor(command);
 }
 /*
 ! OJO si tenemos un solo comando y es bulidig tiene que executarse en el padre;
