@@ -76,12 +76,14 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 			dup2(pipefd[OUT_FILE], 1);
 			close(pipefd[OUT_FILE]);
 		}
-
-		dprintf(2, "HIJO: in: %d pipe[OUT]: %d pipe[IN]: %d\n", in_fd, pipefd[OUT_FILE], pipefd[IN_FILE]);
+		if (handle_files(command->head_redirect) == OPEN_ERROR)
+			exit(1);
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
+		if (matrix[ARGS] == NULL)
+			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-		execve(path_name, matrix[ARGS], matrix[ENV]);
+		execute_or_error(matrix, path_name);
 		exit(1); //!Gestionar mejor esto
 	}
 }
