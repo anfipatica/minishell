@@ -3,7 +3,35 @@
 
 int	check_builtins(t_command *command)
 {
-	if (!command->args || command->next)
+	const char *builtins[] = {
+		"cd",
+		"echo",
+		"env",
+		"exit",
+		"export",
+		"pwd",
+		"unset",
+		NULL
+	};
+	int i;
+
+	i = 0;	
+	while (builtins[i]  != NULL)
+	{
+		if (ft_strcmp(command->args->name, builtins[i]) == 0)
+		{
+			dprintf(2, "EnCONTRATO BUINDIGSS!\n");
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+
+int	exec_builtin(t_command *command)
+{
+	if (!command->args)
 		return (1);
 	if (ft_strcmp(command->args->name, "cd") == 0)
 		return(ft_cd(), 0);

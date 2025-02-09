@@ -51,14 +51,11 @@ SRCS =											\
 		$(SRC_DIR)automata.c					\
 		$(SRC_DIR)automata_func.c				\
 		$(SRC_DIR)list_checker.c				\
-		$(PEPEX_DIR)child.c						\
 		$(PEPEX_DIR)commander.c					\
 		$(PEPEX_DIR)here_dokeitor.c				\
-		$(PEPEX_DIR)main_bonus.c				\
-		$(PEPEX_DIR)main.c						\
 		$(SRC_DIR)executor.c					\
 		$(SRC_DIR)error.c						\
-		$(SRC_DIR)check_builtins.c				\
+		$(SRC_DIR)builtins_handler.c				\
 		$(SRC_DIR)fd_handler.c					\
 
 

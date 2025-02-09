@@ -300,5 +300,6 @@ int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
 //check_builtins.c
 
 int	check_builtins(t_command *command);
+int	exec_builtin(t_command *command);
 
 #endif

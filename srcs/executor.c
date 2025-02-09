@@ -13,8 +13,31 @@ void	execute_or_error(char **matrix[2], char *path_name)
 		error_exit(path_name, IS_DIR);
 }
 
+bool	builtin_without_pipe(t_command *command)
+{
+	if (command->next)
+		return (false);
+	if (check_builtins(command) == false)
+	{
+		dprintf(2, "NO ES BILT\n");
+		return (false);
+	}
+	int aux_fd = dup(1);
+	dprintf(2, "auxfd %d\n", aux_fd);
+	if (handle_files(command->head_redirect) == OPEN_ERROR)
+		return (true);
+	if (exec_builtin(command) == 0)
+	{
+		dprintf(2, "ES BILT\n");
+		dup2(aux_fd, 1);
+		close(aux_fd);
+		return (true);
+	}
+	return (false);
+}
 void	exe_without_pipe(t_command *command)
 {
+	dprintf(2, "exe_without_pipe\n");
 	pid_t	family;
 	int		status;
 	char	*path_name;
@@ -56,8 +79,6 @@ void wait_all(void)
 
 void exec_jr(t_command *command, int in_fd, int *pipefd)
 {
-	(void)in_fd;
-	(void)pipefd;
 	char 	**matrix[2];
 	char 	*path_name;
 	pid_t 	family;
@@ -78,6 +99,11 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 		}
 		if (handle_files(command->head_redirect) == OPEN_ERROR)
 			exit(1);
+		if (exec_builtin(command) == 0)
+		{
+			dprintf(2, "ES BILT\n");
+			exit(111);
+		}
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
 		if (matrix[ARGS] == NULL)
@@ -88,41 +114,45 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	}
 }
 
-//TODO  ls | cat -e
 int	daddy_executor(t_command *command)
 {
 	int		pipefd[2] = {0, 1};
-	// int		status;
 	int		in_fd = NULL_FD;
-
+	int 	mutiple_commands;
+	
+	mutiple_commands = true;
+	if (command->next == NULL)
+		mutiple_commands = false;
 	while (command)
 	{
-		if(command->next)
+		if (command->next)
 			pipe(pipefd);
 		exec_jr(command, in_fd, pipefd);
-		close(in_fd);
-		in_fd = pipefd[IN_FILE];
-		close(pipefd[OUT_FILE]);
+		if (mutiple_commands == true)
+		{
+			close(in_fd);
+			in_fd = pipefd[IN_FILE];
+			close(pipefd[OUT_FILE]);
+		}
 		command = command->next;
 	}
-	close(pipefd[IN_FILE]);
+	if (mutiple_commands == true)
+		close(pipefd[IN_FILE]);
 	wait_all();
 	return (0);
 }
 
+////Si no se comprueba command->args, da segfault. Si nos pasan "> file", es válido y falla.
+////Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
 void	begin_execution(t_command *command)
 {
-	// print_commands(command);
 	find_heredoc(command);
-	//!Si no se comprueba command->args, da segfault. Si nos pasan "> file", es válido y falla.
-	//!Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
-	if (check_builtins(command) == 0)
+	if (builtin_without_pipe(command) == true)
 		return ;
-	if (!(command->next))
-		exe_without_pipe(command); //- REVISAR LO DE SI NO HAY NINGÚN COMANDO Y SOLO REDIRECCIONES.
-	else
-		daddy_executor(command);
+	daddy_executor(command);
 }
+
+ //- REVISAR LO DE SI NO HAY NINGÚN COMANDO Y SOLO REDIRECCIONES.
 /*
 ! OJO si tenemos un solo comando y es bulidig tiene que executarse en el padre;
 ! si es mas de un comanddo entonces todo pasa en los hijos;
