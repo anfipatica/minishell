@@ -2,6 +2,7 @@
 
 void ft_env(t_command *command)
 {
+	(void)command;
 	printf("FT_ENV\n");
 	while(command->env)
 	{

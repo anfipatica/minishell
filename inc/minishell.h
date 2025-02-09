@@ -276,13 +276,13 @@ void	begin_execution(t_command *command);
 void	execute_or_error(char **matrix[2], char *path_name);
 
 // built-ins
-void ft_cd(void);
-void ft_echo(void);
+void ft_cd(t_command *command);
+void ft_echo(t_command *command);
 void ft_env(t_command *command);
-void ft_exit(void);
-void ft_export(void);
+void ft_exit(t_command *command);
+void ft_export(t_command *command);
 void ft_pwd(void);
-void ft_unset(void);
+void ft_unset(t_command *command);
 
 // error.c
 void	error_exit(char *str, int error);
