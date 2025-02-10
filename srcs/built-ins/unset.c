@@ -6,20 +6,10 @@ void ft_unset(t_command *command)
 	printf("FT_UNSET\n");
 
 	// quero borrar el primer env;
-	
 
-
-
-
-
-
-/* 	
 	t_env **head_env = &(command->env->next);
-
 	ft_free_one_env(command->env);
 	command->env = *head_env;
- */
-
 
 
 

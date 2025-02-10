@@ -1,16 +1,23 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "libft.h": "c",
-        "string.h": "c",
-        "stdbool.h": "c",
-        "type_traits": "c",
-        "errno.h": "c",
-        "features.h": "c",
-        "fcntl.h": "c",
-        "unistd.h": "c",
-        "typeinfo": "c"
-    },
+		"minishell.h": "c",
+		"libft.h": "c",
+		"string.h": "c",
+		"stdbool.h": "c",
+		"type_traits": "c",
+		"errno.h": "c",
+		"features.h": "c",
+		"fcntl.h": "c",
+		"unistd.h": "c",
+		"typeinfo": "c",
+		"stat.h": "c",
+		"types.h": "c",
+		"signal.h": "c",
+		"signum-generic.h": "c",
+		"sig_atomic_t.h": "c",
+		"sigset_t.h": "c",
+		"stddef.h": "c"
+	},
     "better-comments.tags": [
 
         {

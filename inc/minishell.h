@@ -1,6 +1,41 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+//!Definitions needed for signals to properly work in linux. Commented for mac.
+# define _POSIX_C_SOURCE 199309L
+# define _DEFAULT_SOURCE
+/*
+Antes en la minitalk tenia puesto esto
+# define _POSIX_C_SOURCE 199309L
+# define _DEFAULT_SOURCE
+
+La cosa es que signal.h necesita tener __USE_POSIX definido para poder usar
+sigaction, pero no podemos definir __USE_POSIX directamente, no sé muy bien por
+qué pero lo que es cierto es que features.h, la librería que incluye signal.h,
+lo primero que hace es undef __USE_POSIX por lo que aunque nosotros la definamos,
+no sirve.
+La parte de features.h que vuelve a definir __USE_POSIX tiene una serie de
+condiciones:
+
+#if (defined _POSIX_SOURCE					\
+     || (defined _POSIX_C_SOURCE && _POSIX_C_SOURCE >= 1)	\
+     || defined _XOPEN_SOURCE)
+# define __USE_POSIX	1
+#endif
+
+Por tanto, con definir _POSIX_SOURCE nos vale. De hecho el propio manual de
+sigaction dice:
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       sigaction(): _POSIX_C_SOURCE
+
+       siginfo_t: _POSIX_C_SOURCE >= 199309L
+
+Por tanto imagino que por eso puse lo otro, pero en principio parece funcionar
+igual ?? no sé ya veremos xD
+*/
+
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -9,11 +44,12 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <string.h>
-# include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 # include <sys/stat.h>
 # include <stddef.h>
 # include <errno.h>
+# include <signal.h>
 # include "libft.h"
 
 # define SYMBOLS "<>|$- "
@@ -53,6 +89,10 @@
 
 // EXEC
 # define CHILD 0
+
+//EXIT_STATUS
+# define SIGINT_SIGNAL 130
+
 // typedef enum	s_token_value
 // {
 // 	T_WORD,				// str
@@ -231,6 +271,7 @@ void	ft_free_env(t_env *env);
 // expandetor.c
 
 t_token		*expandetor(char *line, t_env *env);
+char			*get_char_pid();
 t_token		*get_pid_expandetor();
 
 // quoteitor.c
@@ -301,5 +342,9 @@ int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
 
 int	check_builtins(t_command *command);
 int	exec_builtin(t_command *command);
+
+//signals.c
+void	father_signal_listener();
+void	child_signal_listener();
 
 #endif

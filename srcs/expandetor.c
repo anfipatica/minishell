@@ -19,6 +19,20 @@ t_token	*expandetor(char *line, t_env *env)
 	return (token);
 }
 
+char		*get_char_pid()
+{
+	int		fd;
+	char	temp[15];
+	int read_return;
+
+	ft_memset(&temp, 0, 15);
+	fd = open("/proc/self/stat", O_RDONLY);
+	read_return = read(fd, temp, 14);
+	close(fd);
+	if (read_return == -1)
+		return (NULL);
+	return (ft_substr(temp, 0, ft_strchr(temp, ' ') - temp));
+}
 /*
 	This function emulates getpid(),
 	returning a token with the
@@ -26,19 +40,10 @@ t_token	*expandetor(char *line, t_env *env)
 */
 t_token	*get_pid_expandetor()
 {
-	int		fd;
-	char	temp[15];
 	t_token	*token;
-	int read_return;
 
-	ft_memset(&temp, 0, 15);
-	fd = open("/proc/self/stat", O_RDONLY);
-	read_return = read(fd, temp, 14);
-	if (read_return == -1)
-		return (NULL);
 	token = new_token(T_ENV, "$$", 2);
-	token->expanded = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
+	token->expanded = get_char_pid();
 	token->free_expanded = true;
-	close(fd);
 	return (token);
 }

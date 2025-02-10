@@ -16,6 +16,8 @@ int	check_builtins(t_command *command)
 	int i;
 
 	i = 0;	
+	if (!command->args)
+		return (false);
 	while (builtins[i]  != NULL)
 	{
 		if (ft_strcmp(command->args->name, builtins[i]) == 0)

@@ -48,14 +48,13 @@ void ft_echo(t_command *command)
 {
 	int	total_flags;
 	bool	flag;
-	char	*str;
-	t_args *aux_args = command->args->next;
-
+	t_args *aux_args;
+	
+	aux_args = command->args->next;
 	total_flags = 0;
 	while (aux_args != NULL)
 	{
-		str = aux_args->name;
-		flag = get_echo_flag(str);
+		flag = get_echo_flag(aux_args->name);
 		if (flag == true)
 			total_flags += 1;
 		else

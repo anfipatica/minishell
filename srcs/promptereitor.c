@@ -37,6 +37,7 @@ int	promptereitor(t_env *env)
 
 	while (1)
 	{
+		father_signal_listener();
 		line = readline("Prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;
@@ -52,6 +53,7 @@ int	promptereitor(t_env *env)
 			command = automata(first_token, env);
 			if (command)
 				begin_execution(command);
+			env = command->env;
 			if (command)
 				ft_free_commands(command);
 			ft_free_tokens(first_token);

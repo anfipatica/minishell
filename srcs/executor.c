@@ -81,6 +81,7 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	family = fork();
 	if (family == CHILD)
 	{
+		child_signal_listener();
 		if (in_fd != NULL_FD)
 		{
 			dup2(in_fd, 0);

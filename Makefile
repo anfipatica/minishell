@@ -57,6 +57,7 @@ SRCS =											\
 		$(SRC_DIR)error.c						\
 		$(SRC_DIR)builtins_handler.c				\
 		$(SRC_DIR)fd_handler.c					\
+		$(SRC_DIR)signals.c					\
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
