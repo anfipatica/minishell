@@ -19,10 +19,7 @@ int	check_builtins(t_command *command)
 	while (builtins[i]  != NULL)
 	{
 		if (ft_strcmp(command->args->name, builtins[i]) == 0)
-		{
-			dprintf(2, "EnCONTRATO BUINDIGSS!\n");
 			return (true);
-		}
 		i++;
 	}
 	return (false);

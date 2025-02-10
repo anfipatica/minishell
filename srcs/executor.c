@@ -18,26 +18,22 @@ bool	builtin_without_pipe(t_command *command)
 	if (command->next)
 		return (false);
 	if (check_builtins(command) == false)
-	{
-		dprintf(2, "NO ES BILT\n");
 		return (false);
-	}
 	int aux_fd = dup(1);
-	dprintf(2, "auxfd %d\n", aux_fd);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
 	if (exec_builtin(command) == 0)
 	{
-		dprintf(2, "ES BILT\n");
 		dup2(aux_fd, 1);
 		close(aux_fd);
 		return (true);
 	}
 	return (false);
 }
+
+/*
 void	exe_without_pipe(t_command *command)
 {
-	dprintf(2, "exe_without_pipe\n");
 	pid_t	family;
 	int		status;
 	char	*path_name;
@@ -62,8 +58,7 @@ void	exe_without_pipe(t_command *command)
 		dprintf(2, "STATUS: %d\n", WEXITSTATUS(status));
 	}
 }
-
-// cmd | cmd2
+ */
 
 void wait_all(void)
 {

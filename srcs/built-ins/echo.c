@@ -1,5 +1,6 @@
 #include "minishell.h"
-
+#define ERROR_FLAG 3
+#define FLAG_OK 2
 
 int	get_echo_state(int current_state, int echo_char)
 {
@@ -8,12 +9,11 @@ int	get_echo_state(int current_state, int echo_char)
 		{3, 2, 3}, //- 1 - estado guion
 		{3, 2, 3}, //- 2 - estado n
 		{3, 3, 3}  //- 3 - estado err - ERROR__STATE
-	};// -  n err 
-    //-  0  1  2
+	};//-  n err 
+  //-  0  1  2
 
 	return (matrix[current_state][echo_char]);
 }
-
 
 int convert_char_to_echo_char(char c)
 {
@@ -24,7 +24,7 @@ int convert_char_to_echo_char(char c)
 	return (2);
 }
 
-int get_echo_flag(char *str)
+bool get_echo_flag(char *str)
 {
 	int	i = 0;
 	int	state = 0;
@@ -34,50 +34,41 @@ int get_echo_flag(char *str)
 	{
 		echo_char = convert_char_to_echo_char(str[i]);
 		state = get_echo_state(state, echo_char);
+		if (state == ERROR_FLAG)
+			break ;
 		i++;
 	}
-	if (state == 2)
+	if (state == FLAG_OK)
 		return (true);
 	return (false);
 	
 }
 
-//! TODOOOOOOOO esto es una movida jajaja
 void ft_echo(t_command *command)
 {
-	(void)command;
-	printf("FT_ECHO\n");
-	bool real_echo_flag;
-	bool new_echo_flag;
-	char *str;
-	t_args *aux_args = command->args;
+	int	total_flags;
+	bool	flag;
+	char	*str;
+	t_args *aux_args = command->args->next;
 
-	real_echo_flag = true;
-	new_echo_flag = false;
-	aux_args = aux_args->next;
+	total_flags = 0;
 	while (aux_args != NULL)
 	{
 		str = aux_args->name;
-		if (real_echo_flag == false)
-			new_echo_flag = get_echo_flag(str);
-		if (new_echo_flag == false && real_echo_flag == true)
-			ft_putstr_fd(str, 1);
+		flag = get_echo_flag(str);
+		if (flag == true)
+			total_flags += 1;
+		else
+			break;
 		aux_args = aux_args->next;
 	}
-	if (real_echo_flag == 0)
-		write(1, "\n", 1);
+	while (aux_args != NULL)
+	{
+		printf("%s", aux_args->name);
+		if (aux_args->next != NULL)
+			printf(" ");
+		aux_args = aux_args->next;
+	}
+	if (total_flags == 0)
+		printf("\n");
 }
-
-/* 
--n
-error
-
-real = 1
-new = 0
-
-echo -n algo -> algo%
-echo -nnnnn -> %
-echo -n -n -n -n -n -> %
-echo -nnn -n -nn hola -n -> hola -n%
-echo hola -n  -nnn -> hola -n  -nnn\n
-*/
