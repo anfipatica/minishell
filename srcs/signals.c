@@ -30,14 +30,25 @@ ctrl + /: Nada
 	#endif
  */
 
+void	child_signal_handler(int signal)
+{
+	(void)signal;
+	exit(130);
+}
 
 void	father_signal_handler(int signal, siginfo_t *info, void *ucontext)
 {
 	(void)signal;
-	(void)ucontext;
+	printf("pid->%d, calling pid->%d\n", getpid(), info->si_pid);
+	printf("\n");
+	printf("%d\n",info->si_code);
+	printf("%d\n",info->si_errno);
+	printf("%d\n",info->si_signo);
+	printf("%d\n",info->si_uid);
+
+
 	if (info->si_pid == CHILD)
 		return ;
-	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", false);
 	rl_redisplay();
@@ -45,18 +56,12 @@ void	father_signal_handler(int signal, siginfo_t *info, void *ucontext)
 
 }
 
-void	child_signal_handler(int signal)
-{
-	printf("\n");
-	(void)signal;
-	exit(130);
-}
 
 void	child_signal_listener()
 {
 	struct sigaction	sa;
 	sigset_t				mask;
-
+//	printf(PURPLE"EL hijo a la escucha...."STD"\n");
 	sigemptyset(&mask);
 	sa.sa_handler= child_signal_handler;
 	sa.sa_mask = mask;
@@ -69,6 +74,7 @@ void	father_signal_listener()
 	struct sigaction	sa;
 	sigset_t				mask;
 
+//	printf(BLUE"El padre a la escucha....\n"STD);
 	sigemptyset(&mask);
 	sa.sa_sigaction= father_signal_handler;
 	sa.sa_mask = mask;
