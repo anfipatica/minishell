@@ -81,7 +81,6 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	family = fork();
 	if (family == CHILD)
 	{
-		child_signal_listener();
 		if (in_fd != NULL_FD)
 		{
 			dup2(in_fd, 0);
@@ -108,6 +107,7 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 		execute_or_error(matrix, path_name);
 		exit(1); //!Gestionar mejor esto
 	}
+	signal(SIGINT, child_signal_handler);
 }
 
 int	daddy_executor(t_command *command)

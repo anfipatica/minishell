@@ -40,7 +40,7 @@ void	print_tokens(t_token *token)
 {
 	int i;
 	char strfield[100];
-
+	printf("puntero 2: %p\n", &token);
 	i = 1;
 	dprintf(2, "\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
 	while (token)

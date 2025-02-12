@@ -344,7 +344,8 @@ int	check_builtins(t_command *command);
 int	exec_builtin(t_command *command);
 
 //signals.c
-void	father_signal_listener();
-void	child_signal_listener();
+void	child_signal_handler(int signal);
+void	father_signal_handler(int signal);
+void	father_signal_handler2(int signal);
 
 #endif

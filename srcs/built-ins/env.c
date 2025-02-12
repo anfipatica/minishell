@@ -2,12 +2,12 @@
 
 void ft_env(t_command *command)
 {
-	t_env	*env;
+	// t_env	*env;
 
-	env = command->env;
-	while(env)
+	// env = command->env;
+	while(command->env)
 	{
-		printf(PURPLE"%s"STD"=%s\n", env->name, env->value);
-		env = env->next;
+		printf(PURPLE"%s"STD"=%s\n", command->env->name, command->env->value);
+		command->env = command->env->next;
 	}
 }
