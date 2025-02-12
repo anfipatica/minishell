@@ -4,6 +4,13 @@ void	child_signal_handler(int signal)
 {
 	write(1, "\n", 1);
 }
+
+void	heredoc_signal_handler(int signal)
+{
+	write(1, "\n", 1);
+	exit(130);
+}
+
 void	father_signal_handler(int signal)
 {
 	write(1, "\n", 1);

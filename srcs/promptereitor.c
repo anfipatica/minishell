@@ -37,6 +37,7 @@ int	promptereitor(t_env *env)
 
 	while (1)
 	{
+		g_exit_status = 0;
 		signal(SIGINT, father_signal_handler);
 		line = readline("Prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)

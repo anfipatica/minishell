@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/27 17:45:01 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:16:02 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// list_heredoc_in_command(t_command *command)
-// {
-	
-// }
-
-
 
 char	*filename_generator(void)
 {
@@ -33,31 +26,39 @@ char	*filename_generator(void)
 	return (file_temp); //!LIBERAR AL FINAL DE LA EJECUCIÓN.
 }
 
-
-
 char *here_dokeitor(char *limiter, char *new_temp_file)
 {
 	int	heredoc_fd;
 	char	*input_line;
-
+	pid_t	family;
+	int		status;
 
 	if (!new_temp_file)
 		return (NULL);
 	heredoc_fd = open(new_temp_file, O_WRONLY | O_CREAT | O_TRUNC, STD_PERMISSIONS);
 	if (heredoc_fd == -1)
 		return (unlink(new_temp_file), NULL);
-	while (1)
+	family = fork();
+	if (family == CHILD)
 	{
-		input_line = readline("> ");
-		if (input_line == NULL || ft_strcmp(limiter, input_line) == 0)
+		signal(SIGINT, heredoc_signal_handler);
+		while (1)
 		{
+			input_line = readline("> ");
+			if (input_line == NULL || ft_strcmp(limiter, input_line) == 0)
+			{
+				free(input_line);
+				break ;
+			}
+			write(heredoc_fd, input_line, ft_strlen(input_line));
+			write(heredoc_fd, "\n", 1);
 			free(input_line);
-			break ;
 		}
-		write(heredoc_fd, input_line, ft_strlen(input_line));
-		write(heredoc_fd, "\n", 1);
-		free(input_line);
+		exit(0);
 	}
+	signal(SIGINT, SIG_IGN);
+	wait(&status);
+	g_exit_status = WEXITSTATUS(status);
 	close(heredoc_fd);
 	return (new_temp_file);
 }
@@ -66,10 +67,10 @@ void	find_heredoc(t_command *command)
 {
 	t_redirect	*file;
 
-	while (command)
+	while (command && g_exit_status != SIGINT_SIGNAL)
 	{
 		file = command->head_redirect;
-		while (file)
+		while (file && g_exit_status != SIGINT_SIGNAL)
 		{
 			if (file->redirect_type == T_HERE_DOC)
 				file->name = here_dokeitor(file->name, filename_generator());

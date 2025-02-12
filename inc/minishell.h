@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
 //!Definitions needed for signals to properly work in linux. Commented for mac.
 # define _POSIX_C_SOURCE 199309L
 # define _DEFAULT_SOURCE
@@ -92,6 +93,8 @@ igual ?? no sé ya veremos xD
 
 //EXIT_STATUS
 # define SIGINT_SIGNAL 130
+
+extern int	g_exit_status;
 
 // typedef enum	s_token_value
 // {
@@ -346,6 +349,7 @@ int	exec_builtin(t_command *command);
 //signals.c
 void	child_signal_handler(int signal);
 void	father_signal_handler(int signal);
-void	father_signal_handler2(int signal);
+void	heredoc_signal_handler(int signal);
+
 
 #endif

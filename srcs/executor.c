@@ -143,7 +143,7 @@ int	daddy_executor(t_command *command)
 void	begin_execution(t_command *command)
 {
 	find_heredoc(command);
-	if (builtin_without_pipe(command) == true)
+	if (g_exit_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
 		return ;
 	daddy_executor(command);
 }

@@ -31,8 +31,6 @@ int	handle_files(t_redirect *file)
 			state = dup2_openeitor(file->name, O_HERE_DOC, 0, IN_FILE);
 		else if (file->redirect_type == T_REDIRECT_LEFT)
 			state = dup2_openeitor(file->name, O_REDIRECT_LEFT, 0, IN_FILE);
-		if (file->redirect_type == T_HERE_DOC)
-			unlink(file->name);
 		file = file->next;
 	}
 	return (state);

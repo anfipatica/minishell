@@ -46,14 +46,18 @@ void	add_redirect_back(t_redirect **lst, t_redirect *new)
 void	ft_free_redirects(t_redirect *redirect)
 {
 	t_redirect	*temp;
-
+	int status = 0;
 	if (!redirect)
 		return ;
 	while (redirect != NULL)
 	{
 		temp = redirect->next;
 		if (redirect->redirect_type == T_HERE_DOC)
-			free(redirect->name);
+		{
+			status = unlink(redirect->name);
+			if (status != -1)
+				free(redirect->name);
+		}
 		free(redirect);
 		redirect = temp;
 	}
