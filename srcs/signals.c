@@ -8,6 +8,7 @@ void	child_signal_handler(int signal)
 void	heredoc_signal_handler(int signal)
 {
 	write(1, "\n", 1);
+	//close(3); //!Esto es un poo guarrete, bash deja el fd abierto así que a ver qué opina pepex
 	exit(130);
 }
 

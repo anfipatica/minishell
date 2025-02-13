@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/12 22:16:02 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:06:22 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char *here_dokeitor(char *limiter, char *new_temp_file)
 			write(heredoc_fd, "\n", 1);
 			free(input_line);
 		}
+		close(heredoc_fd);
 		exit(0);
 	}
 	signal(SIGINT, SIG_IGN);
