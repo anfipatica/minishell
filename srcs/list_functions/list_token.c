@@ -81,16 +81,16 @@ void	ft_free_tokens(t_token *token)
 	}
 }
 
-t_token *check_and_delete(t_token *lst)
+t_token *check_and_delete_space(t_token *lst)
 {
 	t_token *result = NULL;
 
 	if (!lst)
 		return NULL;
 
-	lst->next = check_and_delete(lst->next);
+	lst->next = check_and_delete_space(lst->next);
 
-	if (lst->type == T_SPACE || (lst->type == T_ENV && !(lst->expanded)))
+	if (lst->type == T_SPACE)
 	{
 		result = lst->next;
 		ft_free_one_node(lst);
@@ -98,7 +98,32 @@ t_token *check_and_delete(t_token *lst)
 	else
 		result = lst;
 	return (result);
-	
+}
+
+t_token *check_and_delete_env(t_token *lst, t_token *lst_prev)
+{
+	t_token *result;
+
+	result = NULL;
+	if (!lst_prev && (lst->type == T_ENV && !(lst->expanded)))
+		return (ft_free_one_node(lst), NULL);
+	if (!lst)
+		return NULL;
+	lst->next = check_and_delete_env(lst->next, lst);
+	if (lst->type == T_WORD && lst_prev && lst_prev->type ==  T_HERE_DOC)
+	{
+		lst->str = ft_strchrtrim(lst->str, '\"');
+		result = lst;
+	}
+	else if (lst->type == T_ENV &&
+		!(lst->expanded) && (lst_prev) && lst_prev->type != T_HERE_DOC)
+	{
+		result = lst->next;
+		ft_free_one_node(lst);
+	}
+	else
+		result = lst;
+	return (result);
 }
 
 /* void	ft_lstdel(t_token **lst, void *context, bool (*predicate)(void *, void *), void (*del)(void *))

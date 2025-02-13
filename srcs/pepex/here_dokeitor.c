@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/13 15:06:22 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:46:48 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char *here_dokeitor(char *limiter, char *new_temp_file)
 	family = fork();
 	if (family == CHILD)
 	{
+		printf("->%s\n", limiter);
 		signal(SIGINT, heredoc_signal_handler);
 		while (1)
 		{

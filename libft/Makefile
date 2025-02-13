@@ -37,6 +37,7 @@ SRCS	= \
 		ft_toupper.c\
 		get_next_line.c\
 		free_double_pointer.c\
+		ft_strchrtrim.c\
 		ft_ternary.c
 
 		

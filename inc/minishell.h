@@ -199,7 +199,8 @@ t_token		*new_token(e_token_value type, char *str, int length);
 void		add_token_back(t_token **lst, t_token *new);
 void		ft_free_tokens(t_token *token);
 void		ft_free_one_node(t_token *token);
-t_token		*check_and_delete(t_token *lst);
+t_token	*check_and_delete_space(t_token *lst);
+t_token	*check_and_delete_env(t_token *lst, t_token *lst_prev);
 
 // list_env.c
 
@@ -225,27 +226,11 @@ void	ft_free_one_redirect(t_redirect *redirect);
 void	ft_free_redirects(t_redirect *redirect);
 
 /* -------------- PRINTERS ------------- -*/
+void	print_tokens(t_token *token);
 
 //get_token_name.c
 
 const char	*get_token_name(e_token_value token);
-
-//printers.c
-
-void	print_commands(t_command *command);
-void		print_tokens(t_token *token);
-int	print_states(t_token *token);
-
-
-/* --------------- PEPEX ---------------- */
-
-void	print_error(const char *msg);
-char	*find_path_name(char *cmd, char **env, char **cmd_arg);
-void	child_pepe_first(int *p_fds, char *first_cmd, char *in_f, char **envp);
-void	child_pepa_midle(int *p_fds, int aux_fd_r, char *argv, char **envp);
-pid_t	child_paolo_last(int *p_fds, char **argv, int argc, char **envp);
-void	print_error(const char *msg);
-void	ft_perror(char *str);
 int		openeitor(int *p_fds, const char *file, int flags, mode_t mode);
 void	child_pepa_new(t_command *command, int	action, int	p_fds[2]);
 
@@ -319,6 +304,7 @@ int		daddy_executor(t_command *command);
 void	begin_execution(t_command *command);
 void	execute_or_error(char **matrix[2], char *path_name);
 
+
 // built-ins
 void ft_cd(t_command *command);
 void ft_echo(t_command *command);
@@ -330,6 +316,7 @@ void ft_unset(t_command *command);
 
 // error.c
 void	error_exit(char *str, int error);
+void	ft_perror(char *str);
 
 // here_docereitor.c
 char	*filename_generator(void);
@@ -350,6 +337,9 @@ int	exec_builtin(t_command *command);
 void	child_signal_handler(int signal);
 void	father_signal_handler(int signal);
 void	heredoc_signal_handler(int signal);
+
+//commander.c
+char	*find_path_name(char *cmd, char **envp, char **cmd_arg);
 
 
 #endif

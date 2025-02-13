@@ -10,6 +10,7 @@ int	main(int argc, char **argv, char **env_original)
 	(void)argv;
 	if (argc != 1)
 		return (1);
+	signal(SIGQUIT, SIG_IGN);
 	env = copy_env(env_original);
 	promptereitor(env);
 	ft_free_env(env);

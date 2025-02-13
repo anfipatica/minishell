@@ -66,7 +66,7 @@ int	get_new_state(int current_state, int token)
 };	//- |  |  |  |  |  |  |  |
 	//- |  |  |  |  |  |  |  |
 	//- W  $  <  << >  >> <> |      [ ][ ]TOKENS
-	// printf("prev: %d new: %d text:[%s]\n", current_state, matrix[current_state][token], str_states[matrix[current_state][token]]);
+//	printf("prev: %d new: %d text:[%s]\n", current_state, matrix[current_state][token], str_states[matrix[current_state][token]]);
 	return (matrix[current_state][token]);
 }
 

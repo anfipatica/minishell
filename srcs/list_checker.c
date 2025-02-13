@@ -20,9 +20,9 @@ void	join_tokens(t_token *node1, t_token *node2)
 	str_nodes = ft_strjoin(get_valid_string(node1), get_valid_string(node2));
 	//dprintf(2, "desde join_tokens node1->expanded es null: %s\n", str_nodes);
 	
-	dprintf(2, "jointokens\n");
-	dprintf(2, "dir expanded: %p\n", node1->expanded);
-	dprintf(2, "value expanded: %s\n", node1->expanded);
+	// dprintf(2, "jointokens\n");
+	// dprintf(2, "dir expanded: %p\n", node1->expanded);
+	// dprintf(2, "value expanded: %s\n", node1->expanded);
 	if (node1->free_expanded  == true)
 		free(node1->expanded);
 	node1->expanded = str_nodes;
@@ -54,7 +54,7 @@ void	turn_to_word(t_token *token)
 	if (token->type == T_ENV && token->expanded)
 		token->type = T_WORD;
 }
-//// Arreglar si le pasamos esto -> "hola" a solas!
+
 void	list_checker(t_token **list)
 {
 	t_token *new_list;
@@ -72,7 +72,10 @@ void	list_checker(t_token **list)
 			new_list = next;
 	}
 	new_list = *list;
-	*list = check_and_delete(new_list);
+	print_tokens(new_list);
+	*list = check_and_delete_space(new_list);
+	new_list = check_and_delete_env(*list, NULL);
+	*list  = new_list;
 }
 
 /* void	list_checker(t_token **list)

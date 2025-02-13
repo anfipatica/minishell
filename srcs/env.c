@@ -43,13 +43,11 @@ char	*ft_getenv(char *name, t_env *env, int length)
 		str_len = length;
 	else
 		str_len = ft_strlen(name);
-	dprintf(2, "name var: %s\n", name);
 	while (env)
 	{
 		if (ft_strncmp(name, env->name, str_len) == 0 && env->name[str_len] == 0)
 			return (env->value);
 		env = env->next;
 	}
-	dprintf(2, "No se ha encontrado %s\n", name);
 	return (NULL);
 }
