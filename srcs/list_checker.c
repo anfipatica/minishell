@@ -72,7 +72,6 @@ void	list_checker(t_token **list)
 			new_list = next;
 	}
 	new_list = *list;
-	print_tokens(new_list);
 	*list = check_and_delete_space(new_list);
 	new_list = check_and_delete_env(*list, NULL);
 	*list  = new_list;

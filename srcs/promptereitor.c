@@ -39,7 +39,7 @@ int	promptereitor(t_env *env)
 	{
 		g_exit_status = 0;
 		signal(SIGINT, father_signal_handler);
-		line = readline("Prompt > ");
+		line = readline("prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
 			break ;
 		if (line[0] != '\0')
@@ -48,7 +48,10 @@ int	promptereitor(t_env *env)
 			if (twin_quote(line) == false)
 				continue ;
 			first_token = tokenizer(line, env);
+			print_tokens(first_token);
 			list_checker(&first_token);
+			print_tokens(first_token);
+
 			command = automata(first_token, env);
 			if (command)
 				begin_execution(command);

@@ -19,13 +19,16 @@ bool	builtin_without_pipe(t_command *command)
 		return (false);
 	if (check_builtins(command) == false)
 		return (false);
-	int aux_fd = dup(1);
+	int aux_stdout = dup(1); //flipa con estas lineas!
+	int aux_stdin = dup(0); //flipa con estas lineas!  //! arregan este problema de in out-file < aa > aa echo
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
 	if (exec_builtin(command) == 0)
 	{
-		dup2(aux_fd, 1);
-		close(aux_fd);
+		dup2(aux_stdout, 1);
+		close(aux_stdout);
+		dup2(aux_stdin, 0);
+		close(aux_stdin);
 		return (true);
 	}
 	return (false);

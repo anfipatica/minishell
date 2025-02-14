@@ -71,3 +71,4 @@ void ft_echo(t_command *command)
 	if (total_flags == 0)
 		printf("\n");
 }
+//< a > a echo hola 

@@ -7,6 +7,7 @@ CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
 CFLAGS	+= -g3
+#CFLAGS  += -fsanitize=address
 
 READLINE	= -lreadline
 
@@ -93,7 +94,7 @@ run: all
 
 v: valgrind
 valgrind: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-#@valgrind --leak-check=full --track-fds=yes --trace-children=yes ./$(NAME)
+	@valgrind --leak-check=full --track-fds=yes --trace-children=yes ./$(NAME)
+#@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 .PHONY: all clean fclean re libmlx libft r run v valgrind

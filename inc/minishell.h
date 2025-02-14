@@ -107,8 +107,8 @@ extern int	g_exit_status;
 // 	T_PIPE,				// |
 // 	T_ENV,				// $
 // 	T_FLAG,				// ? O -- (EN PRINCIPIO DEBERÍA SER PARTE DE T_WORD)
-// 	T_D_QUOTE,	// ""
-// 	T_S_QUOTE	// ''
+// 	T_D_QUOTE,			// ""
+// 	T_S_QUOTE			// ''
 // }				e_token_value;
 
 typedef enum	s_token_value
