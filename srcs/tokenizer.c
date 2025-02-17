@@ -82,6 +82,52 @@ t_token	*create_space_token(char *line, int *n)
 	return (token);
 }
 
+int	find_valid_delimitor(char *line)
+{
+	int	i;
+	char	quote;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr(SPACES""SYMBOLS, line[i]) != NULL)
+			break;
+		if (ft_strchr(QUOTES, line[i]) != NULL)
+		{
+			quote = line[i];
+			i++;
+			while (line[i] != quote)
+				i++;
+		}
+		i++;
+	}
+	return (i);
+}
+
+t_token	*handle_heredoc_limiter(t_token **head, char *line, t_env *env)
+{
+	t_token	*new;
+	char		*delimiter;
+	char		*aux;
+	int		i;
+
+	i = 0;
+	while (line[i] && ft_strchr(SPACES, line[i]) != NULL)
+		i++;
+	i += find_valid_delimitor(&line[i]);
+	if (i == 0)
+		return (token_chooser(line, env));
+	delimiter = ft_calloc(i + 1, sizeof(char));
+	ft_strlcpy(delimiter, line, i + 1);
+	aux = ft_strtrim(delimiter, SPACES);
+	free(delimiter);
+	delimiter = ft_strchrtrim(aux, '\"');
+	new = new_token(T_WORD, line, i);
+	new->expanded = delimiter;
+	new->free_expanded = true;
+	return (new);
+}
+
 t_token	*tokenizer(char *line, t_env *env)
 {
 	t_token	*fresh_token;
@@ -93,8 +139,14 @@ t_token	*tokenizer(char *line, t_env *env)
 	while (line[i])
 	{
 		if (ft_strchr("<>|$\"\'"SPACES, line[i]) != NULL)
-		{	
-			fresh_token = token_chooser(&line[i], env);
+		{
+			if (fresh_token && fresh_token->type == T_HERE_DOC)
+			{
+				fresh_token = handle_heredoc_limiter(&head_token, &line[i], env);
+			}
+			else
+				fresh_token = token_chooser(&line[i], env);
+
 			if (fresh_token == NULL)
 				freedom_error_fresh_token(head_token, line, env);
 			add_token_back(&head_token, fresh_token);

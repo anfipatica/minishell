@@ -48,7 +48,7 @@ int	promptereitor(t_env *env)
 			if (twin_quote(line) == false)
 				continue ;
 			first_token = tokenizer(line, env);
-		//	print_tokens(first_token);
+			print_tokens(first_token);
 			list_checker(&first_token);
 		//	print_tokens(first_token);
 			command = automata(first_token, env);

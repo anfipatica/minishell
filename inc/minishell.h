@@ -53,7 +53,7 @@ igual ?? no sé ya veremos xD
 # include <signal.h>
 # include "libft.h"
 
-# define SYMBOLS "<>|$- "
+//# define SYMBOLS "<>|$- "
 
 # define RED "\033[1;31m"
 # define GREEN "\033[1;32m"
@@ -84,6 +84,8 @@ igual ?? no sé ya veremos xD
 # define NULL_FD -2
 
 # define SPACES " \f\n\r\t\v"
+# define QUOTES "\"\'"
+# define SYMBOLS "|<>"
 
 # define OUT_FILE 1
 # define IN_FILE 0

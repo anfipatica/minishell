@@ -1,5 +1,8 @@
 #include "libft.h"
 
+/**
+ * BEWARE: This function frees the original str you send it
+ */
 char	*ft_strchrtrim(char	*str, char c)
 {
 	char	*new_string;

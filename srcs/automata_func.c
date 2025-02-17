@@ -35,10 +35,7 @@ int	insert_file(t_backpack *backpack)
 	t_token	*token;
 
 	token = backpack->token;
-	if (backpack->redirect_aux->redirect_type == T_HERE_DOC)
-		backpack->redirect_aux->name = token->str;
-	else
-		backpack->redirect_aux->name = ft_ternary(token->expanded, token->expanded, token->str);
+	backpack->redirect_aux->name = ft_ternary(token->expanded, token->expanded, token->str);
 	return (0);
 }
 
