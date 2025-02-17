@@ -47,7 +47,7 @@ void	print_tokens(t_token *token)
 		dprintf(2, "\n\033[44m╔═════════════════════════════╗\033[0m\n");
 		dprintf(2, "\033[44m║       🚀 TOKEN Nº %-4d      ║\033[0m\n", i++);
 		dprintf(2, "\033[44m╠═════════════════════════════╣\033[0m\n");
-		dprintf(2, "\033[44m║💡  Type      :   %-10s ║\033[0m\n", get_token_name(token->type));
+		dprintf(2, "\033[44m║💡  Type      :  %d-%-10s ║\033[0m\n", token->type, get_token_name(token->type));
 		sprintf(strfield, "→%s←", token->str);
 		dprintf(2, "\033[44m║📜  String    :  %-15s ║\033[0m\n", strfield);
 		if(token->expanded != NULL)

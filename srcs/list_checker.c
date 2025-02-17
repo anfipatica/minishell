@@ -1,28 +1,14 @@
 
 #include "minishell.h"
 
-
-char *get_valid_string(t_token *node)
-{
-	if (node->expanded)
-		return (node->expanded);
-	return (node->str);
-}
-
-
 void	join_tokens(t_token *node1, t_token *node2)
 {
 	char	*str_nodes;
 	t_token *aux;
 
-	//dprintf(2, "node1 = %s, node2 = %s\n", node1->str, node2->str);
-	//node1->free_expanded = true;
-	str_nodes = ft_strjoin(get_valid_string(node1), get_valid_string(node2));
-	//dprintf(2, "desde join_tokens node1->expanded es null: %s\n", str_nodes);
-	
-	// dprintf(2, "jointokens\n");
-	// dprintf(2, "dir expanded: %p\n", node1->expanded);
-	// dprintf(2, "value expanded: %s\n", node1->expanded);
+	str_nodes = ft_strjoin(
+		ft_ternary(node1->expanded, node1->expanded, node1->str),
+		ft_ternary(node2->expanded, node2->expanded, node2->str));
 	if (node1->free_expanded  == true)
 		free(node1->expanded);
 	node1->expanded = str_nodes;
@@ -31,7 +17,6 @@ void	join_tokens(t_token *node1, t_token *node2)
 	node1->str = str_nodes;
 	aux = node2->next;
 	ft_free_one_node(node2);
-
 	node1->free_expanded = true;
 	node1->next = aux;
 }
@@ -53,51 +38,57 @@ void	turn_to_word(t_token *token)
 		token->type = T_WORD;
 }
 
-void	list_checker(t_token **list)
+/*
+SI hacemos: << $a"hola"; el limitador debería ser $ahola, pero por este mamotreco
+que hemos hecho aquí ahora es sólo $a lol
+*/
+t_token *create_new_node_by_env(t_token *env_node)
 {
-	t_token *new_list;
-	t_token *next;
+	t_token	*head;
+	t_token	*new;
+	char		**env_splitted;
+	int		i;
 
-	new_list = *list;
-	turn_to_word(new_list);
-	while (new_list->next)
+	head = NULL;
+	env_splitted = ft_split(env_node->expanded, ' ');
+	i = 0;
+	while (env_splitted[i])
 	{
-		next = new_list->next;
-		turn_to_word(next);
-		if (new_list->type == T_WORD && next->type == T_WORD)
-			join_tokens(new_list, next);
-		else
-			new_list = next;
+		new = new_token(T_WORD, env_node->str, env_node->length);
+		new->expanded = ft_strdup(env_splitted[i]);
+		new->free_expanded = true;
+		add_token_back(&head, new);
+		if (env_splitted[i + 1])
+			add_token_back(&head, new_token(T_SPACE, " ", 1));
+		free(env_splitted[i]);
+		i++;
 	}
-	new_list = *list;
-	*list = check_and_delete_space(new_list);
-	new_list = check_and_delete_env(*list, NULL);
-	*list  = new_list;
+	free(env_splitted);
+	new->next = env_node->next;
+	ft_free_one_node(env_node);
+	return (head);
 }
 
-/* void	list_checker(t_token **list)
+void	list_checker(t_token **list)
 {
-	t_token *new_list;
+	t_token *curr_node;
+	t_token *next;
 
-	new_list = *list;
-	while (new_list->next)
+	*list = check_and_delete_env(*list, NULL);
+	turn_to_word(*list);
+	if ((*list)->type == T_ENV)
+		*list = create_new_node_by_env(*list);
+	curr_node = *list;
+	while (curr_node->next)
 	{
-		if (new_list->type == T_S_QUOTE || new_list->type == T_D_QUOTE)
-			new_list->type = T_WORD;
-		if (new_list->next && (new_list->next->type == T_S_QUOTE || new_list->next->type == T_D_QUOTE))
-			new_list->next->type = T_WORD;
-		if (new_list->type == T_WORD && new_list->next->type == T_WORD)
-			join_tokens(new_list, new_list->next);
-		else if (new_list->type == T_WORD && new_list->next->type == T_ENV)
-			join_tokens(new_list, new_list->next);
-		else if (new_list->type == T_ENV && new_list->next->type == T_WORD)
-			join_tokens(new_list, new_list->next);
-		else if (new_list->type == T_ENV && new_list->next->type == T_ENV)
-			join_tokens(new_list, new_list->next);
+		next = curr_node->next;
+		turn_to_word(next);
+		if (next->type == T_ENV)
+			curr_node->next = create_new_node_by_env(next);
+		else if (curr_node->type == T_WORD && next->type == T_WORD)
+			join_tokens(curr_node, next);
 		else
-			new_list = new_list->next;
+			curr_node = next;
 	}
-	new_list = *list;
-	*list = eval(new_list);
-	*list = check_and_delete(new_list);
-} */
+	*list = check_and_delete_space(*list);
+}

@@ -1,39 +1,17 @@
 #include "minishell.h"
 
-
-void	insert_arg(t_backpack *backpack, char* arg)
+int	insert_args(t_backpack *backpack)
 {
+	t_token	*token;
+
+	token = backpack->token;
 	if (!backpack->last_command)
 	{
 		backpack->last_command = new_command(backpack->env);
 		add_command_back(&(backpack->head_command), backpack->last_command);
 	}
-	backpack->arg_aux = new_args(ft_strdup(arg));
+	backpack->arg_aux = new_args(ft_ternary(token->expanded, token->expanded, token->str));
 	add_args_back(&(backpack->last_command->args), backpack->arg_aux);
-}
-
-int	insert_args(t_backpack *backpack)
-{
-	t_token	*token;
-	char **split;
-	int		i;
-
-	token = backpack->token;
-	print_tokens(backpack->token);
-	if (token->expanded && token->str[0] == '$')
-	{
-		split = ft_split(token->expanded, ' ');
-		i = 0;
-		while (split[i])
-		{
-			insert_arg(backpack, split[i]);
-			free(split[i]);
-			i++;
-		}
-		free(split);
-	} else {
-		insert_arg(backpack, ft_ternary(token->expanded, token->expanded, token->str));
-	}
 	return (0);
 }
 
