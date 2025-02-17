@@ -227,6 +227,8 @@ void	ft_free_redirects(t_redirect *redirect);
 
 /* -------------- PRINTERS ------------- -*/
 void	print_tokens(t_token *token);
+void print_commands(t_command *command);
+
 
 //get_token_name.c
 

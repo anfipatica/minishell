@@ -2,16 +2,16 @@ NAME = minishell
 
 CC = cc
 
-#CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
+CFLAGS	 =	-Wextra -Wall -Werror -Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
 CFLAGS	+= -g3
-#CFLAGS  += -fsanitize=address
+#CFLAGS	+= -fsanitize=address
 
 READLINE	= -lreadline
 
-#DEBUG	 =	-fsanitize=address
+DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft

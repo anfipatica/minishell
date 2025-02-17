@@ -75,7 +75,7 @@ void	ft_free_one_args(t_args *args)
 {
 	if (!args)
 		return ;
-
+	free(args->name);
 	free(args);
 }
 

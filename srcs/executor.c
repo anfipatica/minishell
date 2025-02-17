@@ -6,6 +6,7 @@ void	execute_or_error(char **matrix[2], char *path_name)
 
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
+	printf("path_name = %s, arg = %s\n", path_name, matrix[ARGS][1]);
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
@@ -19,8 +20,8 @@ bool	builtin_without_pipe(t_command *command)
 		return (false);
 	if (check_builtins(command) == false)
 		return (false);
-	int aux_stdout = dup(1); //flipa con estas lineas!
-	int aux_stdin = dup(0); //flipa con estas lineas!  //! arregan este problema de in out-file < aa > aa echo
+	int aux_stdout = dup(1);
+	int aux_stdin = dup(0);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
 	if (exec_builtin(command) == 0)
@@ -33,35 +34,6 @@ bool	builtin_without_pipe(t_command *command)
 	}
 	return (false);
 }
-
-/*
-void	exe_without_pipe(t_command *command)
-{
-	pid_t	family;
-	int		status;
-	char	*path_name;
-	char 	**matrix[2];
-
-	family = fork();
-	if (family == CHILD)
-	{
-		matrix[ARGS] = lts_args_to_matrix(command->args);
-		matrix[ENV] = lts_env_to_matrix(command->env);
-		if (handle_files(command->head_redirect) == OPEN_ERROR)
-			exit(1);
-		if (matrix[ARGS] == NULL)
-			exit(0);
-		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-		execute_or_error(matrix, path_name);
-		free_exit_execution(path_name, matrix);
-	}
-	else
-	{
-		wait(&status);
-		dprintf(2, "STATUS: %d\n", WEXITSTATUS(status));
-	}
-}
- */
 
 void wait_all(void)
 {

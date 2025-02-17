@@ -3,26 +3,24 @@
 
 void	insert_arg(t_backpack *backpack, char* arg)
 {
-	t_token	*token;
-
 	if (!backpack->last_command)
 	{
 		backpack->last_command = new_command(backpack->env);
 		add_command_back(&(backpack->head_command), backpack->last_command);
 	}
-	backpack->arg_aux = new_args(arg);
+	backpack->arg_aux = new_args(ft_strdup(arg));
 	add_args_back(&(backpack->last_command->args), backpack->arg_aux);
 }
+
 int	insert_args(t_backpack *backpack)
 {
 	t_token	*token;
 	char **split;
 	int		i;
-		print_tokens(backpack->token);
-		printf("ENV!!!!\n");
 
 	token = backpack->token;
-	if (token->type == T_ENV)
+	print_tokens(backpack->token);
+	if (token->expanded && token->str[0] == '$')
 	{
 		split = ft_split(token->expanded, ' ');
 		i = 0;
@@ -30,9 +28,6 @@ int	insert_args(t_backpack *backpack)
 		{
 			insert_arg(backpack, split[i]);
 			free(split[i]);
-			backpack->last_command = new_command(backpack->env);
-			add_command_back(&(backpack->head_command), backpack->last_command);
-
 			i++;
 		}
 		free(split);

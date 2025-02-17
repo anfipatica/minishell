@@ -51,8 +51,6 @@ void	turn_to_word(t_token *token)
 {
 	if (token->type == T_S_QUOTE || token->type == T_D_QUOTE)
 		token->type = T_WORD;
-	if (token->type == T_ENV && token->expanded)
-		token->type = T_WORD;
 }
 
 void	list_checker(t_token **list)
