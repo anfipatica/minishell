@@ -21,21 +21,32 @@ else
 fi
 
 clear
-printf "${MAGENTA}Insert the command you want bash to test${STD}\n";
+printf "${MAGENTA}Insert the command you want to test${STD}\n";
 
-read command
+read -e command
 
-result_bash=$(echo $command | bash)
-result_minishell=$(echo $command | ./minishell | tail +2 | head -n -1)
+result_bash=$(echo $command | bash 2>bash_error_log.txt)
+result_minishell=$(echo $command | ./minishell 2>minishell_error_log.txt | tail +2 | head -n -1)
 
-printf "${MAGENTA}- · - · - · - · - · -< BASH >- · - · - · - · - · -${STD}\n"
-echo "$result_bash"
-printf "${MAGENTA}- · - · - · - · - · - · - · - · - · - · - ·  - · -${STD}\n"
+if [[ -s bash_error_log.txt || -s minishell_error_log ]]; then
+	printf "${GRAY}- · - · - · - · - · -< BASH ERROR EXIT >- · - · - · - · - · -${STD}\n"
+	cat bash_error_log.txt
+	printf "\n";
+	printf "${GRAY}- · - · - · - · - ·< MINISHELL ERROR EXIT >- · - · - · - ·- -${STD}\n"
+	cat minishell_error_log.txt
+	printf "\n";
+fi
 
+if [[ -n $result_bash || -n $result_minishell ]]; then
+	printf "${MAGENTA}- · - · - · - · - · -< BASH >- · - · - · - · - · -${STD}\n"
+	echo "$result_bash"
 
-printf "${MAGENTA}· - · - · - · - · -< MINISHELL >- · - · - · - · - ${STD}\n"
-echo "$result_minishell"
-printf "${MAGENTA}- · - · - · - · - · - · - · - · - · - · - ·  - · -${STD}\n"
+	printf "${MAGENTA}· - · - · - · - · -< MINISHELL >- · - · - · - · - ${STD}\n"
+	echo "$result_minishell"
+else
+	printf "${MAGENTA}Neither bash nor minishell had any ok output\n${STD}\n"
+fi
+
 
 if [ "$result_bash" == "$result_minishell" ]; then
 	printf "${GREEN}NICE!${STD}\n"
@@ -43,3 +54,4 @@ else
 	printf "${RED}KO :(!${STD}\n"
 fi
 
+rm bash_error_log.txt minishell_error_log.txt

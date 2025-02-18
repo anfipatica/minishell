@@ -6,7 +6,6 @@ void	execute_or_error(char **matrix[2], char *path_name)
 
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
-	printf("path_name = %s, arg = %s\n", path_name, matrix[ARGS][1]);
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
