@@ -1,0 +1,30 @@
+1
+acces_first_word.c
+a.out
+bash.txt
+fail.sh
+file
+hola
+hola1
+hola2
+hola.c
+inc
+libft
+main_mini_pepex.c
+Makefile
+minishell
+Minishell Tests.xlsx
+minishell.txt
+objs
+out.png
+parameters.c
+params
+PIPEX
+print_argv.c
+prueba operacion punteros by psegura.c
+README.md
+retrete
+srcs
+test.c
+tester_test.sh
+test.sh
