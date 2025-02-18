@@ -3,8 +3,6 @@
 //si el comando coincide con el name de env entonces delete one node
 void ft_unset(t_command *command)
 {
-	printf("FT_UNSET\n");
-
 	t_args *next_args;
 	t_env	*aux_to_del;
 
@@ -21,7 +19,6 @@ void ft_unset(t_command *command)
 		command->env = command->env->next;
 	}
 }
-
 
 /* 
  -HEAD
