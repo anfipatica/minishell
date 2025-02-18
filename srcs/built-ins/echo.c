@@ -9,7 +9,7 @@ int	get_echo_state(int current_state, int echo_char)
 		{3, 2, 3}, //- 1 - estado guion
 		{3, 2, 3}, //- 2 - estado n
 		{3, 3, 3}  //- 3 - estado err - ERROR__STATE
-	};//-  n err 
+	}; //-  n err 
   //-   0  1  2
 
 	return (matrix[current_state][echo_char]);

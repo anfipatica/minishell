@@ -1,31 +1,25 @@
 #include "minishell.h"
 
+//si el comando coincide con el name de env entonces delete one node
 void ft_unset(t_command *command)
 {
-	(void)command;
 	printf("FT_UNSET\n");
 
-	// quero borrar el primer env;
+	t_args *next_args;
+	t_env	*aux_to_del;
 
-	t_env **head_env = &(command->env->next);
-	ft_free_one_env(command->env);
-	command->env = *head_env;
-
-
-
-
-	/* t_env **old_node;
-
-	old_node = &command->env;
-
-	head_env = command->env;
-	// if (ft_strcmp(head_env->name, command->args) == 0)
-	if (1)
+	next_args = command->args->next;
+	while(command->env->next)
 	{
-		(*old_node)->next = head_env->next;
-		ft_free_one_env(head_env);
+		if (ft_strcmp(next_args->name, command->env->next->name) == 0)
+		{
+			aux_to_del = command->env->next;
+			command->env->next = command->env->next->next;
+			ft_free_one_env(aux_to_del);
+			break ;
+		}
+		command->env = command->env->next;
 	}
-	command->env = (*old_node); */
 }
 
 
@@ -37,3 +31,4 @@ void ft_unset(t_command *command)
 a -> c
 
 */
+
