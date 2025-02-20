@@ -33,7 +33,18 @@ void	error_exit(char *str, int error)
 		exit(127);
 	}
 	else
-		printf("Unknown error\n");
+		write(2, "unknown error\n", 14);
 }
 
+void	print_error(char *str, int error)
+{
+	if (error == INVALID_EXPORT_IDENTIFIER)
+	{
+		write(2, "export: `", 9);
+		write(2, str, ft_strlen(str));
+		write(2, "': not a valid identifier\n", 26);
+	}
+	else
+		write(2, "unknown error\n", 14);
+}
 

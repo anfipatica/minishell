@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/01/30 17:06:09 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/20 20:41:56 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #define WRITE 1
 #define READ 0
 
-void	print_error(const char *msg)
-{
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	exit(EXIT_FAILURE);
-}
+// void	print_error(const char *msg)
+// {
+// 	write(STDERR_FILENO, msg, ft_strlen(msg));
+// 	exit(EXIT_FAILURE);
+// }
 
 char	*check_path(char **all_path, char *cmd)
 {

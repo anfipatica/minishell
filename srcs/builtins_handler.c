@@ -41,7 +41,7 @@ int	exec_builtin(t_command *command)
 	if (ft_strcmp(command->args->name, "exit") == 0)
 		return(ft_exit(command), 0);
 	if (ft_strcmp(command->args->name, "export") == 0)
-		return(ft_export(command), 0);
+		return(ft_export(command));
 	if (ft_strcmp(command->args->name, "pwd") == 0)
 		return(ft_pwd(), 0);
 	if (ft_strcmp(command->args->name, "unset") == 0)

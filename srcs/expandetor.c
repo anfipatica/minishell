@@ -1,11 +1,22 @@
 
 #include "minishell.h"
 
+t_token	*expand_exit_status(char *line)
+{
+	t_token	*token;
+
+	token = new_token(T_ENV, line, 2);
+	token->expanded = ft_itoa(g_exit_status);
+	token->free_expanded = true;
+	return (token);
+}
+
 t_token	*expandetor(char *line, t_env *env)
 {
 	int		i;
 	t_token	*token;
-//	dprintf(2, "~~~~~~~~~~~~~\n");
+	if (line[1] == '?')
+		return (expand_exit_status(line));
 	if (ft_isdigit(line[1]) == 1)
 		return (new_token(T_ENV, line, 1));
 	if (ft_isalpha(line[1]) == 0 && line[1] != '_')
@@ -15,7 +26,6 @@ t_token	*expandetor(char *line, t_env *env)
 		i++;
 	token = new_token(T_ENV, line, i);
 	token->expanded = ft_getenv((token->str) + 1, env, 0);
-//	dprintf(2, "**********%s\n", token->expanded);
 	return (token);
 }
 

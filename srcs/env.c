@@ -1,9 +1,5 @@
 #include "minishell.h"
 
-/**
- * This function emulates getenv with our own t_env env.
- * It will search name inside the list, returning the value if found. NULL if not.
- */
 t_env *create_node_env(char *line_env)
 {
 	t_env	*env_node;
@@ -25,8 +21,9 @@ t_env *create_node_env(char *line_env)
 	if (valid_var_name(name) == false)
 	{
 		free(name);
+		free(value);
+		return (NULL);
 	}
-
 	env_node = new_env(name, value);
 	return (env_node);
 }

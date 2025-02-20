@@ -73,6 +73,7 @@ igual ?? no sé ya veremos xD
 //ERRORS
 # define IS_DIR 1
 # define COMMAND_NOT_FOUND 2
+# define INVALID_EXPORT_IDENTIFIER 3
 # define OPEN_ERROR -1
 
 # define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
@@ -314,7 +315,7 @@ void ft_cd(t_command *command);
 void ft_echo(t_command *command);
 void ft_env(t_command *command);
 void ft_exit(t_command *command);
-void ft_export(t_command *command);
+int ft_export(t_command *command);
 bool	valid_var_name(char	*name);
 
 void ft_pwd(void);
@@ -323,6 +324,7 @@ void ft_unset(t_command *command);
 // error.c
 void	error_exit(char *str, int error);
 void	ft_perror(char *str);
+void	print_error(char *str, int error);
 
 // here_docereitor.c
 char	*filename_generator(void);

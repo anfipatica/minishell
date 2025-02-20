@@ -80,38 +80,43 @@ bool	valid_var_name(char	*name)
 	}
 	return (true);
 }
-void ft_export(t_command *command)
+
+bool	overwrite_var(t_env *env, t_env *var)
 {
-	t_env	*var;
+	while (env)
+	{
+		if (ft_strcmp(env->name, var->name) == 0)
+		{
+			free(env->value);
+			free(var->name);
+			env->value = var->name;
+			return true;
+		}
+		env = env->next;
+	}
+	return (false);
+}
+
+int ft_export(t_command *command)
+{
+	t_env		*var;
 	t_args	*arg;
+	bool		error;
 
-	arg = command->args;	
-	if (arg->next == NULL)
-		return (print_kermit());
-
-	while (command->args)
+	arg = command->args->next;
+	if (arg == NULL)
+		return (print_kermit(), 0);
+	while (arg)
 	{
 		var = create_node_env(arg->name);
-		if (valid_var_name == true)
-
-
-
-
+		if (!var)
+		{
+			print_error(arg->name, INVALID_EXPORT_IDENTIFIER);
+			error = true;
+		}
+		else if (overwrite_var(command->env, var) == false)
+			add_env_back(&command->env, var);
 		arg = arg->next;
 	}
-	check_var_name();
-	value = ft_substr(position_of_equal + 1, 0, ft_strlen(position_of_equal + 1));
-	while (command->env)
-	{
-		if (ft_strcmp(command->env->name, name) == 0)
-		{
-			free(command->env->value);
-			free(name);
-			command->env->value = value;
-			return ;
-		}
-		command->env = command->env->next;
-	}
-	command->env = aux_list;
-	add_env_back(&command->env, new_env(name, value));
+	return (error);
 }

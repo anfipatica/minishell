@@ -37,7 +37,6 @@ int	promptereitor(t_env *env)
 
 	while (1)
 	{
-		g_exit_status = 0;
 		signal(SIGINT, father_signal_handler);
 		line = readline("prompt > ");
 		if (!line || ft_strncmp(line, "exit", 5) == 0)
@@ -50,14 +49,15 @@ int	promptereitor(t_env *env)
 			first_token = tokenizer(line, env);
 			//print_tokens(first_token);
 			list_checker(&first_token);
-			print_tokens(first_token);
+			//print_tokens(first_token);
 			command = automata(first_token, env);
-			print_commands(command);
+			//print_commands(command);
 			if (command)
 				begin_execution(command);
 			if (command)
 				ft_free_commands(command);
 			ft_free_tokens(first_token);
+			printf("g_exit_status = %d\n", g_exit_status);
 		}
 		free(line);
 	}

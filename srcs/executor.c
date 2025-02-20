@@ -23,7 +23,8 @@ bool	builtin_without_pipe(t_command *command)
 	int aux_stdin = dup(0);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
-	if (exec_builtin(command) == 0)
+	g_exit_status = exec_builtin(command);
+	if (g_exit_status == 0)
 	{
 		dup2(aux_stdout, 1);
 		close(aux_stdout);
@@ -68,7 +69,8 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 		}
 		if (handle_files(command->head_redirect) == OPEN_ERROR)
 			exit(1);
-		if (exec_builtin(command) == 0)
+		g_exit_status = exec_builtin(command);
+		if (g_exit_status == 0)
 		{
 			dprintf(2, "ES BILT\n");
 			exit(111);
