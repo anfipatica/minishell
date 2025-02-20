@@ -315,6 +315,8 @@ void ft_echo(t_command *command);
 void ft_env(t_command *command);
 void ft_exit(t_command *command);
 void ft_export(t_command *command);
+bool	valid_var_name(char	*name);
+
 void ft_pwd(void);
 void ft_unset(t_command *command);
 

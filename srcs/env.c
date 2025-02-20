@@ -12,8 +12,21 @@ t_env *create_node_env(char *line_env)
 	char	*igual_position;
 
 	igual_position = ft_strchr(line_env, '=');
-	name = ft_substr(line_env, 0, igual_position - line_env);
-	value = ft_substr(line_env, igual_position - line_env + 1, ft_strlen(igual_position));
+	if (igual_position == NULL)
+	{
+		name = ft_substr(line_env, 0, ft_strlen(line_env));
+		value = NULL;
+	}
+	else
+	{
+		name = ft_substr(line_env, 0, igual_position - line_env);
+		value = ft_substr(line_env, igual_position - line_env + 1, ft_strlen(igual_position));
+	}
+	if (valid_var_name(name) == false)
+	{
+		free(name);
+	}
+
 	env_node = new_env(name, value);
 	return (env_node);
 }

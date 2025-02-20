@@ -7,11 +7,10 @@ CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
 CFLAGS	+= -g3
-#CFLAGS	+= -fsanitize=address
 
 READLINE	= -lreadline
 
-DEBUG	 =	-fsanitize=address
+#DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft

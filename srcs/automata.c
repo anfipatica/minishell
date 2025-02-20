@@ -63,9 +63,9 @@ int	get_new_state(int current_state, int token)
 		{2, 2, 5, 5, 5, 5, 5, 5}, //- 3 - estado redirect
 		{1, 1, 3, 3, 3, 3, 3, 5}, //- 4 - estado pipe
 		{5, 5, 5, 5, 5, 5, 5, 5}  //- 5 - estado err - ERROR__STATE
-};	//- |  |  |  |  |  |  |  |
-	//- |  |  |  |  |  |  |  |
-	//- W  $  <  << >  >> <> |      [ ][ ]TOKENS
+};	//-  |  |  |  |  |  |  |  |
+	//-  |  |  |  |  |  |  |  |
+	//-  W  $  <  << >  >> <> |      [ ][ ]TOKENS
 //	printf("prev: %d new: %d text:[%s]\n", current_state, matrix[current_state][token], str_states[matrix[current_state][token]]);
 	return (matrix[current_state][token]);
 }
