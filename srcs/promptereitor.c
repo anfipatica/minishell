@@ -51,13 +51,13 @@ int	promptereitor(t_env *env)
 			list_checker(&first_token);
 			//print_tokens(first_token);
 			command = automata(first_token, env);
-			print_commands(command);
+			//print_commands(command);
 			if (command)
 				begin_execution(command);
 			if (command)
 				ft_free_commands(command);
 			ft_free_tokens(first_token);
-			printf("g_exit_status = %d\n", g_exit_status);
+			//printf("g_exit_status = %d\n", g_exit_status);
 		}
 		free(line);
 	}

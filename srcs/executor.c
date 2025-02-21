@@ -15,18 +15,20 @@ void	execute_or_error(char **matrix[2], char *path_name)
 
 bool	builtin_without_pipe(t_command *command)
 {
+	int aux_stdout;
+	int aux_stdin;
+
+	aux_stdout = dup(1);
+	aux_stdin = dup(0);
 	if (command->next)
 		return (false);
 	if (check_builtins(command) == false)
 		return (false);
-	int aux_stdout = dup(1);
-	int aux_stdin = dup(0);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
 	//g_exit_status = exec_builtin(command);
-	printf("GLOBAL EXIT: %d\n", g_exit_status);
 //	if (g_exit_status == 0)
-	if (exec_builtin(command))
+	if (exec_builtin(command) == true)
 	{
 		dup2(aux_stdout, 1);
 		close(aux_stdout);
@@ -70,8 +72,7 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 		}
 		if (handle_files(command->head_redirect) == OPEN_ERROR)
 			exit(1);
-		g_exit_status = exec_builtin(command);
-		if (g_exit_status == 0)
+		if (exec_builtin(command) == true)
 		{
 			dprintf(2, "ES BILT\n");
 			exit(111);
@@ -122,6 +123,7 @@ void	begin_execution(t_command *command)
 	find_heredoc(command);
 	if (g_exit_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
 		return ;
+	printf("holaaaaaa\n");
 	daddy_executor(command);
 }
 

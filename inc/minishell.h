@@ -71,10 +71,13 @@ igual ?? no sé ya veremos xD
 # define	ENV	1
 
 //ERRORS
+# define OK 0
 # define IS_DIR 1
 # define COMMAND_NOT_FOUND 2
 # define INVALID_EXPORT_IDENTIFIER 3
 # define OPEN_ERROR -1
+# define CD_ERROR 1
+# define CHDIR_ERROR -1
 
 # define O_REDIRECT_RIGHT (O_WRONLY | O_CREAT | O_TRUNC)
 # define O_REDIRECT_APPEND (O_WRONLY | O_CREAT | O_APPEND)
@@ -97,7 +100,7 @@ igual ?? no sé ya veremos xD
 //EXIT_STATUS
 # define SIGINT_SIGNAL 130
 
-extern int	g_exit_status;
+extern unsigned char	g_exit_status;
 
 // typedef enum	s_token_value
 // {
@@ -311,15 +314,15 @@ void	execute_or_error(char **matrix[2], char *path_name);
 
 
 // built-ins
-void ft_cd(t_command *command);
-void ft_echo(t_command *command);
-void ft_env(t_command *command);
-void ft_exit(t_command *command);
-int ft_export(t_command *command);
+void	ft_cd(t_command *command);
+void 	ft_echo(t_command *command);
+void 	ft_env(t_command *command);
+void 	ft_exit(t_command *command);
+int		ft_export(t_command *command);
 bool	valid_var_name(char	*name);
 
-void ft_pwd(void);
-void ft_unset(t_command *command);
+void 	ft_pwd(void);
+void 	ft_unset(t_command *command);
 
 // error.c
 void	error_exit(char *str, int error);
@@ -339,7 +342,7 @@ int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
 //check_builtins.c
 
 int	check_builtins(t_command *command);
-int	exec_builtin(t_command *command);
+bool	exec_builtin(t_command *command);
 
 //signals.c
 void	child_signal_handler(int signal);
