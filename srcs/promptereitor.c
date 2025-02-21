@@ -51,7 +51,7 @@ int	promptereitor(t_env *env)
 			list_checker(&first_token);
 			//print_tokens(first_token);
 			command = automata(first_token, env);
-			//print_commands(command);
+			print_commands(command);
 			if (command)
 				begin_execution(command);
 			if (command)

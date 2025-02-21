@@ -23,8 +23,10 @@ bool	builtin_without_pipe(t_command *command)
 	int aux_stdin = dup(0);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 		return (true);
-	g_exit_status = exec_builtin(command);
-	if (g_exit_status == 0)
+	//g_exit_status = exec_builtin(command);
+	printf("GLOBAL EXIT: %d\n", g_exit_status);
+//	if (g_exit_status == 0)
+	if (exec_builtin(command))
 	{
 		dup2(aux_stdout, 1);
 		close(aux_stdout);
@@ -52,7 +54,6 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	char 	**matrix[2];
 	char 	*path_name;
 	pid_t 	family;
-
 	family = fork();
 	if (family == CHILD)
 	{

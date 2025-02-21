@@ -81,7 +81,7 @@ bool	valid_var_name(char	*name)
 	return (true);
 }
 
-bool	overwrite_var(t_env *env, t_env *var)
+bool	if_exist_var_overwrite(t_env *env, t_env *var)
 {
 	while (env)
 	{
@@ -89,7 +89,8 @@ bool	overwrite_var(t_env *env, t_env *var)
 		{
 			free(env->value);
 			free(var->name);
-			env->value = var->name;
+			var->name = NULL;
+			env->value = var->value;
 			return true;
 		}
 		env = env->next;
@@ -100,7 +101,7 @@ bool	overwrite_var(t_env *env, t_env *var)
 int ft_export(t_command *command)
 {
 	t_env		*var;
-	t_args	*arg;
+	t_args		*arg;
 	bool		error;
 
 	arg = command->args->next;
@@ -114,8 +115,10 @@ int ft_export(t_command *command)
 			print_error(arg->name, INVALID_EXPORT_IDENTIFIER);
 			error = true;
 		}
-		else if (overwrite_var(command->env, var) == false)
+		else if (if_exist_var_overwrite(command->env, var) == false)
+		{
 			add_env_back(&command->env, var);
+		}
 		arg = arg->next;
 	}
 	return (error);
