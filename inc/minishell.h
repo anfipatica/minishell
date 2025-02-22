@@ -61,6 +61,7 @@ igual ?? no sé ya veremos xD
 # define PURPLE "\033[0;35m"
 # define BLUE "\033[1;36m"
 # define ORANG "\033[1;33m"
+# define WHITE "\033[1;37m"
 
 //define automata
 # define ERROR__STATE	5

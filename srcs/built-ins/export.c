@@ -6,11 +6,11 @@
 
 #define KERMIT "\
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠞⠛⠉⠉⠉⠛⠓⢦⣄⠀⠀⢀⣤⣤⣄⠀⠀⠀⣀⣠⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠋⠀⣀⣤⣤⣤⣤⣤⠀⠀⠘⢶⡀⠀⠀⠀⠀⣠⡶⠛⠉⠀⠀⠀⠀⠀⠙⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⠀⠀⢸⣿⣿⣿⡟⠉⠉⠀⠀⠀⣠⡇⠀⠀⠀⠀⢿⡇⠀⠀⠀⠸⣿⣦⣄⣀⡀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⢤⣿⡟⠉⠉⠁⠀⠀⢀⣠⠾⠛⠁⠀⠀⠀⠀⠀⠷⣄⠀⠀⠀⠨⢿⣿⣿⣷⢀⠀⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠀⠀⠈⠉⠀⠀⠀⢀⣤⠶⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⡀⠀⠀⠈⠛⢿⣇⢠⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⠞⠉⠙⣇⣀⣀⣀⣤⠴⠚⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠀⠀⠸⠿⠘⡀⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠋⠀"WHITE"⣀⣤⣤⣤⣤⣤"GREEN"⠀⠀⠘⢶⡀⠀⠀⠀⠀⣠⡶⠛⠉⠀⠀⠀⠀⠀⠙⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⠀⠀"WHITE"⢸⣿⣿⣿⡟⠉⠉"GREEN"⠀⠀⠀⣠⡇⠀⠀⠀⠀⢿⡇⠀⠀⠀"WHITE"⠸⣿⣦⣄⣀⡀"GREEN"⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀"WHITE"⢤⣿⡟⠉⠉⠁"GREEN"⠀⠀⢀⣠⠾⠛⠁⠀⠀⠀⠀⠀⠷⣄⠀⠀⠀"WHITE"⠨⢿⣿⣿⣷⢀"GREEN"⠀⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⠀⠀"WHITE"⠈⠉"GREEN"⠀⠀⠀⢀⣤⠶⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⡀⠀⠀"WHITE"⠈⠛⢿⣇⢠"GREEN"⠀⢸⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⠞⠉⠙⣇⣀⣀⣀⣤⠴⠚⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠀"WHITE"⠀⠸⠿⠘⡀"GREEN"⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⣠⠜⠛⠁⠘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⣄⠀⠀⠀⣱⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⢁⣶⠀⠀⢀⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠶⠶⠋⠓⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 ⠀⠀⠀⠀⠀⠀⠀⠀⣾⢁⡟⣻⠀⠀⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢶⡈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
@@ -55,10 +55,12 @@
 void	print_kermit(void)
 {
 	printf(GREEN""KERMIT""STD);
-	printf(RED"\nSorry, the manual says:\n"
-	"\tWhen no arguments are given, the results are unspecified.\n"
-	"So this is the result our minishell implements <3\n\n\
-	https://www.man7.org/linux/man-pages/man1/export.1p.html\n"STD);
+	printf(RED
+		"\n%23sSorry, the manual says:\n"
+		"%5sWhen no arguments are given, the results are unspecified.\n"
+		"%8sSo this is the result our minishell implements <3\n\n"
+		"%5s"PURPLE"https://www.man7.org/linux/man-pages/man1/export.1p.html\n"STD,
+		"", "", "", "");
 }
 
 
