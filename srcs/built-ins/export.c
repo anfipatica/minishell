@@ -56,11 +56,12 @@ void	print_kermit(void)
 {
 	printf(GREEN""KERMIT""STD);
 	printf(RED
-		"\n%23sSorry, the manual says:\n"
+		"\n%22sSorry, the manual says:\n"
 		"%5sWhen no arguments are given, the results are unspecified.\n"
 		"%8sSo this is the result our minishell implements <3\n\n"
+		STD"%20sFollow link (ctrl + click)\n"
 		"%5s"PURPLE"https://www.man7.org/linux/man-pages/man1/export.1p.html\n"STD,
-		"", "", "", "");
+		"", "", "", "", "");
 }
 
 
