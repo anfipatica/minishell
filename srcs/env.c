@@ -39,6 +39,8 @@ t_env *copy_env(char **env_original)
 	while (env_original[i])
 	{
 		new_node = create_node_env(env_original[i]);
+		if (ft_strcmp(new_node->name, "SHLVL") == 0)
+			new_node->value = ft_itoa((ft_atoi(new_node->value) + 1));
 		add_env_back(&head_list, new_node);
 		i++;
 	}

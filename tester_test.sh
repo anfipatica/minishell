@@ -22,13 +22,12 @@ fi
 
 clear
 printf "${MAGENTA}Insert the command you want to test${STD}\n";
-
 read -e command
 
 result_bash=$(echo $command | bash 2>bash_error_log.txt)
 result_minishell=$(echo $command | ./minishell 2>minishell_error_log.txt | tail +2 | head -n -1)
 
-if [[ -s bash_error_log.txt || -s minishell_error_log ]]; then
+if [[ -s bash_error_log.txt || -s minishell_error_log.txt ]]; then
 	printf "${GRAY}- · - · - · - · - · -< BASH ERROR EXIT >- · - · - · - · - · -${STD}\n"
 	cat bash_error_log.txt
 	printf "\n";
