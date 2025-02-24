@@ -120,8 +120,15 @@ int	daddy_executor(t_command *command)
 ////Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
 void	begin_execution(t_command *command)
 {
+	static unsigned char last_status;
+
 	find_heredoc(command);
-	if (g_exit_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
+	if (last_status == g_exit_status)
+		last_status = 0;
+	else
+		last_status = g_exit_status;
+
+	if (last_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
 		return ;
 	printf("holaaaaaa\n");
 	daddy_executor(command);

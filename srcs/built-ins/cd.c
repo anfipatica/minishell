@@ -3,8 +3,6 @@
 void ft_cd(t_command *command)
 {
 	int	status;
-
-	printf("holaaaaa\n"); 
 	
 	if (command->args->next == NULL)
 	{
@@ -13,8 +11,21 @@ void ft_cd(t_command *command)
 			printf("bash: cd: HOME not set\n");
 	}
 	else
+	{
 		status = chdir(command->args->next->name);
-	
+		if (status == CHDIR_ERROR)
+			perror(command->args->next->name);
+	}
+
+	while (command->env)
+	{
+		if (ft_strcmp("PWD", command->env->name) == 0)
+		{
+			free(command->env->value);
+			command->env->value = getcwd(NULL, 0);
+		}		
+		command->env = command->env->next;
+	}
 	if (status == CHDIR_ERROR)
 		g_exit_status = CD_ERROR;
 	else

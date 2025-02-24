@@ -75,6 +75,8 @@ void	list_checker(t_token **list)
 	t_token *next;
 
 	*list = check_and_delete_env(*list, NULL);
+	if (!(*list))
+		return ;
 	turn_to_word(*list);
 	if ((*list)->type == T_ENV)
 		*list = create_new_node_by_env(*list);
