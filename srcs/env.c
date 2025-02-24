@@ -30,9 +30,10 @@ t_env *create_node_env(char *line_env)
 
 t_env *copy_env(char **env_original)
 {
-	t_env *head_list;
-	t_env *new_node;
-	int i;
+	t_env	*head_list;
+	t_env	*new_node;
+	char	*sh_level;
+	int 	i;
 
 	head_list = NULL;
 	i = 0;
@@ -40,7 +41,11 @@ t_env *copy_env(char **env_original)
 	{
 		new_node = create_node_env(env_original[i]);
 		if (ft_strcmp(new_node->name, "SHLVL") == 0)
+		{
+			sh_level = new_node->value;
 			new_node->value = ft_itoa((ft_atoi(new_node->value) + 1));
+			free(sh_level);
+		}
 		add_env_back(&head_list, new_node);
 		i++;
 	}

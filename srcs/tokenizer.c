@@ -84,7 +84,7 @@ t_token	*create_space_token(char *line, int *n)
 
 int	find_valid_delimitor(char *line)
 {
-	int	i;
+	int		i;
 	char	quote;
 
 	i = 0;
@@ -106,10 +106,10 @@ int	find_valid_delimitor(char *line)
 
 t_token	*handle_heredoc_limiter(t_token **head, char *line, t_env *env)
 {
-	t_token	*new;
+	t_token		*new;
 	char		*delimiter;
 	char		*aux;
-	int		i;
+	int			i;
 
 	i = 0;
 	while (line[i] && ft_strchr(SPACES, line[i]) != NULL)
@@ -141,9 +141,7 @@ t_token	*tokenizer(char *line, t_env *env)
 		if (ft_strchr("<>|$\"\'"SPACES, line[i]) != NULL)
 		{
 			if (fresh_token && fresh_token->type == T_HERE_DOC)
-			{
 				fresh_token = handle_heredoc_limiter(&head_token, &line[i], env);
-			}
 			else
 				fresh_token = token_chooser(&line[i], env);
 

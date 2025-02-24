@@ -39,13 +39,14 @@ int	promptereitor(t_env *env)
 	{
 		signal(SIGINT, father_signal_handler);
 		line = readline("prompt > ");
-		if (!line || ft_strncmp(line, "exit", 5) == 0)
+		if (!line || ft_strncmp(line, "exit", 5) == 0)  // ! hacer ft_EXIT
 			break ;
 		if (line[0] != '\0')
 		{
 			add_history(line);
 			if (twin_quote(line) == false)
 				continue ;
+
 			first_token = tokenizer(line, env);
 			//print_tokens(first_token);
 			list_checker(&first_token);

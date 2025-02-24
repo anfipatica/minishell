@@ -91,9 +91,8 @@ bool	if_exist_var_overwrite(t_env *env, t_env *var)
 		if (ft_strcmp(env->name, var->name) == 0)
 		{
 			free(env->value);
-			free(var->name);
-			var->name = NULL;
-			env->value = var->value;
+			env->value = ft_strdup(var->value);
+			ft_free_one_env(var);
 			return true;
 		}
 		env = env->next;
