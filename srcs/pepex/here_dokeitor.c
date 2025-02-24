@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/24 17:21:28 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/24 18:40:06 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,21 @@ char	*filename_generator(void)
 	return (file_temp); //!LIBERAR AL FINAL DE LA EJECUCIÓN.
 }
 
-char *here_dokeitor(char *limiter, char *new_temp_file)
+int	heredoc_father(int heredoc_fd)
+{
+	int	status;
+
+	signal(SIGINT, SIG_IGN);
+	wait(&status);
+	close(heredoc_fd);
+	return (WEXITSTATUS(status));
+}
+
+char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
 {
 	int	heredoc_fd;
 	char	*input_line;
 	pid_t	family;
-	int		status;
 
 	if (!new_temp_file)
 		return (NULL);
@@ -41,7 +50,6 @@ char *here_dokeitor(char *limiter, char *new_temp_file)
 	family = fork();
 	if (family == CHILD)
 	{
-		printf("->%s\n", limiter);
 		signal(SIGINT, heredoc_signal_handler);
 		while (1)
 		{
@@ -58,28 +66,29 @@ char *here_dokeitor(char *limiter, char *new_temp_file)
 		close(heredoc_fd);
 		exit(0);
 	}
-	signal(SIGINT, SIG_IGN);
-	wait(&status);
-	g_exit_status = WEXITSTATUS(status);
-	close(heredoc_fd);
+	*status = heredoc_father(heredoc_fd);
 	return (new_temp_file);
 }
 
-void	find_heredoc(t_command *command)
+int	find_heredoc(t_command *command)
 {
 	t_redirect	*file;
+	int			status;
 
-	while (command && g_exit_status != SIGINT_SIGNAL)
+	status = 0;
+	while (command && status != SIGINT_SIGNAL)
 	{
 		file = command->head_redirect;
-		while (file && g_exit_status != SIGINT_SIGNAL)
+		while (file && status != SIGINT_SIGNAL)
 		{
 			if (file->redirect_type == T_HERE_DOC)
-				file->name = here_dokeitor(file->name, filename_generator());
+				file->name = here_dokeitor(file->name, filename_generator(), &status);
 			file = file->next;
 		}
 		command = command->next;
 	}
+	g_exit_status = status;
+	return (status);
 }
 /*
 	cat << a << b << c | cat << 1 < que << 2 << 3 > out

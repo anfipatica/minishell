@@ -73,6 +73,7 @@ igual ?? no sé ya veremos xD
 
 //ERRORS
 # define OK 0
+# define EXIT_STATUS_ERROR 1
 # define IS_DIR 1
 # define COMMAND_NOT_FOUND 2
 # define INVALID_EXPORT_IDENTIFIER 3
@@ -332,8 +333,8 @@ void	print_error(char *str, int error);
 
 // here_docereitor.c
 char	*filename_generator(void);
-char	*here_dokeitor(char *limiter, char *new_temp_file);
-void	find_heredoc(t_command *file);
+char *here_dokeitor(char *limiter, char *new_temp_file, int *status);
+int	find_heredoc(t_command *command);
 
 //fd_handler.c
 

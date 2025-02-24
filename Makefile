@@ -93,7 +93,7 @@ run: all
 
 v: valgrind
 valgrind: all
-	@valgrind --leak-check=full --track-fds=yes --trace-children=yes ./$(NAME)
-#@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+#@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./$(NAME)
 
 .PHONY: all clean fclean re libmlx libft r run v valgrind

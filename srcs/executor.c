@@ -13,27 +13,43 @@ void	execute_or_error(char **matrix[2], char *path_name)
 		error_exit(path_name, IS_DIR);
 }
 
+
+void	ripristinar_fds(int aux_stdout, int aux_stdin)
+{
+	dup2(aux_stdout, 1);
+	close(aux_stdout);
+	dup2(aux_stdin, 0);
+	close(aux_stdin);
+}
+
 bool	builtin_without_pipe(t_command *command)
 {
 	int aux_stdout;
 	int aux_stdin;
 
-	aux_stdout = dup(1);
-	aux_stdin = dup(0);
+	//!ARREGLAR ESTO LO DE QUE
+	/*
+		  ~ ps -e | grep mini
+		 519234 pts/1    00:00:00 minishell
+		➜  ~ lsof -p 519234  
+	*/
+	//!NO CERRAMOS ESTOS 
+	//? CREO QUE YA ESTÁ?????
 	if (command->next)
 		return (false);
 	if (check_builtins(command) == false)
 		return (false);
+	aux_stdout = dup(OUT_FILE);
+	aux_stdin = dup(IN_FILE);
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
+	{
+		g_exit_status = EXIT_STATUS_ERROR;
+		ripristinar_fds(aux_stdout, aux_stdin);
 		return (true);
-	//g_exit_status = exec_builtin(command);
-//	if (g_exit_status == 0)
+	}
 	if (exec_builtin(command) == true)
 	{
-		dup2(aux_stdout, 1);
-		close(aux_stdout);
-		dup2(aux_stdin, 0);
-		close(aux_stdin);
+		ripristinar_fds(aux_stdout, aux_stdin);
 		return (true);
 	}
 	return (false);
@@ -41,13 +57,28 @@ bool	builtin_without_pipe(t_command *command)
 
 void wait_all(void)
 {
-	int status;
-	pid_t value_wp;
+	int	current_status;
+	int	last_process_status;
+	pid_t	current_wp;
+	pid_t	last_wp;
 
-	value_wp = 0;
-	while (value_wp != -1)
+	current_wp = 0;
+	last_wp = 0;
+	while (current_wp != -1)
 	{
-		value_wp = waitpid(-1, &status, 0);
+		//!Por qué "sleep 2 | ./a" sale como que current_status es 0.
+		current_wp = waitpid(-1, &current_status, 0);
+		printf("\ncurrent_wp: %d, last_wp: %d, current_status: %d\n", current_wp, last_wp, current_status);
+		if (current_wp > last_wp)
+		{
+			last_process_status = current_status;
+			last_wp = current_wp;
+			printf("last_wp: %d, last_process_status: %d\n", last_wp, last_process_status);
+		}
+		if (WIFEXITED(last_process_status)) //-Si ha salido bien.
+			g_exit_status = WEXITSTATUS(last_process_status);
+		else if (WIFSIGNALED(last_process_status)) //-Si ha salido con una señal.
+			g_exit_status = WTERMSIG(last_process_status) + 128;
 	}
 }
 
@@ -56,6 +87,7 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	char 	**matrix[2];
 	char 	*path_name;
 	pid_t 	family;
+
 	family = fork();
 	if (family == CHILD)
 	{
@@ -74,8 +106,7 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 			exit(1);
 		if (exec_builtin(command) == true)
 		{
-			dprintf(2, "ES BILT\n");
-			exit(111);
+			exit(g_exit_status);
 		}
 		matrix[ARGS] = lts_args_to_matrix(command->args);
 		matrix[ENV] = lts_env_to_matrix(command->env);
@@ -83,9 +114,12 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		execute_or_error(matrix, path_name);
-		exit(1); //!Gestionar mejor esto
+		perror(path_name);
+		printf("errno: %d\n", errno);
+		exit(g_exit_status); //!Gestionar mejor esto
 	}
 	signal(SIGINT, child_signal_handler);
+	//!GESTIONAR EL SIGQUIT CUANDO ES INTERACTIVO!!!!!!!!!!!!!!!!!!!!!!!!!!11111
 }
 
 int	daddy_executor(t_command *command)
@@ -120,17 +154,11 @@ int	daddy_executor(t_command *command)
 ////Ya no da segfault pero no debería ejecutar nada y ahora salta como si no hubiera encontrado el comando "".
 void	begin_execution(t_command *command)
 {
-	static unsigned char last_status;
-
-	find_heredoc(command);
-	if (last_status == g_exit_status)
-		last_status = 0;
-	else
-		last_status = g_exit_status;
-
-	if (last_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
+	if (find_heredoc(command) == SIGINT_SIGNAL)
 		return ;
-	printf("holaaaaaa\n");
+
+	if (g_exit_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
+		return ;
 	daddy_executor(command);
 }
 

@@ -25,6 +25,7 @@ void ft_unset(t_command *command)
 		command->env = head_env;
 		next_args = next_args->next;
 	}
+	g_exit_status = OK;
 }
 
 /* 
