@@ -77,6 +77,7 @@ igual ?? no sé ya veremos xD
 # define IS_DIR 1
 # define COMMAND_NOT_FOUND 2
 # define INVALID_EXPORT_IDENTIFIER 3
+# define NO_PERMISSION 4
 # define OPEN_ERROR -1
 # define CD_ERROR 1
 # define CHDIR_ERROR -1
@@ -322,6 +323,7 @@ void 	ft_env(t_command *command);
 void 	ft_exit(t_command *command);
 int		ft_export(t_command *command);
 bool	valid_var_name(char	*name);
+void	kermit(void);
 
 void 	ft_pwd(void);
 void 	ft_unset(t_command *command);

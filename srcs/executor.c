@@ -11,10 +11,14 @@ void	execute_or_error(char **matrix[2], char *path_name)
 		ft_perror(matrix[ARGS][0]);
 	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
 		error_exit(path_name, IS_DIR);
+	else //? Por ahora funciona pero quizás haya más casos???
+		error_exit(path_name, NO_PERMISSION);
+//	printf("*********%d\n", (buffer.st_mode & S_IXUSR));
+	//else if ((buffer.st_mode & S_IXUSR))
 }
 
 
-void	ripristinar_fds(int aux_stdout, int aux_stdin)
+void	restore_fds(int aux_stdout, int aux_stdin)
 {
 	dup2(aux_stdout, 1);
 	close(aux_stdout);
@@ -22,19 +26,15 @@ void	ripristinar_fds(int aux_stdout, int aux_stdin)
 	close(aux_stdin);
 }
 
-bool	builtin_without_pipe(t_command *command)
-{
-	int aux_stdout;
-	int aux_stdin;
-
-	//!ARREGLAR ESTO LO DE QUE
 	/*
 		  ~ ps -e | grep mini
 		 519234 pts/1    00:00:00 minishell
 		➜  ~ lsof -p 519234  
 	*/
-	//!NO CERRAMOS ESTOS 
-	//? CREO QUE YA ESTÁ?????
+bool	builtin_without_pipe(t_command *command)
+{
+	int aux_stdout;
+	int aux_stdin;
 	if (command->next)
 		return (false);
 	if (check_builtins(command) == false)
@@ -44,12 +44,12 @@ bool	builtin_without_pipe(t_command *command)
 	if (handle_files(command->head_redirect) == OPEN_ERROR)
 	{
 		g_exit_status = EXIT_STATUS_ERROR;
-		ripristinar_fds(aux_stdout, aux_stdin);
+		restore_fds(aux_stdout, aux_stdin);
 		return (true);
 	}
 	if (exec_builtin(command) == true)
 	{
-		ripristinar_fds(aux_stdout, aux_stdin);
+		restore_fds(aux_stdout, aux_stdin);
 		return (true);
 	}
 	return (false);

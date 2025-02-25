@@ -2,8 +2,8 @@
 
 void ft_pwd(void)
 {
-
 	char	*path;
+
 	path = getcwd(NULL, 0);
 	if (path)
 	{

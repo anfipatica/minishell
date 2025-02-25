@@ -46,5 +46,7 @@ bool	exec_builtin(t_command *command)
 		return(ft_pwd(), true);
 	if (ft_strcmp(command->args->name, "unset") == false)
 		return(ft_unset(command), true);
+	if (ft_strcmp(command->args->name, "kermit") == false)
+		return(kermit(), true);
 	return (false);
 }

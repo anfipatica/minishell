@@ -26,12 +26,19 @@ void	error_exit(char *str, int error)
 		write(2, ": Is a directory\n", 18);
 		exit(126);
 	}
+	if (error == NO_PERMISSION)
+	{
+		ft_putstr_fd(str, 2);
+		write(2, ": Permission denied\n", 21);
+		exit(126);
+	}
 	else if (error == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": command not found\n", 21);
 		exit(127);
 	}
+
 	else
 		write(2, "unknown error\n", 14);
 }

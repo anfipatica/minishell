@@ -39,6 +39,7 @@ SRCS =											\
 		$(SRC_DIR)/built-ins/export.c			\
 		$(SRC_DIR)/built-ins/pwd.c				\
 		$(SRC_DIR)/built-ins/unset.c			\
+		$(SRC_DIR)/built-ins/kermit.c			\
 		$(SRC_DIR)main.c						\
 		$(SRC_DIR)promptereitor.c				\
 		$(SRC_DIR)tokenizer.c					\
@@ -55,9 +56,10 @@ SRCS =											\
 		$(PEPEX_DIR)here_dokeitor.c				\
 		$(SRC_DIR)executor.c					\
 		$(SRC_DIR)error.c						\
-		$(SRC_DIR)builtins_handler.c				\
+		$(SRC_DIR)builtins_handler.c			\
 		$(SRC_DIR)fd_handler.c					\
-		$(SRC_DIR)signals.c					\
+		$(SRC_DIR)signals.c						\
+
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))

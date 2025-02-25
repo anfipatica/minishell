@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commander.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/20 20:41:56 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:09:58 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*check_path(char **all_path, char *cmd)
 			return (NULL);
 		if (access(path_name, X_OK) == -1)
 		{
+			printf("ERNO: %d\n", errno);
 			i++;
 			free(path_name);
 		}
@@ -69,8 +70,10 @@ char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 	char	*path_name;
 	int		i;
 
+	printf("asasdasdasdasdasdasdasdasdasasdads\n");
 	if (cmd == NULL || ft_strchr(cmd, '/') != NULL || cmd[0] == '\0')
 		return (cmd);
+	printf("asasdasdasdasdasdasdasdasdasasdads\n");
 	i = 0;
 	while (envp[i] != NULL)
 	{
@@ -86,6 +89,7 @@ char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 	if (envp[i] == NULL)
 		return (NULL);
 	path_name = check_path(all_path, cmd);
+	printf("pathname:%s\n", path_name);
 	//error_path(path_name, cmd, all_path, cmd_arg);
 	free_double_pointer(all_path);
 	return (path_name);
