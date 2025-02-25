@@ -78,6 +78,7 @@ igual ?? no sé ya veremos xD
 # define COMMAND_NOT_FOUND 2
 # define INVALID_EXPORT_IDENTIFIER 3
 # define NO_PERMISSION 4
+# define EXIT_NON_DIGIT 5
 # define OPEN_ERROR -1
 # define CD_ERROR 1
 # define CHDIR_ERROR -1

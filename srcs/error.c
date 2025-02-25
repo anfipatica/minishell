@@ -16,7 +16,7 @@ void	ft_perror(char *str)
 		write(2, ": command not found\n", 21);
 	}
 	//exit(1); ---------------- en caso de qeu se necesita lo ponemos
-}
+} 
 
 void	error_exit(char *str, int error)
 {
@@ -38,7 +38,12 @@ void	error_exit(char *str, int error)
 		write(2, ": command not found\n", 21);
 		exit(127);
 	}
-
+	else if (error == EXIT_NON_DIGIT)
+	{
+		ft_putstr_fd(str, 2);
+		write(2, ": numeric argument required\n", 29);
+		exit(2);
+	}
 	else
 		write(2, "unknown error\n", 14);
 }
