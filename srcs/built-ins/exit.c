@@ -16,20 +16,38 @@ bool	ft_strisdigit(char *str)
 
 void ft_exit(t_command *command)
 {
-	int	i;
+	int			i;
+	t_args	*aux_head;
 
+	aux_head = command->args;
 	i = 0;
+	print_commands(command);
+	command->args = command->args->next;
 	while(command->args)
 	{
 
 		if (ft_strisdigit(command->args->name) == false)
 		{
+			command->args = aux_head;
+			ft_free_env(command->env);
+			ft_free_tokens(command->token_pointer);
+			ft_free_commands(command);
 			error_exit(command->args->name, EXIT_NON_DIGIT);
 		}
+		else if ((ft_strisdigit(command->args->name) == true && command->args->next != NULL))
+		{
+			write(2, "exit: too many arguments\n", 26);
+			return ;
+		}
 		i++;
+
+		command->args = command->args->next;
+
 	}
-	printf("FT_EXIT\n");
-	printf("%u", (unsigned int) -1);
+	command->args = aux_head;
+	ft_free_env(command->env);
+	ft_free_tokens(command->token_pointer);
+	ft_free_commands(command);
 	exit(123);
 }
 

@@ -13,11 +13,12 @@ void	function_array_filler(int (*array_of_functions[])(t_backpack *))
 	array_of_functions[5] = syntax_error;
 }
 
-void	pack_backpack(t_backpack *backpack, t_env *env)
+void	pack_backpack(t_backpack *backpack, t_env *env, t_token *token)
 {
 	backpack->head_command = NULL;
 	backpack->last_command = NULL;
 	backpack->env = env;
+	backpack->head_token = token;
 }
 
 t_command	*automata(t_token *token, t_env *env)
@@ -28,7 +29,7 @@ t_command	*automata(t_token *token, t_env *env)
 
 	current_state = 0;
 	function_array_filler(function_array);
-	pack_backpack(backpack, env);
+	pack_backpack(backpack, env, token);
 	while (token)
 	{
 		backpack->token = token;

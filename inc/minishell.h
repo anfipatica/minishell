@@ -174,6 +174,7 @@ typedef struct s_command
 	char				*path_command;
 	t_args				*args;
 	t_redirect			*head_redirect; //?Quizás normalizar más estos nombres, que uno sea head y otro solo args me da un poco de toc
+	t_token				*token_pointer;
 	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
@@ -185,6 +186,7 @@ typedef struct s_backpack
 	t_command	*last_command;
 	t_args		*arg_aux;
 	t_redirect	*redirect_aux;
+	t_token		*head_token;
 	t_token		*token;
 	t_env		*env;
 }					t_backpack;
@@ -200,8 +202,8 @@ typedef struct s_backpack
 void		ft_free_commands(t_command *command);
 void		ft_free_one_command(t_command *command);
 void		add_command_back(t_command **lst, t_command *new);
-t_command	*new_command(t_env *env);
-void len_command_list(t_command *command);
+t_command	*new_command(t_env *env, t_token *token);
+void		len_command_list(t_command *command);
 
 //list_token.c
 

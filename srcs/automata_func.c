@@ -7,7 +7,7 @@ int	insert_args(t_backpack *backpack)
 	token = backpack->token;
 	if (!backpack->last_command)
 	{
-		backpack->last_command = new_command(backpack->env);
+		backpack->last_command = new_command(backpack->env, backpack->head_token);
 		add_command_back(&(backpack->head_command), backpack->last_command);
 	}
 	backpack->arg_aux = new_args(ft_ternary(token->expanded, token->expanded, token->str));
@@ -22,7 +22,7 @@ int	set_redirect_type(t_backpack *backpack)
 	token = backpack->token;
 	if (!backpack->last_command)
 	{
-		backpack->last_command = new_command(backpack->env);
+		backpack->last_command = new_command(backpack->env, backpack->head_token);
 		add_command_back(&(backpack->head_command), backpack->last_command);
 	}
 	backpack->redirect_aux = new_redirect(token->type);

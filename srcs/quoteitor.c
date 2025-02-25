@@ -7,7 +7,6 @@ void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_env *env)
 	int n;
 	
 	n = 1;
-	dprintf(2, "line_After_dollar = %s\n", line_after_dollar);
 	if (line_after_dollar[n] == '$')
 	{
 		aux = get_pid_quote();

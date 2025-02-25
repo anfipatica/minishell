@@ -27,7 +27,7 @@
 /**
  * new_token creates a new token and allocates memory for it.
  */
-t_command	*new_command(t_env *env)
+t_command	*new_command(t_env *env, t_token *token)
 {
 	t_command	*new_command;
 
@@ -39,6 +39,7 @@ t_command	*new_command(t_env *env)
 	new_command->head_redirect = NULL;
 	new_command->env = env;
 	new_command->next = NULL;
+	new_command->token_pointer = token;
 	return (new_command);
 }
 /* 

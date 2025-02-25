@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall #-Werror -Wunreachable-code
+CFLAGS	 =	-Wextra -Wall -Werror #-Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3
@@ -10,7 +10,7 @@ CFLAGS	+= -g3
 
 READLINE	= -lreadline
 
-DEBUG	 =	-fsanitize=address
+#DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -95,7 +95,7 @@ run: all
 
 v: valgrind
 valgrind: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./$(NAME)
 #@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./$(NAME)
 
 .PHONY: all clean fclean re libmlx libft r run v valgrind

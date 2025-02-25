@@ -3,7 +3,6 @@
 
 bool twin_quote(char *line)
 {
-
 	int i = 0;
 	char quote_type;
 
@@ -48,9 +47,9 @@ int	promptereitor(t_env *env)
 				continue ;
 
 			first_token = tokenizer(line, env);
-			print_tokens(first_token);
+			// print_tokens(first_token);
 			list_checker(&first_token);
-			print_tokens(first_token);
+			// print_tokens(first_token);
 			command = automata(first_token, env);
 			//print_commands(command);
 			if (command)

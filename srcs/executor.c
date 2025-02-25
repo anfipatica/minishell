@@ -66,14 +66,11 @@ void wait_all(void)
 	last_wp = 0;
 	while (current_wp != -1)
 	{
-		//!Por qué "sleep 2 | ./a" sale como que current_status es 0.
 		current_wp = waitpid(-1, &current_status, 0);
-		printf("\ncurrent_wp: %d, last_wp: %d, current_status: %d\n", current_wp, last_wp, current_status);
 		if (current_wp > last_wp)
 		{
 			last_process_status = current_status;
 			last_wp = current_wp;
-			printf("last_wp: %d, last_process_status: %d\n", last_wp, last_process_status);
 		}
 		if (WIFEXITED(last_process_status)) //-Si ha salido bien.
 			g_exit_status = WEXITSTATUS(last_process_status);

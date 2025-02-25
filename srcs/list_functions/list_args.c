@@ -81,7 +81,6 @@ void	ft_free_one_args(t_args *args)
 void	ft_free_list_args(t_args *arg_node)
 {
 	t_args	*temp;
-
 	if (!arg_node)
 	{
 		return ;
