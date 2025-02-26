@@ -112,16 +112,16 @@ t_token	*handle_heredoc_limiter(char *line, t_env *env)
 	int			i;
 
 	i = 0;
+	delimiter = NULL;
 	while (line[i] && ft_strchr(SPACES, line[i]) != NULL)
 		i++;
 	i += find_valid_delimitor(&line[i]);
 	if (i == 0)
 		return (token_chooser(line, env));
-	delimiter = ft_calloc(i + 1, sizeof(char));
-	ft_strlcpy(delimiter, line, i + 1);
-	aux = ft_strtrim(delimiter, SPACES);
-	free(delimiter);
-	delimiter = ft_strchrtrim(aux, '\"');
+	aux = ft_calloc(i + 1, sizeof(char));
+	ft_strlcpy(aux, line, i + 1);
+	delimiter = ft_strtrim(aux, SPACES);
+	free(aux);
 	new = new_token(T_WORD, line, i);
 	new->expanded = delimiter;
 	new->free_expanded = true;

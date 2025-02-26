@@ -38,10 +38,6 @@ void	turn_to_word(t_token *token)
 		token->type = T_WORD;
 }
 
-/*
-SI hacemos: << $a"hola"; el limitador debería ser $ahola, pero por este mamotreco
-que hemos hecho aquí ahora es sólo $a lol
-*/
 t_token *create_new_node_by_env(t_token *env_node)
 {
 	t_token	*head;

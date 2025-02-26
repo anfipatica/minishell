@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/26 21:05:44 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:34:20 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,62 @@ int	heredoc_father(int heredoc_fd)
 	return (WEXITSTATUS(status));
 }
 
+//	delimiter = ft_strchrtrim(aux, '\"');
+
+bool	ft_ultrastrchr(char	*str, char	*find)
+{
+	int	i;
+
+	i = -1;
+	while (find[++i])
+	{
+		if (ft_strchr(str, find[i]))
+			return (true);
+	}
+	return (false);
+}
+
+char	*clean_delimiter(char	*delimiter)
+{
+	int	i;
+	char	quote;
+	int	j;
+	char	*clean_delimiter;
+	
+	clean_delimiter = ft_calloc(ft_strlen(delimiter), sizeof(char) + 1);
+	i = 0;
+	j = 0;
+	//'"a" '''a''' "hola'"'"
+	//"a" a "hola'
+	while (delimiter[i])
+	{
+		if (ft_ultrastrchr(&delimiter[i], QUOTES) == true)
+		{
+			quote = delimiter[i];
+			while (delimiter[++i] && delimiter[i] != quote)
+			{
+				printf("->%c\n", delimiter[i]);
+				clean_delimiter[j++] = delimiter[i];
+			}
+		}
+		else
+		{
+			clean_delimiter[j++] = delimiter[i];
+			printf("<-%c\n", delimiter[i]);
+			i++;
+		}
+	}
+	printf("before: %s\n", delimiter);
+	printf("after: %s\n", clean_delimiter);
+	exit(111);
+	return (NULL);
+}
+
 char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
 {
 	int	heredoc_fd;
 	char	*input_line;
+	// bool	expand;
 	pid_t	family;
 
 	if (!new_temp_file)
@@ -47,6 +99,10 @@ char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
 	heredoc_fd = open(new_temp_file, O_WRONLY | O_CREAT | O_TRUNC, STD_PERMISSIONS);
 	if (heredoc_fd == -1)
 		return (unlink(new_temp_file), NULL);
+
+	// expand = ft_strcmp(limiter, "\"");
+	// expand = ft_strcmp(limiter, "\'");
+	clean_delimiter(limiter);
 	family = fork();
 	if (family == CHILD)
 	{
