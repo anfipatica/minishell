@@ -10,7 +10,7 @@ CFLAGS	+= -g3
 
 READLINE	= -lreadline
 
-#DEBUG	 =	-fsanitize=address
+DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -93,8 +93,19 @@ r: run
 run: all
 	@./$(NAME)
 
+# f: fsanitize
+
+# add:
+# 	DEBUG	 +=	-fsanitize=address
+
+# remove:
+# 	DEBUG	 -=	-fsanitize=address
+
+# fsanitize: add re
+# 	./$(NAME)
+
 v: valgrind
-valgrind: all
+valgrind: remove all
 	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./$(NAME)
 #@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./$(NAME)
 

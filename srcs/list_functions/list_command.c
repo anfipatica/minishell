@@ -40,6 +40,7 @@ t_command	*new_command(t_env *env, t_token *token)
 	new_command->env = env;
 	new_command->next = NULL;
 	new_command->token_pointer = token;
+	new_command->execve_matrix = NULL;
 	return (new_command);
 }
 /* 

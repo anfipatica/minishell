@@ -71,14 +71,18 @@ igual ?? no sé ya veremos xD
 # define	ARGS	0
 # define	ENV	1
 
-//ERRORS
+/*ERRORS:
+	-> IS_DIR (126 - 1): Since IS_DIR and NO_PERMISSION have the same exit code,
+		we identify IS_DIR as 125 and then change it back to 126 whenever that
+		exit code is trigered.
+*/
 # define OK 0
 # define EXIT_STATUS_ERROR 1
-# define IS_DIR 1
-# define COMMAND_NOT_FOUND 2
+# define IS_DIR (126 - 1)
+# define NO_PERMISSION 126
+# define COMMAND_NOT_FOUND 127
 # define INVALID_EXPORT_IDENTIFIER 3
-# define NO_PERMISSION 4
-# define EXIT_NON_DIGIT 5
+# define EXIT_NON_DIGIT 2
 # define OPEN_ERROR -1
 # define CD_ERROR 1
 # define CHDIR_ERROR -1
@@ -170,11 +174,11 @@ typedef struct s_args
 
 typedef struct s_command
 {
-	// int				p_fds[2]; awhawhwahawhawhaw
+	char				***execve_matrix; //awhawhwahawhawhaw
 	char				*path_command;
-	t_args				*args;
-	t_redirect			*head_redirect; //?Quizás normalizar más estos nombres, que uno sea head y otro solo args me da un poco de toc
-	t_token				*token_pointer;
+	t_args			*args;
+	t_redirect		*head_redirect; //?Quizás normalizar más estos nombres, que uno sea head y otro solo args me da un poco de toc
+	t_token			*token_pointer;
 	t_env				*env;
 	struct s_command	*next;		// A pointer to the next token.
 
@@ -288,6 +292,7 @@ t_token	*create_str_quote(char *start_quote, t_env *env);
 
 void	freedom_error_fresh_token(t_token *head_token, char *line, t_env *env);
 void	free_exit_execution(char *path_name, char **matrix[2]);
+void	free_all(t_command *command);
 
 // quote_expandetor.c
 
@@ -316,7 +321,7 @@ void	list_checker(t_token **list);
 // executor.c
 int		daddy_executor(t_command *command);
 void	begin_execution(t_command *command);
-void	execute_or_error(char **matrix[2], char *path_name);
+void	execute_or_error(char **matrix[2], char *path_name, t_command *command);
 
 
 // built-ins
@@ -332,7 +337,7 @@ void 	ft_pwd(void);
 void 	ft_unset(t_command *command);
 
 // error.c
-void	error_exit(char *str, int error);
+void	error_exit(char *str, int error, t_command *command);
 void	ft_perror(char *str);
 void	print_error(char *str, int error);
 
@@ -355,6 +360,7 @@ bool	exec_builtin(t_command *command);
 void	child_signal_handler(int signal);
 void	father_signal_handler(int signal);
 void	heredoc_signal_handler(int signal);
+void	sigquit_signal_handler(int signal);
 
 //commander.c
 char	*find_path_name(char *cmd, char **envp, char **cmd_arg);

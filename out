@@ -1,24 +1,4 @@
-a.out$
-Desktop$
-Documents$
-Downloads$
-file$
-file1$
-file2$
-firefox$
-fran$
-francinette$
-goinfre$
-HOLA$
-Makefile_temp$
-Music$
-out$
-out1$
-Pictures$
-Public$
-sgoinfre$
-snap$
-Software$
-Templates$
-vic_fdf$
-Videos$
+declare -x [0;35mSHLVL[0m="1"
+declare -x [0;35mPWD[0m="/home/ymunoz-m/Desktop/ejercicios_c/minishell"
+declare -x [0;35ma[0m="a"
+declare -x [0;35mb[0m=""

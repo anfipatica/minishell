@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/24 18:40:06 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:05:44 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
 	family = fork();
 	if (family == CHILD)
 	{
+		printf("limiter: %s\n", limiter);
 		signal(SIGINT, heredoc_signal_handler);
 		while (1)
 		{
@@ -81,6 +82,7 @@ int	find_heredoc(t_command *command)
 		file = command->head_redirect;
 		while (file && status != SIGINT_SIGNAL)
 		{
+			
 			if (file->redirect_type == T_HERE_DOC)
 				file->name = here_dokeitor(file->name, filename_generator(), &status);
 			file = file->next;

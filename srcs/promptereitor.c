@@ -45,7 +45,7 @@ int	promptereitor(t_env *env)
 			add_history(line);
 			if (twin_quote(line) == false)
 				continue ;
-
+// 
 			first_token = tokenizer(line, env);
 			// print_tokens(first_token);
 			list_checker(&first_token);

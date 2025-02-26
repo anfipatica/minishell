@@ -18,34 +18,34 @@ void	ft_perror(char *str)
 	//exit(1); ---------------- en caso de qeu se necesita lo ponemos
 } 
 
-void	error_exit(char *str, int error)
+void	error_exit(char *str, int error_code, t_command *command)
 {
-	if (error == IS_DIR)
+
+	if (error_code == IS_DIR)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": Is a directory\n", 18);
-		exit(126);
+		error_code++;
 	}
-	if (error == NO_PERMISSION)
+	else if (error_code == NO_PERMISSION)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": Permission denied\n", 21);
-		exit(126);
 	}
-	else if (error == COMMAND_NOT_FOUND)
+	else if (error_code == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": command not found\n", 21);
-		exit(127);
 	}
-	else if (error == EXIT_NON_DIGIT)
+	else if (error_code == EXIT_NON_DIGIT)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": numeric argument required\n", 29);
-		exit(2);
 	}
 	else
 		write(2, "unknown error\n", 14);
+	free_all(command);
+	exit(error_code);
 }
 
 void	print_error(char *str, int error)

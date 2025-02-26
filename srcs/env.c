@@ -28,6 +28,21 @@ t_env *create_node_env(char *line_env)
 	return (env_node);
 }
 
+void	create_own_env(t_env **head_node, t_env *new_node)
+{
+	char	*pwd_aux;
+	char	*join_aux;
+
+	pwd_aux = getcwd(NULL, 0);
+	join_aux = ft_strjoin("PWD=", pwd_aux);
+	*head_node = create_node_env("SHLVL=1");
+	new_node = create_node_env(join_aux);
+	add_env_back(head_node, new_node);
+	free(pwd_aux);
+	free(join_aux);
+}
+
+
 t_env *copy_env(char **env_original)
 {
 	t_env	*head_list;
@@ -37,6 +52,9 @@ t_env *copy_env(char **env_original)
 
 	head_list = NULL;
 	i = 0;
+	new_node = NULL;
+	if (!(*env_original))
+		create_own_env(&head_list, new_node);
 	while (env_original[i])
 	{
 		new_node = create_node_env(env_original[i]);

@@ -48,9 +48,9 @@ void print_export(t_command *command)
 	while(command->env)
 	{
 		if (command->env->value == NULL)
-			printf("declare -x "PURPLE"%s"STD"=\"\"\n", command->env->name);
+			printf("declare -x %s=\"\"\n", command->env->name);
 		else
-			printf("declare -x "PURPLE"%s"STD"=\"%s\"\n", command->env->name, command->env->value);
+			printf("declare -x %s=\"%s\"\n", command->env->name, command->env->value);
 		command->env = command->env->next;
 	}
 }

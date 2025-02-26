@@ -1,18 +1,18 @@
 #include "minishell.h"
 
-void	execute_or_error(char **matrix[2], char *path_name)
+void	execute_or_error(char **matrix[2], char *path_name, t_command *command)
 {
 	struct stat	buffer;
 
 	if (!path_name || !path_name[0])
-		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND));
+		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND, command));
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);
 	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
-		error_exit(path_name, IS_DIR);
+		error_exit(path_name, IS_DIR, command);
 	else //? Por ahora funciona pero quizás haya más casos???
-		error_exit(path_name, NO_PERMISSION);
+		error_exit(path_name, NO_PERMISSION, command);
 //	printf("*********%d\n", (buffer.st_mode & S_IXUSR));
 	//else if ((buffer.st_mode & S_IXUSR))
 }
@@ -77,6 +77,7 @@ void wait_all(void)
 		else if (WIFSIGNALED(last_process_status)) //-Si ha salido con una señal.
 			g_exit_status = WTERMSIG(last_process_status) + 128;
 	}
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void exec_jr(t_command *command, int in_fd, int *pipefd)
@@ -85,9 +86,12 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 	char 	*path_name;
 	pid_t 	family;
 
+	ft_memset(matrix, 0, sizeof(matrix));
+	command->execve_matrix = matrix;
 	family = fork();
 	if (family == CHILD)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (in_fd != NULL_FD)
 		{
 			dup2(in_fd, 0);
@@ -110,13 +114,14 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 		if (matrix[ARGS] == NULL)
 			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
-		execute_or_error(matrix, path_name);
+		execute_or_error(matrix, path_name, command);
 		perror(path_name);
 		printf("errno: %d\n", errno);
-		exit(g_exit_status); //!Gestionar mejor esto
+		exit(g_exit_status);
 	}
+	signal(SIGQUIT, child_signal_handler);
 	signal(SIGINT, child_signal_handler);
-	//!GESTIONAR EL SIGQUIT CUANDO ES INTERACTIVO!!!!!!!!!!!!!!!!!!!!!!!!!!11111
+	////GESTIONAR EL SIGQUIT CUANDO ES INTERACTIVO!!!!!!!!!!!!!!!!!!!!!!!!!!11111
 }
 
 int	daddy_executor(t_command *command)
@@ -153,7 +158,6 @@ void	begin_execution(t_command *command)
 {
 	if (find_heredoc(command) == SIGINT_SIGNAL)
 		return ;
-
 	if (g_exit_status == SIGINT_SIGNAL || builtin_without_pipe(command) == true)
 		return ;
 	daddy_executor(command);
