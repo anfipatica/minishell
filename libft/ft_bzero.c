@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:16:48 by psapio            #+#    #+#             */
-/*   Updated: 2023/11/12 12:30:35 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/27 21:04:50 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
-{	
+{
 	int	a;
 
 	a = 0;

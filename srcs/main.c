@@ -1,29 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 19:19:08 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 19:19:33 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned char g_exit_status = 0;
+unsigned char	g_exit_status = 0;
 
 int	main(int argc, char **argv, char **env_original)
 {
 	t_env	*env;
-//	unsigned long a = 256;
 
 	(void)argv;
 	if (argc != 1)
 		return (1);
 	signal(SIGQUIT, SIG_IGN);
-	
 	env = copy_env(env_original);
 	promptereitor(env);
 	ft_free_env(env);
 	return (0);
 }
-
-////	clasificar las palabras
-////  generador de nombre de archivos
-
-//TODO	hacer los buldings que son relativamente faciles
-//TODO	implementar las siñales
-//TODO	incrustrarle el pipex que funcione!
-
-//- 	LO TENEMOS!

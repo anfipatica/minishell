@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 19:20:08 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 19:25:01 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #define ERROR_FLAG 3
 #define FLAG_OK 2
 
-int	get_echo_state(int current_state, int echo_char)
+/* int	get_echo_state(int current_state, int echo_char)
 {
 	const int matrix[][4] = {
 		{1, 3, 3}, //- 0 - estado inicial
@@ -13,9 +25,21 @@ int	get_echo_state(int current_state, int echo_char)
   //-   0  1  2
 
 	return (matrix[current_state][echo_char]);
+} */
+
+int	get_echo_state(int current_state, int echo_char)
+{
+	const int	matrix[][4] = {
+	{1, 3, 3},
+	{3, 2, 3},
+	{3, 2, 3},
+	{3, 3, 3}
+	};
+
+	return (matrix[current_state][echo_char]);
 }
 
-int convert_char_to_echo_char(char c)
+int	convert_char_to_echo_char(char c)
 {
 	if (c == '-')
 		return (0);
@@ -24,12 +48,14 @@ int convert_char_to_echo_char(char c)
 	return (2);
 }
 
-bool get_echo_flag(char *str)
+bool	get_echo_flag(char *str)
 {
-	int	i = 0;
-	int	state = 0;
-	int echo_char;
-	
+	int	i;
+	int	state;
+	int	echo_char;
+
+	i = 0;
+	state = 0;
 	while (str[i])
 	{
 		echo_char = convert_char_to_echo_char(str[i]);
@@ -41,15 +67,14 @@ bool get_echo_flag(char *str)
 	if (state == FLAG_OK)
 		return (true);
 	return (false);
-	
 }
 
-void ft_echo(t_command *command)
+void	ft_echo(t_command *command)
 {
-	int	total_flags;
+	int		total_flags;
 	bool	flag;
-	t_args *aux_args;
-	
+	t_args	*aux_args;
+
 	aux_args = command->args->next;
 	total_flags = 0;
 	while (aux_args != NULL)
@@ -58,7 +83,7 @@ void ft_echo(t_command *command)
 		if (flag == true)
 			total_flags += 1;
 		else
-			break;
+			break ;
 		aux_args = aux_args->next;
 	}
 	while (aux_args != NULL)
@@ -71,4 +96,3 @@ void ft_echo(t_command *command)
 	if (total_flags == 0)
 		printf("\n");
 }
-//< a > a echo hola 

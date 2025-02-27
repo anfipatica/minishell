@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expandetor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 19:11:50 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 19:13:06 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -15,6 +26,7 @@ t_token	*expandetor(char *line, t_env *env)
 {
 	int		i;
 	t_token	*token;
+
 	if (line[1] == '?')
 		return (expand_exit_status(line));
 	if (ft_isdigit(line[1]) == 1)
@@ -29,11 +41,11 @@ t_token	*expandetor(char *line, t_env *env)
 	return (token);
 }
 
-char		*get_char_pid()
+char	*get_char_pid(void)
 {
 	int		fd;
 	char	temp[15];
-	int read_return;
+	int		read_return;
 
 	ft_memset(&temp, 0, 15);
 	fd = open("/proc/self/stat", O_RDONLY);
@@ -43,12 +55,13 @@ char		*get_char_pid()
 		return (NULL);
 	return (ft_substr(temp, 0, ft_strchr(temp, ' ') - temp));
 }
+
 /*
 	This function emulates getpid(),
 	returning a token with the
 	pid in case the prompt finds "$$"
 */
-t_token	*get_pid_expandetor()
+t_token	*get_pid_expandetor(void)
 {
 	t_token	*token;
 

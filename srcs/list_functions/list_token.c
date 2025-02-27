@@ -1,10 +1,21 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_token.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 20:08:05 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 22:03:00 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 /**
  * new_token creates a new token and allocates memory for it.
  */
-t_token	*new_token(e_token_value type, char *str, int length)
+t_token	*new_token(t_token_value type, char *str, int length)
 {
 	t_token	*new_token;
 
@@ -12,7 +23,7 @@ t_token	*new_token(e_token_value type, char *str, int length)
 	if (!new_token)
 		return (NULL);
 	new_token->type = type;
-	new_token->str = ft_substr(str, 0 , length); // aqui habia fallo... teneiamos que crear un substring ya que vamo a liberar esta variabble!!
+	new_token->str = ft_substr(str, 0, length);
 	new_token->length = length;
 	if (type == T_S_QUOTE)
 	{
@@ -63,6 +74,7 @@ void	ft_free_one_node(t_token *token)
 	}
 	free(token);
 }
+
 /**
  * ft_free_tokens frees the nodes of a list and the neccesary content
  * inside each of them.
@@ -80,53 +92,3 @@ void	ft_free_tokens(t_token *token)
 		token = temp;
 	}
 }
-
-t_token *check_and_delete_space(t_token *lst)
-{
-	t_token *result = NULL;
-
-	if (!lst)
-		return NULL;
-
-	lst->next = check_and_delete_space(lst->next);
-
-	if (lst->type == T_SPACE)
-	{
-		result = lst->next;
-		ft_free_one_node(lst);
-	}
-	else
-		result = lst;
-	return (result);
-}
-
-t_token *check_and_delete_env(t_token *lst, t_token *lst_prev)
-{
-	t_token *result;
-
-	result = NULL;
-	if (!lst_prev && (lst->type == T_ENV && !(lst->expanded)))
-		return (ft_free_one_node(lst), NULL);
-	if (!lst)
-		return NULL;
-	lst->next = check_and_delete_env(lst->next, lst);
-	if (lst->type == T_WORD && lst_prev && lst_prev->type ==  T_HERE_DOC)
-	{
-		lst->str = ft_strchrtrim(lst->str, '\"');
-		result = lst;
-	}
-	else if (lst->type == T_ENV &&
-		!(lst->expanded) && (lst_prev) && lst_prev->type != T_HERE_DOC)
-	{
-		result = lst->next;
-		ft_free_one_node(lst);
-	}
-	else
-		result = lst;
-	return (result);
-}
-
-/* void	ft_lstdel(t_token **lst, void *context, bool (*predicate)(void *, void *), void (*del)(void *))
-{
-	*lst = eval(*lst, context, predicate, del);
-} */

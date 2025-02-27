@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 19:26:43 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 19:28:49 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-
-bool	valid_var_name(char	*name)
+bool	valid_var_name(char *name)
 {
 	int	i;
 
@@ -33,29 +43,29 @@ bool	if_exist_var_overwrite(t_env *env, t_env *var)
 			else
 				env->value = NULL;
 			ft_free_one_env(var);
-			return true;
+			return (true);
 		}
 		env = env->next;
 	}
 	return (false);
 }
 
-void print_export(t_command *command)
+void	print_export(t_command *command)
 {
-	// t_env	*env;
-
-	// env = command->env;
-	while(command->env)
+	while (command->env)
 	{
 		if (command->env->value == NULL)
 			printf("declare -x %s=\"\"\n", command->env->name);
 		else
-			printf("declare -x %s=\"%s\"\n", command->env->name, command->env->value);
+		{
+			printf("declare -x %s=\"%s\"\n",
+				command->env->name, command->env->value);
+		}
 		command->env = command->env->next;
 	}
 }
 
-int ft_export(t_command *command)
+int	ft_export(t_command *command)
 {
 	t_env		*var;
 	t_args		*arg;

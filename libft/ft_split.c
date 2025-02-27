@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:06:27 by psapio            #+#    #+#             */
-/*   Updated: 2024/11/20 17:41:27 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:24:15 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*word_allocator(char const *s, char c, char **two_d_array)
 }
 
 char	**ft_split(char const *s, char c)
-{	
+{
 	char	**two_d_array;
 	size_t	number_words;
 

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_token_create.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 18:32:47 by psapio            #+#    #+#             */
+/*   Updated: 2025/02/27 18:33:11 by psapio           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *create_str_quote(char *start_quote, t_env *env)
+t_token	*create_str_quote(char *start_quote, t_env *env)
 {
 	char	*finish_quote;
 	int		length;
@@ -10,8 +21,6 @@ t_token *create_str_quote(char *start_quote, t_env *env)
 	if (!finish_quote)
 		return (NULL);
 	length = ((finish_quote + 1) - start_quote);
-
-// si antes de las comilla original tenemos ' ' entonces 
 	if (start_quote[0] == '\"')
 		return (expand_d_quote(start_quote, length, env));
 	return (new_token(T_S_QUOTE, start_quote, length));

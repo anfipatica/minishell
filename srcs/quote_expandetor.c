@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_expandetor.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 18:23:04 by psapio            #+#    #+#             */
+/*   Updated: 2025/02/27 18:24:46 by psapio           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*nothing_to_expand(int *n, char *str)
@@ -17,11 +29,10 @@ char	*nothing_to_expand(int *n, char *str)
 
 char	*maybe_expanded(int *n, char *str, t_env *env)
 {
-	int	i;
+	int		i;
+	char	*maybe_expanded_str;
 
-	char *maybe_expanded_str;
 	i = 0;
-
 	while (str[i] && (ft_isalnum(str[i]) == 1 || str[i] == '_'))
 		i++;
 	*n += i;
@@ -37,12 +48,10 @@ char	*get_pid_quote(void)
 	char	*pid;
 
 	ft_memset(&temp, 0, 15);
-	fd = open("/proc/self/stat", O_RDONLY); //abre un archivo donde está información del proceso actual.
+	fd = open("/proc/self/stat", O_RDONLY);
 	read_return = read(fd, temp, 14);
 	(void)read_return;
 	pid = ft_substr(temp, 0, ft_strchr(temp, ' ') - temp);
 	close(fd);
 	return (pid);
 }
-
-

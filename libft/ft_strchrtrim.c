@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchrtrim.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 21:24:39 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 21:25:29 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /**
@@ -6,9 +18,9 @@
 char	*ft_strchrtrim(char	*str, char c)
 {
 	char	*new_string;
-	int	i;
-	int	j;
-	int	new_string_len;
+	int		i;
+	int		j;
+	int		new_string_len;
 
 	i = -1;
 	new_string_len = 0;
@@ -30,5 +42,3 @@ char	*ft_strchrtrim(char	*str, char c)
 	free(str);
 	return (new_string);
 }
-
-

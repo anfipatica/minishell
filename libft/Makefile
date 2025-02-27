@@ -39,7 +39,9 @@ SRCS	= \
 		free_double_pointer.c\
 		ft_strchrtrim.c\
 		ft_ternary.c\
-		ft_nstrchr.c
+		ft_nstrchr.c\
+		ft_atol.c\
+		ft_ltoa.c
 
 		
 OBJS	=	$(SRCS:.c=.o)

@@ -1,7 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automata.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 18:08:53 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 18:12:55 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//TODO Hacer un automata() que imite /printers/printers.c/print_states() sin imprimir.
-//TODO en base a algún flag del makefile.
+#include "minishell.h"
 
 void	function_array_filler(int (*array_of_functions[])(t_backpack *))
 {
@@ -35,7 +44,7 @@ t_command	*automata(t_token *token, t_env *env)
 		backpack->token = token;
 		current_state = get_new_state(current_state, token->type);
 		if (function_array[current_state](backpack) == ERROR__STATE)
-			return(NULL);
+			return (NULL);
 		token = token->next;
 	}
 	if (current_state > ACCEPT_STATES)
@@ -43,7 +52,21 @@ t_command	*automata(t_token *token, t_env *env)
 	return (backpack->head_command);
 }
 
-char *str_states[] = {
+int	get_new_state(int current_state, int token)
+{
+	const int	matrix[6][8] = {
+	{1, 1, 3, 3, 3, 3, 3, 5},
+	{1, 1, 3, 3, 3, 3, 3, 4},
+	{1, 1, 3, 3, 3, 3, 3, 4},
+	{2, 2, 5, 5, 5, 5, 5, 5},
+	{1, 1, 3, 3, 3, 3, 3, 5},
+	{5, 5, 5, 5, 5, 5, 5, 5}
+	};
+
+	return (matrix[current_state][token]);
+}
+
+/* char *str_states[] = {
 	"0 - estado inicial",
 	"1 - estado flag - ACCEPT_STATE",
 	"2 - estado file - ACCEPT_STATE",
@@ -55,8 +78,6 @@ char *str_states[] = {
 
 int	get_new_state(int current_state, int token)
 {
-	// dprintf(2, "|  current_state: "BLUE"%d\033[0m - token: %d  |\n",current_state, token);
-
 	const int	matrix[6][8] = { //--[ ]*****ESTADOS*****
 		{1, 1, 3, 3, 3, 3, 3, 5}, //- 0 - estado inicial
 		{1, 1, 3, 3, 3, 3, 3, 4}, //- 1 - estado flag - ACCEPT_STATE
@@ -67,7 +88,5 @@ int	get_new_state(int current_state, int token)
 };	//-  |  |  |  |  |  |  |  |
 	//-  |  |  |  |  |  |  |  |
 	//-  W  $  <  << >  >> <> |      [ ][ ]TOKENS
-//	printf("prev: %d new: %d text:[%s]\n", current_state, matrix[current_state][token], str_states[matrix[current_state][token]]);
 	return (matrix[current_state][token]);
-}
-
+} */

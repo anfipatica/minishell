@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 18:18:13 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 18:21:13 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env *create_node_env(char *line_env)
+t_env	*create_node_env(char *line_env)
 {
 	t_env	*env_node;
 	char	*name;
@@ -16,7 +28,8 @@ t_env *create_node_env(char *line_env)
 	else
 	{
 		name = ft_substr(line_env, 0, igual_position - line_env);
-		value = ft_substr(line_env, igual_position - line_env + 1, ft_strlen(igual_position));
+		value = ft_substr(line_env, igual_position - line_env + 1,
+				ft_strlen(igual_position));
 	}
 	if (valid_var_name(name) == false)
 	{
@@ -42,13 +55,12 @@ void	create_own_env(t_env **head_node, t_env *new_node)
 	free(join_aux);
 }
 
-
-t_env *copy_env(char **env_original)
+t_env	*copy_env(char **env_original)
 {
 	t_env	*head_list;
 	t_env	*new_node;
 	char	*sh_level;
-	int 	i;
+	int		i;
 
 	head_list = NULL;
 	i = 0;
@@ -79,14 +91,15 @@ t_env *copy_env(char **env_original)
 char	*ft_getenv(char *name, t_env *env, int length)
 {
 	int	str_len;
-	
+
 	if (length != 0)
 		str_len = length;
 	else
 		str_len = ft_strlen(name);
 	while (env)
 	{
-		if (ft_strncmp(name, env->name, str_len) == 0 && env->name[str_len] == 0)
+		if (ft_strncmp(name, env->name, str_len) == 0
+			&& env->name[str_len] == 0)
 			return (env->value);
 		env = env->next;
 	}

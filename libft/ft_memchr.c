@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:05:30 by psapio            #+#    #+#             */
-/*   Updated: 2023/11/20 16:17:14 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/27 21:23:18 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
@@ -21,7 +22,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	sentence = s;
 	i = 0;
 	while (i < n)
-	{	
+	{
 		if (sentence[i] == character)
 			return ((void *)&sentence[i]);
 		i++;
@@ -31,7 +32,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 /*
 int	main(void)
 {
-	char	words[] = "Nothing is born from diamonds, flowers are born from dirt";
+	char	words[] = "cacca";
 	int		character;
 	size_t	size;
 	char	*result;

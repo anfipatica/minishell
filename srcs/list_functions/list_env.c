@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_env.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 20:13:08 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 20:13:29 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-size_t len_list_env(t_env *list)
+size_t	len_list_env(t_env *list)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (list)
@@ -13,15 +25,15 @@ size_t len_list_env(t_env *list)
 	return (i);
 }
 
-char **lts_env_to_matrix(t_env *env)
+char	**lts_env_to_matrix(t_env *env)
 {
 	char	**env_matrix;
-	char	*name_aux;;
-	int	i;
+	char	*name_aux;
+	int		i;
 
 	env_matrix = malloc((len_list_env(env) + 1) * sizeof(char *));
 	if (!env_matrix)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	while (env)
 	{
@@ -34,20 +46,7 @@ char **lts_env_to_matrix(t_env *env)
 		env = env->next;
 	}
 	env_matrix[i] = NULL;
-/* 	for (int j = 0; env_matrix[j]; ++j)
-		dprintf(2, "env_matrix = %s\n", env_matrix[j]); */
 	return (env_matrix);
-}
-
-void	print_env(t_env *env)
-{
-	dprintf(2, "\n╭━━━┈┈<⭒.⋆🪐 𝕊𝕋𝔸ℝ𝕋 ✨˚⋆.>┈┈━━━╮\n");
-	while (env)
-	{
-		dprintf(2, "name: %s - value: %s\n", env->name, env->value);
-		env = env->next;
-	}
-	dprintf(2, "\n╰☆┈☆┈☆┈☆┈< 🌙 𝐹𝐼𝒩 🌌 >┈☆┈☆┈☆┈☆╯\n\n");
 }
 
 /**
@@ -86,32 +85,5 @@ void	add_env_back(t_env **head_list, t_env *new_node)
 			temp = temp->next;
 		}
 		temp->next = new_node;
-	}
-}
-
-void	ft_free_one_env(t_env *env)
-{
-	if (!env)
-		return ;
-	free(env->name);
-	free(env->value);
-	free(env);
-}
-
-/**
- * ft_free_env frees the nodes of a list and the neccesary content
- * inside each of them.
- */
-void	ft_free_env(t_env *env)
-{
-	t_env	*temp;
-
-	if (!env)
-		return ;
-	while (env != NULL)
-	{
-		temp = env->next;
-		ft_free_one_env(env);
-		env = temp;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:35:09 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/27 00:30:37 by anfi             ###   ########.fr       */
+/*   Updated: 2025/02/27 21:27:06 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ void	free_double_pointer(char **strings);
 char	*ft_ternary( bool condition, char *true_case, char *false_case);
 char	*ft_strchrtrim(char	*str, char c);
 int		ft_nstrchr(const char *s, int c);
+char	*ft_ltoa(long n);
+long	ft_atol(const char *nptr);
 
 // GET_NEXT_LINE
-#  ifndef BUFFER_SIZE
-#   define BUFFER_SIZE 42
-#  endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 typedef struct s_data
 {

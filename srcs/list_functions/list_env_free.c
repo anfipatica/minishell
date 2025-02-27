@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   list_env_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 19:34:16 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 19:34:22 by ymunoz-m         ###   ########.fr       */
+/*   Created: 2025/02/27 20:05:37 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 20:07:41 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_free_one_env(t_env *env)
 {
-	char	*path;
+	if (!env)
+		return ;
+	free(env->name);
+	free(env->value);
+	free(env);
+}
 
-	path = getcwd(NULL, 0);
-	if (path)
+/**
+ * ft_free_env frees the nodes of a list and the neccesary content
+ * inside each of them.
+ */
+void	ft_free_env(t_env *env)
+{
+	t_env	*temp;
+
+	if (!env)
+		return ;
+	while (env != NULL)
 	{
-		printf("%s\n", path);
-		free(path);
+		temp = env->next;
+		ft_free_one_env(env);
+		env = temp;
 	}
 }

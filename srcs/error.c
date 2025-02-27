@@ -1,5 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 18:21:37 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 18:32:41 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
+/**
+ * To print errors with perror.
+ */
 void	ft_perror(char *str)
 {
 	if (str == NULL)
@@ -8,17 +23,14 @@ void	ft_perror(char *str)
 	{
 		perror(str);
 	}
-	else
-	{
-		write(2, str, ft_strlen(str));
-		write(2, ": command not found\n", 21);
-	}
-	//exit(1); ---------------- en caso de qeu se necesita lo ponemos
-} 
+}
 
+/**
+ * To print errors that require to exit and which messages are not included
+ * in perror
+ */
 void	error_exit(char *str, int error_code, t_command *command)
 {
-
 	if (error_code == IS_DIR)
 	{
 		ft_putstr_fd(str, 2);
@@ -40,6 +52,9 @@ void	error_exit(char *str, int error_code, t_command *command)
 	exit(error_code);
 }
 
+/**
+ * to print errors that are not included in perror that don't require to exit.
+ */
 void	print_error(char *str, int error)
 {
 	if (error == INVALID_EXPORT_IDENTIFIER)
@@ -51,4 +66,3 @@ void	print_error(char *str, int error)
 	else
 		write(2, "unknown error\n", 14);
 }
-

@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 21:13:14 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/25 19:18:49 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/27 19:23:20 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 #define WRITE 1
 #define READ 0
-
-// void	print_error(const char *msg)
-// {
-// 	write(STDERR_FILENO, msg, ft_strlen(msg));
-// 	exit(EXIT_FAILURE);
-// }
 
 char	*check_path(char **all_path, char *cmd)
 {
@@ -64,11 +58,11 @@ void	error_path(char *path_name, char *cmd, char **all_path, char **cmd_arg)
 
 char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 {
-	(void)cmd_arg;
 	char	**all_path;
 	char	*path_name;
 	int		i;
 
+	(void)cmd_arg;
 	if (cmd == NULL || ft_strchr(cmd, '/') != NULL || cmd[0] == '\0')
 		return (cmd);
 	i = 0;
@@ -86,7 +80,6 @@ char	*find_path_name(char *cmd, char **envp, char **cmd_arg)
 	if (envp[i] == NULL)
 		return (NULL);
 	path_name = check_path(all_path, cmd);
-	//error_path(path_name, cmd, all_path, cmd_arg);
 	free_double_pointer(all_path);
 	return (path_name);
 }

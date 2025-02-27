@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_args.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 20:04:06 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 20:12:10 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t len_list_args(t_args *list)
+size_t	len_list_args(t_args *list)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (list)
@@ -14,16 +25,16 @@ size_t len_list_args(t_args *list)
 	return (i);
 }
 
-char **lts_args_to_matrix(t_args *args)
+char	**lts_args_to_matrix(t_args *args)
 {
 	char	**args_matrix;
-	int	i;
+	int		i;
 
 	if (!args)
 		return (NULL);
 	args_matrix = malloc((len_list_args(args) + 1) * sizeof(char *));
 	if (!args_matrix)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	while (args)
 	{
@@ -32,8 +43,6 @@ char **lts_args_to_matrix(t_args *args)
 		args = args->next;
 	}
 	args_matrix[i] = NULL;
-/* 	for (int j = 0; args_matrix[j]; ++j)
-		dprintf(2, "args_matrix = %s\n", args_matrix[j]); */
 	return (args_matrix);
 }
 
@@ -68,27 +77,5 @@ void	add_args_back(t_args **head, t_args *new)
 		while (temp->next)
 			temp = temp->next;
 		temp->next = new;
-	}
-}
-
-void	ft_free_one_args(t_args *args)
-{
-	if (!args)
-		return ;
-	free(args);
-}
-
-void	ft_free_list_args(t_args *arg_node)
-{
-	t_args	*temp;
-	if (!arg_node)
-	{
-		return ;
-	}
-	while (arg_node)
-	{
-		temp = arg_node->next;
-		ft_free_one_args(arg_node);
-		arg_node = temp;
 	}
 }

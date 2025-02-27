@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 19:34:32 by ymunoz-m          #+#    #+#             */
+/*   Updated: 2025/02/27 19:35:00 by ymunoz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-//si el comando coincide con el name de env entonces delete one node
-void ft_unset(t_command *command)
+void	ft_unset(t_command *command)
 {
 	t_args	*next_args;
 	t_env	*aux_to_del;
@@ -11,7 +22,7 @@ void ft_unset(t_command *command)
 	next_args = command->args->next;
 	while (next_args)
 	{
-		while(command->env->next)
+		while (command->env->next)
 		{
 			if (ft_strcmp(next_args->name, command->env->next->name) == 0)
 			{
@@ -27,13 +38,3 @@ void ft_unset(t_command *command)
 	}
 	g_exit_status = OK;
 }
-
-/* 
- -HEAD
- - ↓
-   a -> b -> c
-
-a -> c
-
-*/
-
