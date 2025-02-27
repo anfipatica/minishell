@@ -14,7 +14,7 @@ void if_is_dollar(char **expanded, char *line_after_dollar, int *i, t_env *env)
 		free(aux);
 		(*i)++;
 	}
-	// TODO si despues del dollar tenemos ? eentonces expandir con el valor de la ultima saldia de programa
+	//// si despues del dollar tenemos ? eentonces expandir con el valor de la ultima saldia de programa
 	else if (!(ft_isalpha(line_after_dollar[n]) == 1 || line_after_dollar[n] == '_'))
 		*expanded = ft_strjoin(*expanded, "$");
 	else if ((ft_isalpha(line_after_dollar[n]) == 1 || line_after_dollar[n] == '_'))
@@ -28,9 +28,7 @@ void if_not_dollar(char **expanded, char *start_quote, int *i)
 	if (start_quote[0] != ' ')
 	{
 		aux = nothing_to_expand(i, start_quote);
-		dprintf(2, "aux = %s\n", aux);
 		*expanded = ft_strjoin(*expanded, aux);
-		dprintf(2, "expanded = %s\n", *expanded);
 		free(aux);
 	}
 	else
@@ -68,6 +66,5 @@ t_token *expand_d_quote(char *start_quote, int length_dq, t_env *env)
 	token_d_quote = new_token(T_D_QUOTE, start_quote, length_dq);
 	token_d_quote->expanded = expanded;
 	token_d_quote->free_expanded = true;
-	dprintf(2, "token_d_quote: %s\n", token_d_quote->expanded);
 	return (token_d_quote);
 }

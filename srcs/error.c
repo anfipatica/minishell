@@ -2,12 +2,10 @@
 
 void	ft_perror(char *str)
 {
-	dprintf(2, "errno = %d\n", errno);
 	if (str == NULL)
 		write(2, "\"\": empty command\n", 19);
 	else if ((str != NULL) && (errno != 0))
 	{
-		dprintf(2, "%s\n", str);
 		perror(str);
 	}
 	else
@@ -25,12 +23,6 @@ void	error_exit(char *str, int error_code, t_command *command)
 	{
 		ft_putstr_fd(str, 2);
 		write(2, ": Is a directory\n", 18);
-		error_code++;
-	}
-	else if (error_code == NO_PERMISSION)
-	{
-		ft_putstr_fd(str, 2);
-		write(2, ": Permission denied\n", 21);
 	}
 	else if (error_code == COMMAND_NOT_FOUND)
 	{

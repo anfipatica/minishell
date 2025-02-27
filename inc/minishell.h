@@ -78,7 +78,7 @@ igual ?? no sé ya veremos xD
 */
 # define OK 0
 # define EXIT_STATUS_ERROR 1
-# define IS_DIR (126 - 1)
+# define IS_DIR 126
 # define NO_PERMISSION 126
 # define COMMAND_NOT_FOUND 127
 # define INVALID_EXPORT_IDENTIFIER 3
@@ -353,7 +353,7 @@ int	dup2_openeitor(char *file, int flags, mode_t mode, int system_fd);
 
 //check_builtins.c
 
-int	check_builtins(t_command *command);
+int		check_builtins(t_command *command);
 bool	exec_builtin(t_command *command);
 
 //signals.c

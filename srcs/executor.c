@@ -11,10 +11,9 @@ void	execute_or_error(char **matrix[2], char *path_name, t_command *command)
 		ft_perror(matrix[ARGS][0]);
 	else if ((buffer.st_mode & __S_IFMT) == __S_IFDIR)
 		error_exit(path_name, IS_DIR, command);
-	else //? Por ahora funciona pero quizás haya más casos???
-		error_exit(path_name, NO_PERMISSION, command);
-//	printf("*********%d\n", (buffer.st_mode & S_IXUSR));
-	//else if ((buffer.st_mode & S_IXUSR))
+	else
+		ft_perror(matrix[ARGS][0]);
+	exit(NO_PERMISSION);
 }
 
 
@@ -115,9 +114,6 @@ void exec_jr(t_command *command, int in_fd, int *pipefd)
 			exit(0);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		execute_or_error(matrix, path_name, command);
-		perror(path_name);
-		printf("errno: %d\n", errno);
-		exit(g_exit_status);
 	}
 	signal(SIGQUIT, child_signal_handler);
 	signal(SIGINT, child_signal_handler);

@@ -90,8 +90,9 @@ void ft_exit(t_command *command)
 	t_args	*aux_head;
 	int		return_number;
 	
+	if (!command->args->next || command->next)
+		exit(OK);
 	aux_head = command->args;
-	print_commands(command);
 	command->args = command->args->next;
 	if (ft_strisdigit(command->args->name) == false || does_overflow_unsigned_int(command->args->name) == true)
 	{
@@ -107,10 +108,8 @@ void ft_exit(t_command *command)
 	else
 	{
 		return_number = ft_atoi(command->args->name);
-		// command->args = command->args->next;
 		command->args = aux_head;
 		free_all(command);
-		printf("%d\n", return_number);
 		exit((unsigned char)return_number);
 	}
 }

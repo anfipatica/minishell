@@ -38,7 +38,7 @@ int	promptereitor(t_env *env)
 	{
 		signal(SIGINT, father_signal_handler);
 		line = readline("prompt > ");
-		if (!line || ft_strncmp(line, "exit", 5) == 0)  // ! hacer ft_EXIT
+		if (!line || ft_strncmp(line, "exit", -1) == 0)  // ! hacer ft_EXIT
 			break ;
 		if (line[0] != '\0')
 		{

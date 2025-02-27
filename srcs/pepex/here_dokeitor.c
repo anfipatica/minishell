@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/27 01:31:51 by anfi             ###   ########.fr       */
+/*   Updated: 2025/02/27 13:26:23 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,9 @@ char	*here_dokeitor(char *delimiter, char *new_temp_file, int *status, t_env *en
 
 	if (!new_temp_file)
 		return (NULL);
+	printf("new_temp_file: %s\n", new_temp_file);
 	heredoc_fd = open(new_temp_file, O_WRONLY | O_CREAT | O_TRUNC, STD_PERMISSIONS);
+	printf("heredoc_fd: %d\n", heredoc_fd);
 	if (heredoc_fd == -1)
 		return (unlink(new_temp_file), NULL);
 

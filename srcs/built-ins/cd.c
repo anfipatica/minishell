@@ -8,7 +8,7 @@ void ft_cd(t_command *command)
 	{
 		status = chdir(ft_getenv("HOME", command->env, 0));
 		if (status == CHDIR_ERROR)
-			printf("bash: cd: HOME not set\n");
+			write(2, "cd: HOME not set\n", 18);
 	}
 	else
 	{
