@@ -70,6 +70,12 @@ t_env *copy_env(char **env_original)
 	return (head_list);
 }
 
+/**
+ * ft_getenv is our version of getenv, useful to expand the input line.
+ * You can send the character right after a $ was found and the length till
+ * a space char (or null) is found.
+ * If length is 0, length will be updated with the length of name.
+ */
 char	*ft_getenv(char *name, t_env *env, int length)
 {
 	int	str_len;

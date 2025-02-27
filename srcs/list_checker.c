@@ -46,6 +46,7 @@ t_token *create_new_node_by_env(t_token *env_node)
 	int		i;
 
 	head = NULL;
+	new = NULL;
 	env_splitted = ft_split(env_node->expanded, ' ');
 	i = 0;
 	while (env_splitted[i])

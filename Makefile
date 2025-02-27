@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall -Werror #-Wunreachable-code
+CFLAGS	 =	#-Wextra -Wall -Werror #-Wunreachable-code
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
 CFLAGS	+= -O3

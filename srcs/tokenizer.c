@@ -43,6 +43,8 @@ t_token	*token_chooser(char *line, t_env *env)
 	{
 		if (line[1] && line[1] == '$')
 			return (get_pid_expandetor());
+		if (line[1] && ft_strchr(SPACES, line[1]))
+			return (new_token(T_WORD, "$", 1));
 		return (expandetor(line, env));
 	}
 	if (line[0] == '\'' || line[0] == '\"')
@@ -136,6 +138,7 @@ t_token	*tokenizer(char *line, t_env *env)
 
 	i = 0;
 	head_token = NULL;
+	fresh_token = NULL;
 	while (line[i])
 	{
 		if (ft_strchr("<>|$\"\'"SPACES, line[i]) != NULL)

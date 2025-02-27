@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/26 22:34:20 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/27 01:31:51 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,47 +51,84 @@ bool	ft_ultrastrchr(char	*str, char	*find)
 	return (false);
 }
 
-char	*clean_delimiter(char	*delimiter)
+//'"a" '''a''' "hola'"'"
+//"a" a "hola'
+#define dont_expand '0'
+#define expand '1'
+char	*ft_clean_delimiter(char *delimiter)
 {
-	int	i;
+	int		i;
+	int		j;
 	char	quote;
-	int	j;
 	char	*clean_delimiter;
 	
-	clean_delimiter = ft_calloc(ft_strlen(delimiter), sizeof(char) + 1);
 	i = 0;
-	j = 0;
-	//'"a" '''a''' "hola'"'"
-	//"a" a "hola'
+	j = 1;
+	clean_delimiter = ft_calloc(ft_strlen(delimiter), sizeof(char) + 2);
 	while (delimiter[i])
 	{
-		if (ft_ultrastrchr(&delimiter[i], QUOTES) == true)
+		if (ft_strchr(QUOTES, delimiter[i]))
 		{
 			quote = delimiter[i];
 			while (delimiter[++i] && delimiter[i] != quote)
-			{
-				printf("->%c\n", delimiter[i]);
 				clean_delimiter[j++] = delimiter[i];
-			}
-		}
-		else
-		{
-			clean_delimiter[j++] = delimiter[i];
-			printf("<-%c\n", delimiter[i]);
 			i++;
 		}
+		else
+			clean_delimiter[j++] = delimiter[i++];
 	}
-	printf("before: %s\n", delimiter);
-	printf("after: %s\n", clean_delimiter);
-	exit(111);
-	return (NULL);
+	if (i == (j - 1))
+		clean_delimiter[0] = expand;
+	else
+		clean_delimiter[0] = dont_expand;
+	return (clean_delimiter);
 }
 
-char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
+void	write_heredoc_expanded(char *delimiter, char *line, int heredoc_fd, t_env *env)
 {
-	int	heredoc_fd;
+	int		i;
+	int		j;
+	char	*expanded_var;
+
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] == '$' && line[i + 1] && line[i + 1] != '$')
+		{
+			while (line[i + j] && !ft_strchr(SPACES, line[i + j]))
+				j++;
+			expanded_var = ft_getenv(&line[i + 1], env, j - 1);
+			write(heredoc_fd, expanded_var, ft_strlen(expanded_var));
+			free(expanded_var);
+			i += j;
+			j = 0;
+		}
+		else
+			write(heredoc_fd, &line[i++], 1);
+	}
+}
+bool	write_heredoc(char *delimiter, char *line, int heredoc_fd, t_env *env)
+{
+	if (line == NULL || ft_strcmp(delimiter + 1, line) == 0)
+	{
+		free(line);
+		return (false);
+	}
+	if (delimiter[0] == dont_expand)
+		write(heredoc_fd, line, ft_strlen(line));
+	else
+		write_heredoc_expanded(delimiter, line, heredoc_fd, env);
+	write(heredoc_fd, "\n", 1);
+	free(line);
+	return (true);
+}
+
+char	*here_dokeitor(char *delimiter, char *new_temp_file, int *status, t_env *env)
+{
+	int		heredoc_fd;
 	char	*input_line;
-	// bool	expand;
+	char	*delimiter_aux;
 	pid_t	family;
 
 	if (!new_temp_file)
@@ -100,27 +137,21 @@ char *here_dokeitor(char *limiter, char *new_temp_file, int *status)
 	if (heredoc_fd == -1)
 		return (unlink(new_temp_file), NULL);
 
-	// expand = ft_strcmp(limiter, "\"");
-	// expand = ft_strcmp(limiter, "\'");
-	clean_delimiter(limiter);
 	family = fork();
 	if (family == CHILD)
 	{
-		printf("limiter: %s\n", limiter);
 		signal(SIGINT, heredoc_signal_handler);
+		delimiter = ft_clean_delimiter(delimiter);
+		delimiter_aux = ft_strjoin(delimiter + 1, "->");
 		while (1)
 		{
-			input_line = readline("> ");
-			if (input_line == NULL || ft_strcmp(limiter, input_line) == 0)
-			{
-				free(input_line);
-				break ;
-			}
-			write(heredoc_fd, input_line, ft_strlen(input_line));
-			write(heredoc_fd, "\n", 1);
-			free(input_line);
+			input_line = readline(delimiter_aux);
+			if (write_heredoc(delimiter, input_line, heredoc_fd, env) == false)
+				break;
 		}
 		close(heredoc_fd);
+		free(delimiter_aux);
+		free(delimiter);
 		exit(0);
 	}
 	*status = heredoc_father(heredoc_fd);
@@ -140,7 +171,7 @@ int	find_heredoc(t_command *command)
 		{
 			
 			if (file->redirect_type == T_HERE_DOC)
-				file->name = here_dokeitor(file->name, filename_generator(), &status);
+				file->name = here_dokeitor(file->name, filename_generator(), &status, command->env);
 			file = file->next;
 		}
 		command = command->next;

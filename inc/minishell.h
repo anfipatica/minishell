@@ -343,7 +343,7 @@ void	print_error(char *str, int error);
 
 // here_docereitor.c
 char	*filename_generator(void);
-char *here_dokeitor(char *limiter, char *new_temp_file, int *status);
+char	*here_dokeitor(char *delimiter, char *new_temp_file, int *status, t_env *env);
 int	find_heredoc(t_command *command);
 
 //fd_handler.c

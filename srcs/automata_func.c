@@ -35,7 +35,6 @@ int	insert_file(t_backpack *backpack)
 	t_token	*token;
 
 	token = backpack->token;
-	printf("literal: %s | expanded: %s\n", token->str, token->expanded);
 	backpack->redirect_aux->name = ft_ternary(token->expanded, token->expanded, token->str);
 	return (0);
 }
