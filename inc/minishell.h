@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:28:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:31:28 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:51:03 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include "structs.h"
 
 extern unsigned char	g_exit_status;
+
 /* ----------- LIST_FUNCTIONS ----------- */
 //list_command.c
 
@@ -83,6 +84,18 @@ t_redirect	*new_redirect(t_token_value redirect_type);
 void		add_redirect_back(t_redirect **lst, t_redirect *new);
 void		ft_free_one_redirect(t_redirect *redirect);
 void		ft_free_redirects(t_redirect *redirect);
+
+/* ----------- BUILTINS ----------- */
+
+void		ft_cd(t_command *command);
+void		ft_echo(t_command *command);
+void		ft_env(t_command *command);
+void		ft_exit(t_command *command);
+int			ft_export(t_command *command);
+bool		valid_var_name(char	*name);
+void		kermit(void);
+void		ft_pwd(t_env *env);
+void		ft_unset(t_command *command);
 
 /* ----------- EVERYTHING ELSE ---------- */
 
@@ -182,17 +195,6 @@ void		exec_jr(t_command *command, int in_fd, int *pipefd);
 int			daddy_executor(t_command *command);
 void		wait_all(void);
 
-// built-ins
-void		ft_cd(t_command *command);
-void		ft_echo(t_command *command);
-void		ft_env(t_command *command);
-void		ft_exit(t_command *command);
-int			ft_export(t_command *command);
-bool		valid_var_name(char	*name);
-void		kermit(void);
-
-void		ft_pwd(void);
-void		ft_unset(t_command *command);
 
 // error.c
 void		error_exit(char *str, int error, t_command *command);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_jr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:50:02 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:21:53 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:49:03 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ void	exec_jr(t_command *command, int in_fd, int *pipefd)
 	if (family == CHILD)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		if (exec_builtin(command) == true)
-		{
-			exit(g_exit_status);
-		}
 		exec_jr_fd_handler(command, in_fd, pipefd);
+		if (exec_builtin(command) == true)
+			exit(g_exit_status);
 		matrix_filler(command, matrix);
 		path_name = find_path_name(matrix[ARGS][0], matrix[ENV], matrix[ARGS]);
 		execute_or_error(matrix, path_name, command);

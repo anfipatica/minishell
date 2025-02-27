@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:16:01 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 18:17:39 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:10:10 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	exec_builtin(t_command *command)
 	if (ft_strcmp(command->args->name, "export") == false)
 		return (ft_export(command), true);
 	if (ft_strcmp(command->args->name, "pwd") == false)
-		return (ft_pwd(), true);
+		return (ft_pwd(command->env), true);
 	if (ft_strcmp(command->args->name, "unset") == false)
 		return (ft_unset(command), true);
 	if (ft_strcmp(command->args->name, "kermit") == false)

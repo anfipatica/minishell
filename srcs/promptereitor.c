@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   promptereitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:19:24 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/27 20:25:56 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 00:05:59 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ bool	twin_quote(char *line)
 		}
 		if (line[i] == '\0')
 		{
-			printf(RED"Hey,\n"
+			write(2, RED"Hey,\n"
 				"your quote is missing a buddy to complete the pair!\n"
-				"Don’t leave it hanging, it’s lonely!\n"STD);
+				"Don’t leave it hanging, it’s lonely!\n"STD, 109);
 			free(line);
 			return (false);
 		}

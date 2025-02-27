@@ -17,7 +17,8 @@
         "sig_atomic_t.h": "c",
         "sigset_t.h": "c",
         "stddef.h": "c",
-        "readline.h": "c"
+        "readline.h": "c",
+        "defines.h": "c"
     },
     "better-comments.tags": [
 
