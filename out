@@ -1,4 +1,0 @@
-declare -x [0;35mSHLVL[0m="1"
-declare -x [0;35mPWD[0m="/home/ymunoz-m/Desktop/ejercicios_c/minishell"
-declare -x [0;35ma[0m="a"
-declare -x [0;35mb[0m=""

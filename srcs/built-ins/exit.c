@@ -4,13 +4,14 @@ bool	ft_strisdigit(char *str)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (str[0] == '-' || str[0] == '+')
 		i++;
-	while (str[++i])
+	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
 			return (false);
+		i++;
 	}
 	return (true);
 }
@@ -76,6 +77,9 @@ bool does_overflow_unsigned_int(char *max_number)
 	char *max_num_changed;
 
 	max_num_changed = ft_ltoa(ft_atol(max_number));
+	printf("%s - %s\n", max_num_changed, max_number);
+	if (max_number[0] == '+')
+		max_number++;
 	if (ft_strcmp(max_number, max_num_changed) == 0)
 	{
 		free(max_num_changed);
@@ -99,10 +103,11 @@ void ft_exit(t_command *command)
 		ft_free_one_args(aux_head);
 		error_exit(command->args->name, EXIT_NON_DIGIT, command);
 	}
-	else if ((ft_strisdigit(command->args->name) == true && command->args->next != NULL))
+	else if (command->args->next != NULL)
 	{
 		write(2, "exit: too many arguments\n", 26);
 		ft_free_one_args(aux_head);
+		g_exit_status = 1;
 		return ;
 	}
 	else
