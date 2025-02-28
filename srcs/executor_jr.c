@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   executor_jr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:50:02 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 00:49:03 by anfi             ###   ########.fr       */
+/*   Updated: 2025/02/28 17:25:50 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_jr_fd_handler(t_command *command, int in_fd, int *pipefd)
+void	exec_jr_fd_handler(t_command *command, int *in_fd, int *pipefd)
 {
-	if (in_fd != NULL_FD)
+	if (*in_fd != NULL_FD)
 	{
-		dup2(in_fd, 0);
-		close(in_fd);
+		dup2(*in_fd, 0);
+		close(*in_fd);
 	}
 	if (command->next)
 	{
@@ -41,7 +41,7 @@ void	exec_jr(t_command *command, int in_fd, int *pipefd)
 	if (family == CHILD)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		exec_jr_fd_handler(command, in_fd, pipefd);
+		exec_jr_fd_handler(command, &in_fd, pipefd);
 		if (exec_builtin(command) == true)
 			exit(g_exit_status);
 		matrix_filler(command, matrix);

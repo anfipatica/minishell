@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:34:02 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 00:55:00 by anfi             ###   ########.fr       */
+/*   Updated: 2025/02/28 15:03:38 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void	execute_or_error(char **matrix[2], char *path_name, t_command *command)
 
 	if (!path_name || !path_name[0])
 		return (error_exit(matrix[ARGS][0], COMMAND_NOT_FOUND, command));
-	for (int i = 0; matrix[ARGS][i]; i++)
-		printf("->%s\n", matrix[ARGS][i]);
-	for (int i = 0; matrix[ENV][i]; i++)
-		printf("->%s\n", matrix[ENV][i]);
 	execve(path_name, matrix[ARGS], matrix[ENV]);
 	if (stat(path_name, &buffer) == -1)
 		ft_perror(matrix[ARGS][0]);

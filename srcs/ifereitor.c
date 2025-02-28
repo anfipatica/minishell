@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ifereitor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:33:46 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 20:40:47 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:34:11 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_token	*token_chooser2_space_n_quote_version(char *line, t_env *env)
 	if (line[0] == '\'' || line[0] == '\"')
 		return (create_str_quote(line, env));
 	while (line[i] && ft_strchr(SPACES, line[i]))
+	{
 		i++;
+	}
 	return (new_token(T_SPACE, line, i));
 }
 

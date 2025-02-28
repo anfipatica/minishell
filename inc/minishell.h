@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:28:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 00:51:03 by anfi             ###   ########.fr       */
+/*   Updated: 2025/02/28 19:02:18 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,19 +182,18 @@ void		execute_or_error(char **matrix[2], char *path, t_command *command);
 // executor_utils.c
 
 void		restore_builtin_fds(int aux_stdout, int aux_stdin);
-void		restore_daddy_fds(bool multiple_commands, int in_fd, int *pipefd);
+void		restore_daddy_fds(bool multiple_commands, int *in_fd, int *pipefd);
 void		matrix_filler(t_command *command, char ***matrix);
 
 //executor_jr.c
 
-void		exec_jr_fd_handler(t_command *command, int in_fd, int *pipefd);
+void		exec_jr_fd_handler(t_command *command, int *in_fd, int *pipefd);
 void		exec_jr(t_command *command, int in_fd, int *pipefd);
 
 //executor_dad.c
 
 int			daddy_executor(t_command *command);
 void		wait_all(void);
-
 
 // error.c
 void		error_exit(char *str, int error, t_command *command);

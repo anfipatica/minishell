@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   executor_dad.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:53:18 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:19:43 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:28:00 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	restore_daddy_fds(bool multiple_commands, int *in_fd, int *pipefd)
+{
+	if (multiple_commands == true)
+	{
+		close(*in_fd);
+		*in_fd = pipefd[IN_FILE];
+		close(pipefd[OUT_FILE]);
+	}
+}
 
 void	wait_all(void)
 {
@@ -45,7 +55,7 @@ int	daddy_executor(t_command *command)
 
 	pipefd[0] = IN_FILE;
 	pipefd[1] = OUT_FILE;
-	in_fd = 0;
+	in_fd = NULL_FD;
 	multiple_commands = true;
 	if (command->next == NULL)
 		multiple_commands = false;
@@ -54,7 +64,7 @@ int	daddy_executor(t_command *command)
 		if (command->next)
 			pipe(pipefd);
 		exec_jr(command, in_fd, pipefd);
-		restore_daddy_fds(multiple_commands, in_fd, pipefd);
+		restore_daddy_fds(multiple_commands, &in_fd, pipefd);
 		command = command->next;
 	}
 	if (multiple_commands == true)

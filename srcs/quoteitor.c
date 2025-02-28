@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoteitor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:25:01 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/27 22:26:04 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:05:09 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	if_not_dollar(char **expanded, char *start_quote, int *i)
 {
 	char	*aux;
 
-	aux = NULL;
+	aux = *expanded;
 	if (start_quote[0] != ' ')
 	{
 		aux = nothing_to_expand(i, start_quote);
@@ -49,12 +49,12 @@ void	if_not_dollar(char **expanded, char *start_quote, int *i)
 		*expanded = ft_strjoin(*expanded, " ");
 }
 
-void	check_if_dollar(char *start_quote, char *expanded, int *i, t_env *env)
+void	check_if_dollar(char **expanded, char *start_quote, int *i, t_env *env)
 {
-	if (start_quote[*i] == '$')
-		if_is_dollar(&expanded, &start_quote[*i], i, env);
+	if (*(start_quote + *i) == '$')
+		if_is_dollar(expanded, start_quote + *i, i, env);
 	else
-		if_not_dollar(&expanded, &start_quote[*i], i);
+		if_not_dollar(expanded, start_quote + *i, i);
 }
 
 t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env)
@@ -69,7 +69,7 @@ t_token	*expand_d_quote(char *start_quote, int length_dq, t_env *env)
 	while (1)
 	{
 		aux = expanded;
-		check_if_dollar(start_quote, expanded, &i, env);
+		check_if_dollar(&expanded, start_quote, &i, env);
 		if (aux)
 		{
 			free(aux);

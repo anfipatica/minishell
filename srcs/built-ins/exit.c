@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:00:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 20:03:41 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:40:46 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ bool	does_overflow_unsigned_int(char *max_number)
 	char	*max_num_changed;
 
 	max_num_changed = ft_ltoa(ft_atol(max_number));
-	printf("%s - %s\n", max_num_changed, max_number);
 	if (max_number[0] == '+')
 		max_number++;
 	if (ft_strcmp(max_number, max_num_changed) == 0)

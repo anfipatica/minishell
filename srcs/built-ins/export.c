@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:26:43 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 19:28:49 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:57:35 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	print_export(t_command *command)
 	while (command->env)
 	{
 		if (command->env->value == NULL)
-			printf("declare -x %s=\"\"\n", command->env->name);
+			printf("declare -x %s\n", command->env->name);
 		else
 		{
 			printf("declare -x %s=\"%s\"\n",

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:45:54 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 19:03:25 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:03:08 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,4 @@ void	restore_builtin_fds(int aux_stdout, int aux_stdin)
 	close(aux_stdout);
 	dup2(aux_stdin, 0);
 	close(aux_stdin);
-}
-
-void	restore_daddy_fds(bool multiple_commands, int in_fd, int *pipefd)
-{
-	if (multiple_commands == true)
-	{
-		close(in_fd);
-		in_fd = pipefd[IN_FILE];
-		close(pipefd[OUT_FILE]);
-	}
 }
