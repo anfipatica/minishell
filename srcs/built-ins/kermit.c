@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kermit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:29:25 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:05:26 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:17:45 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠏⢀⠀⠀⣤⣦⡴⢛⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n\
 ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣤⣤⣶⣶⣾⣿⣿⣿⣿⣧⣭⣤⣤⣤⣤⣤⣤⣤⣼⣤⣤⣤⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀\n"
 
-// TODO: export ?=hi
-
 void	kermit(void)
 {
-	printf(
+	printf("%s"
 		"Once upon a time, there was a minishell... and a manual. \n"
 		"Tht manual warnd tht usng xprt alone could lead to undefined things,\n"
 		"so Kermit was the answer to 42. But then, a Dark Knight appeared\n"
@@ -78,5 +76,5 @@ void	kermit(void)
 		"When no arguments are given, the results are unspecified.\n"
 		"o this is the result our minishell implements <3\n\n"
 		"Follow link (ctrl + click)\n"
-		"https://www.man7.org/linux/man-pages/man1/export.1p.html\n");
+		"https://www.man7.org/linux/man-pages/man1/export.1p.html\n", KERMIT);
 }

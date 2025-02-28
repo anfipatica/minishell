@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:34:16 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 18:41:51 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/28 19:13:30 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,3 @@ void	ft_pwd(t_env *env)
 	else
 		write(2, "PWD not found\n", 16);
 }
-
-// void ft_pwd(t_env *env)
-// {
-// 	char	*path;
-// 	(void)env;
-// 	path = getcwd(NULL, 0);
-// 	if (path)
-// 	{
-// 		printf("%s\n", path);
-// 		free(path);
-// 	}
-// }

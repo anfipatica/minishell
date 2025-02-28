@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:00:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 18:40:46 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/28 19:31:53 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ bool	ft_strisdigit(char *str)
 
 bool	does_overflow_unsigned_int(char *max_number)
 {
+	int		i;
 	char	*max_num_changed;
 
+	i = 0;
 	max_num_changed = ft_ltoa(ft_atol(max_number));
-	if (max_number[0] == '+')
+	if (*max_number == '+')
+		max_number++;
+	while (*max_number && max_number[0] == '0')
 		max_number++;
 	if (ft_strcmp(max_number, max_num_changed) == 0)
 	{

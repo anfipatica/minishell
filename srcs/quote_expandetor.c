@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:23:04 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/28 17:51:40 by psapio           ###   ########.fr       */
+/*   Updated: 2025/02/28 19:13:40 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,11 @@ char	*nothing_to_expand(int *n, char *str)
 	char	*literal;
 
 	i = 0;
-	printf("str = %s.c=%c\n", str, str[i]);
 	while (str[i] != '\"' && str[i] != '$' && str[i] != ' ')
 	{
-		printf("in c=%c\n", str[i]);
 		i++;
 	}
 	*n += i - 1;
-	printf("n = %d\n", *n);
 	literal = ft_substr(str, 0, i);
 	return (literal);
 }

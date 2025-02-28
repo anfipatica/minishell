@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:07:55 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:41:51 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:13:23 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_free_redirects(t_redirect *redirect)
 		if (redirect->redirect_type == T_HERE_DOC)
 		{
 			status = unlink(redirect->name);
-			printf("redirect->nameeeeeeee: %s - %d\n", redirect->name, status);
 			if (status != -1)
 				free(redirect->name);
 		}
