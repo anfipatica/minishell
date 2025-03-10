@@ -46,7 +46,7 @@ SRCS	= \
 		
 OBJS	=	$(SRCS:.c=.o)
 
-CC	=	gcc 
+CC	=	cc
 
 RM	=	rm -f
 

@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:02:15 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 18:08:21 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:55:50 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	insert_file(t_backpack *bp)
 	t_token	*token;
 
 	token = bp->token;
-	bp->redirect_aux->name = ft_ternary
-		(token->expanded, token->expanded, token->str);
+	bp->redirect_aux->name = ft_strdup(ft_ternary
+			(token->expanded, token->expanded, token->str));
 	return (0);
 }
 

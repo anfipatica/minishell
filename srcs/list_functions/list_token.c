@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:08:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:03:00 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:32:38 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ void	ft_free_one_node(t_token *token)
 		return ;
 	free(token->str);
 	token->str = NULL;
-	if (token->free_expanded == true)
+	if (token->expanded && token->free_expanded == true)
 	{
 		free(token->expanded);
 		token->expanded = NULL;
+		token->free_expanded = false;
 	}
 	free(token);
+	token = NULL;
 }
 
 /**
@@ -91,4 +93,5 @@ void	ft_free_tokens(t_token *token)
 		ft_free_one_node(token);
 		token = temp;
 	}
+	token = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:11:50 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 19:13:06 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:12:25 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ t_token	*expandetor(char *line, t_env *env)
 
 	if (line[1] == '?')
 		return (expand_exit_status(line));
-	if (ft_isdigit(line[1]) == 1)
-		return (new_token(T_ENV, line, 1));
-	if (ft_isalpha(line[1]) == 0 && line[1] != '_')
-		return (new_token(T_ENV, line, 1));
+	if (ft_isalnum(line[1]) == 0 && line[1] != '_')
+		return (new_token(T_WORD, line, 2));
 	i = 1;
 	while (line[i] && (ft_isalnum(line[i]) == 1 || line[i] == '_'))
 		i++;

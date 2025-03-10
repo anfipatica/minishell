@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:19:24 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/28 18:41:12 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:44:44 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int	promptereitor(t_env *env)
 	while (true)
 	{
 		signal(SIGINT, father_signal_handler);
+		// printf("isatty(0): %d, isatty(1): %d\n", isatty(0), isatty(1));
+		// if (isatty(0) == 0)
+		// 	exit(1);
+		// lo de arriba es para probr una cosa rara en eel caso de ./minishelll | ./minishell
 		line = readline("prompt > ");
 		if (!line || ft_strcmp(line, "exit") == 0)
 			break ;
@@ -60,7 +64,7 @@ int	promptereitor(t_env *env)
 			first_token = tokenizer(line, env);
 			list_checker(&first_token);
 			command = automata(first_token, env);
-			begin_execution(command);
+			begin_execution(command, line);
 			ft_free_commands(command);
 			ft_free_tokens(first_token);
 		}

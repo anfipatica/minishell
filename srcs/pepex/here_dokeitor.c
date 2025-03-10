@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_dokeitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:52:31 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/28 00:12:49 by anfi             ###   ########.fr       */
+/*   Updated: 2025/03/05 16:53:27 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	*here_dokeitor(char *eof, char *new_temp_file, int *status, t_env *env)
 		free(new_temp_file);
 		exit(0);
 	}
+	free(eof);
 	*status = heredoc_father(heredoc_fd);
 	return (new_temp_file);
 }

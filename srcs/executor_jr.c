@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_jr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:50:02 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 17:25:50 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:58:22 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_jr_fd_handler(t_command *command, int *in_fd, int *pipefd)
 		exit(1);
 }
 
-void	exec_jr(t_command *command, int in_fd, int *pipefd)
+void	exec_jr(t_command *command, int *in_fd, int *pipefd)
 {
 	char	**matrix[2];
 	char	*path_name;
@@ -40,8 +40,9 @@ void	exec_jr(t_command *command, int in_fd, int *pipefd)
 	family = fork();
 	if (family == CHILD)
 	{
+		rl_clear_history();
 		signal(SIGQUIT, SIG_DFL);
-		exec_jr_fd_handler(command, &in_fd, pipefd);
+		exec_jr_fd_handler(command, in_fd, pipefd);
 		if (exec_builtin(command) == true)
 			exit(g_exit_status);
 		matrix_filler(command, matrix);
@@ -49,5 +50,8 @@ void	exec_jr(t_command *command, int in_fd, int *pipefd)
 		execute_or_error(matrix, path_name, command);
 	}
 	signal(SIGQUIT, child_signal_handler);
-	signal(SIGINT, child_signal_handler);
+	if (command->args && ft_strcmp(command->args->name, "./minishell") == 0)
+		signal(SIGINT, SIG_IGN);
+	else
+		signal(SIGINT, child_signal_handler);
 }

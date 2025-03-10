@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:26:43 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 18:57:35 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/05 18:11:57 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_export(t_command *command)
 	bool		error;
 
 	arg = command->args->next;
+	error = false;
 	if (arg == NULL)
 		return (print_export(command), 0);
 	while (arg)
@@ -81,6 +82,7 @@ int	ft_export(t_command *command)
 		{
 			print_error(arg->name, INVALID_EXPORT_IDENTIFIER);
 			error = true;
+			g_exit_status = 1;
 		}
 		else if (if_exist_var_overwrite(command->env, var) == false)
 		{

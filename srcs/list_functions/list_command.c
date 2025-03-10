@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:06:17 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 20:25:15 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:52:03 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_command	*new_command(t_env *env, t_token *token)
 	new_command->next = NULL;
 	new_command->token_pointer = token;
 	new_command->execve_matrix = NULL;
+	new_command->line = NULL;
 	return (new_command);
 }
 

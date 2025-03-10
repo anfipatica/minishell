@@ -6,7 +6,7 @@
 /*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:28:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 19:02:18 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/10 12:35:29 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,22 @@ bool		valid_var_name(char	*name);
 void		kermit(void);
 void		ft_pwd(t_env *env);
 void		ft_unset(t_command *command);
+void		pepe(void);
+void		caca(void);
+void		segfault(void);
+void		augustin(void);
+void		version(void);
+void		jacobo(void);
+
+/* -------------- PRINTERS ------------- -*/
+//printers.c
+
+void		print_tokens(t_token *token);
+void		print_commands(t_command *command);
+
+//get_token_name.c
+
+const char	*get_token_name(t_token_value token);
 
 /* ----------- EVERYTHING ELSE ---------- */
 
@@ -176,7 +192,7 @@ void		join_tokens(t_token *node1, t_token *node2);
 // executor.c
 
 int			daddy_executor(t_command *command);
-void		begin_execution(t_command *command);
+void		begin_execution(t_command *command, char *line);
 void		execute_or_error(char **matrix[2], char *path, t_command *command);
 
 // executor_utils.c
@@ -188,7 +204,7 @@ void		matrix_filler(t_command *command, char ***matrix);
 //executor_jr.c
 
 void		exec_jr_fd_handler(t_command *command, int *in_fd, int *pipefd);
-void		exec_jr(t_command *command, int in_fd, int *pipefd);
+void		exec_jr(t_command *command, int *in_fd, int *pipefd);
 
 //executor_dad.c
 
@@ -203,7 +219,7 @@ void		print_error(char *str, int error);
 // here_docereitor.c
 
 void		write_heredoc_expanded(char *line, int heredoc_fd, t_env *env);
-char		*here_dokeitor(char *eof, char *n_t_f, int *status, t_env *env);
+char		*here_dokeitor(char *eof, char *n_t_f, int *status, t_env *command);
 int			find_heredoc(t_command *command);
 void		while_write_heredoc(char *eof, char *eof_aux, int h_fd, t_env *env);
 

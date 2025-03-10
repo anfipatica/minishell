@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:30 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/28 18:41:29 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/04 13:24:06 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	wordeitor(t_token **head_token, char *start_word)
 	while (start_word[i] && ft_strchr(SPACES, start_word[i]))
 		i++;
 	while (start_word[i + j]
-		&& ft_strchr(SPACES""QUOTES""SYMBOLS, start_word[i + j]) == NULL)
+		&& ft_strchr(SPACES""QUOTES""SYMBOLS"$", start_word[i + j]) == NULL)
 		j++;
 	if (j == 0)
 		return (i);

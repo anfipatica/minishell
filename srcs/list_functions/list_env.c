@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:13:08 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 20:13:29 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:08:04 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ char	**lts_env_to_matrix(t_env *env)
 	i = 0;
 	while (env)
 	{
-		name_aux = ft_strjoin(env->name, "=");
-		env_matrix[i] = ft_strjoin(name_aux, env->value);
-		if (!env_matrix[i] || !name_aux)
-			return (free_double_pointer(env_matrix), NULL);
-		free(name_aux);
-		i++;
+		if (env->value)
+		{
+			name_aux = ft_strjoin(env->name, "=");
+			env_matrix[i] = ft_strjoin(name_aux, env->value);
+			if (!env_matrix[i] || !name_aux)
+				return (free_double_pointer(env_matrix), NULL);
+			free(name_aux);
+			i++;
+		}
 		env = env->next;
 	}
 	env_matrix[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:30:59 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 22:02:29 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:05:47 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_command
 	t_redirect			*head_redirect;
 	t_token				*token_pointer;
 	t_env				*env;
+	char				*line;
 	struct s_command	*next;
 
 }				t_command;

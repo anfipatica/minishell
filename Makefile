@@ -2,15 +2,15 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS	 =	-Wextra -Wall -Werror
+CFLAGS	 =	-Wextra -Wall -Werror 
 CFLAGS	+= -I inc
 CFLAGS	+= -I libft
-CFLAGS	+= -O3
+CFLAGS	+= -O0
 CFLAGS	+= -g3
 
 READLINE	= -lreadline
 
-DEBUG	 =	-fsanitize=address,leak
+DEBUG	 =	-fsanitize=address
 
 CPPFLAGS =	-MMD
 LIBFT	= ./libft
@@ -54,8 +54,11 @@ $(SRC_DIR)/built-ins/env.c\
 $(SRC_DIR)/built-ins/exit.c\
 $(SRC_DIR)/built-ins/export.c\
 $(SRC_DIR)/built-ins/kermit.c\
+$(SRC_DIR)/built-ins/version.c\
+$(SRC_DIR)/built-ins/jacobo.c\
 $(SRC_DIR)/built-ins/pwd.c\
 $(SRC_DIR)/built-ins/unset.c\
+$(SRC_DIR)/built-ins/pepe.c\
 $(SRC_DIR)$(LIST_DIR)list_args.c\
 $(SRC_DIR)$(LIST_DIR)list_args_free.c\
 $(SRC_DIR)$(LIST_DIR)list_command.c\
@@ -67,6 +70,8 @@ $(SRC_DIR)$(LIST_DIR)list_token_free.c\
 $(PEPEX_DIR)commander.c\
 $(PEPEX_DIR)here_dokeitor.c\
 $(PEPEX_DIR)here_dokeitor_utils.c\
+$(SRC_DIR)/$(PRINT_DIR)get_token_name.c\
+$(SRC_DIR)/$(PRINT_DIR)printers.c\
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
 DEPS = $(OBJS:.o=.d)
@@ -95,25 +100,4 @@ re: fclean all
 
 -include $(DEPS)
 
-r: run
-run: all
-	@./$(NAME)
-
-# f: fsanitize
-
-# add:
-# 	DEBUG	 +=	-fsanitize=address
-
-# remove:
-# 	DEBUG	 -=	-fsanitize=address
-
-# fsanitize: add re
-# 	./$(NAME)
-
-v: valgrind
-valgrind: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-#@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./$(NAME)
-#@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./$(NAME)
-
-.PHONY: all clean fclean re libmlx libft r run v valgrind
+.PHONY: all clean fclean re libft

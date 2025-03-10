@@ -6,7 +6,7 @@
 /*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:05:37 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/27 20:16:57 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:14:07 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token	*check_and_delete_env(t_token *lst, t_token *lst_prev)
 
 	result = NULL;
 	if (!lst_prev && (lst->type == T_ENV && !(lst->expanded)))
-		return (ft_free_one_node(lst), NULL);
+		return (ft_free_one_node(lst), check_and_delete_env(lst->next, lst));
 	if (!lst)
 		return (NULL);
 	lst->next = check_and_delete_env(lst->next, lst);

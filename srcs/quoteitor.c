@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoteitor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:25:01 by psapio            #+#    #+#             */
-/*   Updated: 2025/02/28 19:05:09 by psapio           ###   ########.fr       */
+/*   Updated: 2025/03/03 20:00:13 by ymunoz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@ void	if_is_dollar(char **expanded, char *after_dollar, int *i, t_env *env)
 	int		n;
 
 	n = 1;
-	if (after_dollar[n] == '$')
+	if (after_dollar[n] == '?')
+	{
+		*expanded = ft_itoa(g_exit_status);
+		(*i)++;
+	}
+	else if (after_dollar[n] == '$')
 	{
 		aux = get_pid_quote();
 		*expanded = ft_strjoin(*expanded, aux);
 		free(aux);
 		(*i)++;
 	}
-	else if (!(ft_isalpha(after_dollar[n]) == 1 || after_dollar[n] == '_'))
+	else if (!(ft_isalnum(after_dollar[n]) == 1 || after_dollar[n] == '_'))
 		*expanded = ft_strjoin(*expanded, "$");
-	else if ((ft_isalpha(after_dollar[n]) == 1 || after_dollar[n] == '_'))
+	else if ((ft_isalnum(after_dollar[n]) == 1 || after_dollar[n] == '_'))
 	{
 		*expanded = ft_strjoin(*expanded,
 				maybe_expanded(i, &after_dollar[n], env));
