@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   automata.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:08:53 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/03/03 17:15:15 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:40:55 by psapio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_command	*automata(t_token *token, t_env *env)
 	return (backpack->head_command);
 }
 
+//[../automata_graph.jpeg]
 int	get_new_state(int current_state, int token)
 {
 	const int	matrix[6][8] = {
