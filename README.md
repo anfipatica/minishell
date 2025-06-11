@@ -1,1 +1,1 @@
-<img width="500" alt="bonus detail clip" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWwwb3RpdTExYWNkdTA0ajZpZ280ZWx4Y2toaGxoY3N0ZTg4ZTRhMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z0aGqhaoJaywr0rfeL/giphy.gif">
+<img width="500" alt="bonus detail clip" src="https://github.com/user-attachments/assets/159aadbc-5658-450f-89d4-0f318e39ef35">
