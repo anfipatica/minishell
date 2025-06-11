@@ -1,1 +1,1 @@
-<img width="800" alt="bonus detail clip" src="https://github.com/user-attachments/assets/a36962d9-8dcb-4f41-80ff-cdd861330877">
+<img width="800" alt="bonus detail clip" src="https://github.com/anfipatica/minishell/blob/a1bc51c8401346478c6d2a808e97ce935acfbfe5/NoPineappleShell.gif">
