@@ -1,7 +1,7 @@
 <p align="center">
   <img src="NoPineappleShell.gif" alt="minishell demo" width="600">
 </p>
-
+![Minishell demo](NoPineappleShell.gif)
 ![Minishell demo](minishell_demo.png)
 
 # minishell
