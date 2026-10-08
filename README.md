@@ -85,3 +85,9 @@ make
 - [Yolanda Muñoz](https://github.com/anfipatica)
 - [Paolo Sapio](https://github.com/paolosapio)
 
+## Acknowledgements
+
+Special thanks to [Pepe Segura](https://github.com/PepeSegura), who explained
+concepts, got us unstuck more than once and was by our side throughout the
+project, and to the many peers at 42 Madrid who helped, tested and challenged
+it along the way.
