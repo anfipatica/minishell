@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psapio <psapio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:00:05 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/02/28 19:31:53 by psapio           ###   ########.fr       */
+/*   Updated: 2026/10/08 11:10:03 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ bool	ft_strisdigit(char *str)
 
 bool	does_overflow_unsigned_int(char *max_number)
 {
-	int		i;
 	char	*max_num_changed;
 
-	i = 0;
 	max_num_changed = ft_ltoa(ft_atol(max_number));
 	if (*max_number == '+')
 		max_number++;

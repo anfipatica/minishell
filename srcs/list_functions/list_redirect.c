@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:07:55 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/03/05 17:52:10 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2026/10/08 11:10:40 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,14 @@ void	add_redirect_back(t_redirect **lst, t_redirect *new)
 void	ft_free_redirects(t_redirect *redirect)
 {
 	t_redirect	*temp;
-	int			status;
 
-	status = 0;
 	if (!redirect)
 		return ;
 	while (redirect != NULL)
 	{
 		temp = redirect->next;
 		if (redirect->redirect_type == T_HERE_DOC)
-			status = unlink(redirect->name);
+			unlink(redirect->name);
 		free(redirect->name);
 		free(redirect);
 		redirect = temp;

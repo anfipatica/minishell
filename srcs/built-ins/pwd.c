@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymunoz-m <ymunoz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anfi <anfi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:34:16 by ymunoz-m          #+#    #+#             */
-/*   Updated: 2025/03/05 17:20:44 by ymunoz-m         ###   ########.fr       */
+/*   Updated: 2026/10/08 11:10:21 by anfi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_pwd(t_env *env)
 	{
 		path = ft_getenv("PWD", env, 0);
 		if (!path)
-			write(2, "PWD not found\n", 16);
+			write(2, "PWD not found\n", 14);
 		else
 			printf("%s\n", path);
 	}
